@@ -5,7 +5,7 @@ const { mysqlconfig } = require("../../ignore/config.js");
 
 
 /* GET home page. */
-router.get('/hours/get', function(req, res, next) {
+router.post('/hours/get', function(req, res, next) {
   var connection = mysql.createConnection(mysqlconfig);
   connection.connect();
   connection.query(`SELECT * FROM asahi.hours WHERE status = 1`, function (error, results) {
