@@ -3,3 +3,5 @@ client/build/
 manager/build/
 client/src/config.js
 manager/src/config.js
+.DS_Store
+.DS_Store?

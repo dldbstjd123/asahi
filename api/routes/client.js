@@ -8,7 +8,7 @@ const { mysqlconfig } = require("../../ignore/config.js");
 router.post('/hours/get', function(req, res, next) {
   var connection = mysql.createConnection(mysqlconfig);
   connection.connect();
-  connection.query(`SELECT * FROM asahi.hours WHERE status = 1`, function (error, results) {
+  connection.query(`SELECT * FROM asahi.hours`, function (error, results) {
     res.json(results);
   });
   connection.end();

@@ -32,6 +32,7 @@ const About = (props)=>{
 	    <div>{location}</div>
 	    <div>{phone}</div>
 	    {schedule.map((item)=>{
+		if(item.status == 1){
 		return(
 		  <div className='hourRows' key={item.id}>
 		    <div>{item.date.toUpperCase()}</div>
@@ -40,6 +41,16 @@ const About = (props)=>{
 		    <div>{item.closehour}</div>
 		  </div>
 		)
+		}else{
+		return(
+		  <div className='hourRows' key={item.id}>
+		    <div>{item.date.toUpperCase()}</div>
+		    <div></div>
+		    <div>closed</div>
+		    <div></div>
+		  </div>
+		)
+		}
 	    })}
 	  </div>        
         </div>
