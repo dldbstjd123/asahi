@@ -12,7 +12,7 @@ var mysql = require('mysql')
 
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
-var clientRouter = require('/routes/client');
+var clientRouter = require('./routes/client');
 
 var app = express();
 
