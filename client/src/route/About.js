@@ -1,9 +1,10 @@
-import React {useState ,useEffect} from 'react';
+import React, {useState ,useEffect} from 'react';
+import {domain} from '../config.js'
 import '../css/About.css'
 
 const About = (props)=>{
-    const [location, setLocation] = useState('')
-    const [phone, setPhone] = useState('')
+    const [location, setLocation] = useState('Location!!')
+    const [phone, setPhone] = useState('1-234-5678')
     const [schedule, setSchedule] = useState([])
    
 
