@@ -33,9 +33,10 @@ const About = (props)=>{
 	    <div>{phone}</div>
 	    {schedule.map((item)=>{
 		return(
-		  <div key={item.id}>
-		    <div>{item.date}</div>
+		  <div className='hourRows' key={item.id}>
+		    <div>{item.date.toUpperCase()}</div>
 		    <div>{item.openhour}</div>
+		    <div>-</div>
 		    <div>{item.closehour}</div>
 		  </div>
 		)
