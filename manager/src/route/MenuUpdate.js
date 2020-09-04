@@ -67,7 +67,7 @@ const MenuUpdate = (props) => {
                 if (item.active) {
                   activeSelect = (
                     <select
-                      akey={item.id}
+                      akey={count}
                       name="active"
                       onChange={handleChange}
                     >
@@ -78,7 +78,7 @@ const MenuUpdate = (props) => {
                 } else {
                   activeSelect = (
                     <select
-                      akey={item.id}
+                      akey={count}
                       name="active"
                       onChange={handleChange}
                     >
@@ -95,7 +95,7 @@ const MenuUpdate = (props) => {
 		    <th>NAME</th>
                     <td>
 		      <input
-                        akey={item.id}
+                        akey={count}
                         type="text"
                         name="name"
                         required
@@ -106,7 +106,7 @@ const MenuUpdate = (props) => {
 		    <th>PRICE</th>
 		    <td>
 		      <input
-                        akey={item.id}
+                        akey={count}
                         type="text"
                         name="price"
                         required
@@ -119,7 +119,7 @@ const MenuUpdate = (props) => {
 		    <th>DESCRIPTION</th>
 		    <td>
                       <input
-                        akey={item.id}
+                        akey={count}
                         type="text"
                         name="description"
                         required
@@ -130,7 +130,7 @@ const MenuUpdate = (props) => {
 		    <th>CATEGORY</th>
 		    <td>
                       <select
-                        akey={item.id}
+                        akey={count}
                         name="category"
                         onChange={handleChange}
                         value={item.category}
@@ -149,7 +149,7 @@ const MenuUpdate = (props) => {
 		    <th>SORT</th>
                     <td>
                       <input
-                        akey={item.id}
+                        akey={count}
                         type="text"
                         name="sort"
                         required
@@ -160,7 +160,7 @@ const MenuUpdate = (props) => {
 		    <th>ACTIVE</th>
                     <td>
                       <select
-                        akey={item.id}
+                        akey={count}
                         name="active"
                         onChange={handleChange}
                         value={item.active}
@@ -174,7 +174,7 @@ const MenuUpdate = (props) => {
 		    <td>IMAGE CONTINER</td>
 		    <td>
                       <input
-                        akey={item.id}
+                        akey={count}
                         type="file"
                         name="image"
                         onChange={(event) => {

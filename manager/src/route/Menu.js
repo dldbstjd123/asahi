@@ -74,7 +74,7 @@ const Menu = () => {
                     <td>{item.price}</td>
                     <td>{item.sort}</td>
                     <td>{item.active}</td>
-                    <td><input type="button" akey={item.id} onClick={goToUpdatePage} value="Update"/></td>
+                    <td><input type="button" akey={count} onClick={goToUpdatePage} value="Update"/></td>
                     <td>Delete</td>
                   </tr>
                 );
