@@ -1,1 +1,6 @@
 ignore/
+client/build/
+manager/build/
+client/src/config.js
+manager/src/config.js
+
