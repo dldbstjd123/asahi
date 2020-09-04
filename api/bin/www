@@ -4,15 +4,20 @@
  * Module dependencies.
  */
 
+
 var app = require('../app');
+//const mongoose = require('mongoose');
+//const { mongoose_config } = require('../../ignore/mongoose_config');
 var debug = require('debug')('api:server');
 var http = require('http');
+
+require('dotenv').config();
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 
 /**
@@ -28,6 +33,17 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// mongoose.connect(mongoose_config, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+// },
+// (err)=>{
+//   if(err) throw err;
+//   console.log('MongoDB connection established');
+// }
+// );
 
 /**
  * Normalize a port into a number, string, or false.

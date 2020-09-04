@@ -1,0 +1,30 @@
+#navigationContainer{
+    display:flex;
+    flex-direction: row;
+    height: 100vh;
+}
+#linkContainer{
+    width: 150px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    color:white;
+    background-color: #424242;
+}
+.links{
+    font-size:20px;
+    text-decoration: none;
+    color:white;
+}
+#mainContainer{
+    width:100%;
+}
+#topNavigation{
+    height:40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #cacaca;
+}

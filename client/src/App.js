@@ -1,7 +1,7 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import './App.css';
+import "./App.css";
 
 import Navigation from "./layout/Navigation";
 import Home from "./route/Home";
@@ -23,10 +23,9 @@ function App() {
           <Route path={"/news"} component={News} />
           <Route path={"/reservation"} component={Reservation} />
         </Switch>
-        <div id='footerDistance'></div>
+        <div id="footerDistance"></div>
         <Footer />
       </Router>
-  
     </div>
   );
 }
