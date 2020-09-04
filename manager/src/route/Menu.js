@@ -59,7 +59,6 @@ const Menu = () => {
                 <th>Price</th>
                 <th>Order</th>
                 <th>Image</th>
-                <th>Active</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -73,7 +72,7 @@ const Menu = () => {
                     <td>{item.description}</td>
                     <td>{item.price}</td>
                     <td>{item.sort}</td>
-                    <td>{item.active}</td>
+		    <td>{item.image}</td>
                     <td><input type="button" akey={count} onClick={goToUpdatePage} value="Update"/></td>
                     <td>Delete</td>
                   </tr>
