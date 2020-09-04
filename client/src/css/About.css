@@ -15,3 +15,7 @@
   align-items: center;
   width: 50%;
 }
+
+.hourRows > div {
+  width: 50px;
+}
