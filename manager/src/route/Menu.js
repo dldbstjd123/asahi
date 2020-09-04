@@ -28,6 +28,7 @@ const Menu = () => {
     console.log(item)
     history.push(`/admin/menu_update?item=${item}`)
   }
+ 
   useEffect(() => {
     fetch(`${domain}admin/menu/get`, {
       method: "POST",
@@ -60,7 +61,6 @@ const Menu = () => {
                 <th>Order</th>
                 <th>Image</th>
                 <th></th>
-                <th></th>
               </tr>
               {list.map((item) => {
                 count ++
@@ -74,7 +74,6 @@ const Menu = () => {
                     <td>{item.sort}</td>
 		    <td>{item.image}</td>
                     <td><input type="button" akey={count} onClick={goToUpdatePage} value="Update"/></td>
-                    <td>Delete</td>
                   </tr>
                 );
               })}

@@ -6,6 +6,7 @@ const MenuUpdate = (props) => {
   let query = new URLSearchParams(useLocation().search)
   const [list, setList] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
+  const [imageFile, setImageFile] = useState();
   let count = 0;
   function handleChange(event) {
     let indexOfEvent = event.target.getAttribute("akey");
@@ -21,6 +22,12 @@ const MenuUpdate = (props) => {
       return [...array];
     });
     //console.log(list)
+  }
+  function handleImageChange(event){
+    event.target.value = event.target.files[0].name
+    setImageFile(event.target.files[0])
+    console.log(imageFile)
+    handleChange(event)
   }
   useEffect(() => {
     fetch(`${domain}admin/menu_update/get?item=${query.get("item")}`, {
@@ -177,9 +184,7 @@ const MenuUpdate = (props) => {
                         akey={count}
                         type="file"
                         name="image"
-                        onChange={(event) => {
-                          console.log(event.target.files[0].name);
-                        }}
+                        onChange={handleImageChange}
                       />
                     </td>
 		  </tr>
