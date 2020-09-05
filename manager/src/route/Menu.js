@@ -9,24 +9,21 @@ const Menu = () => {
 
   function handleChange(event) {
     let indexOfEvent = event.target.getAttribute("akey");
-    console.log(`indexOfEvent = ${indexOfEvent}`);
     let currentObject = list[indexOfEvent];
-    console.log(`currentObject = ${currentObject}`);
     let chosenName = event.target.name;
     currentObject[chosenName] = event.target.value;
-    //console.log(currentObject)
     setList((array) => {
-      console.log("1", array);
       array.splice(indexOfEvent, 1, currentObject);
       return [...array];
     });
-    //console.log(list)
   }
 
   function goToUpdatePage(event){
     let item = event.target.getAttribute("akey");
-    console.log(item)
     history.push(`/admin/menu_update?item=${item}`)
+  }
+  function goToAddPage(event){
+    history.push(`/admin/menu_add`)
   }
  
   useEffect(() => {
@@ -60,10 +57,15 @@ const Menu = () => {
                 <th>Price</th>
                 <th>Order</th>
                 <th>Image</th>
-                <th></th>
+                <th><input type="button" onClick={goToAddPage} value="Add" /></th>
               </tr>
               {list.map((item) => {
                 count ++
+                let imagePath = ""
+                if(item.image){
+                  imagePath = `${domain}client/image?image=${item.image}`
+                }
+                
                 return (
                   <tr key={item.id}>
                     <td>{count}</td>
@@ -72,7 +74,7 @@ const Menu = () => {
                     <td>{item.description}</td>
                     <td>{item.price}</td>
                     <td>{item.sort}</td>
-		                <td>{item.image}</td>
+		                <td>{item.image ? <div><img src={imagePath} style={{width:'150px'}}/></div>: <div>No Image</div>}</td>
                     <td><input type="button" akey={count} onClick={goToUpdatePage} value="Update"/></td>
                   </tr>
                 );

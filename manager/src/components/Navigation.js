@@ -6,6 +6,7 @@ import "../css/Navigation.css";
 import Home from "../route/Home";
 import Menu from "../route/Menu";
 import MenuUpdate from "../route/MenuUpdate";
+import MenuAdd from "../route/MenuAdd";
 import Category from "../route/Category";
 import Reservation from "../route/Reservation";
 import Hours from "../route/Hours";
@@ -61,6 +62,7 @@ const Navigation = () => {
           <Route path={"/admin/home"} component={Home} />
           <Route path={"/admin/menu"} component={Menu} />
           <Route path={"/admin/menu_update"} component={MenuUpdate} />
+          <Route path={"/admin/menu_add"} component={MenuAdd} />
           <Route path={"/admin/category"} component={Category} />
           <Route path={"/admin/reservation"} component={Reservation} />
           <Route path={"/admin/hours"} component={Hours} />

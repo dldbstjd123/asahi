@@ -1,0 +1,7 @@
+#table > tr > td > input{
+    width:90%;
+}
+
+.buttons{
+    width:150px !important;
+}
