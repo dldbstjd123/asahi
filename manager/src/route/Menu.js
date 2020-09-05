@@ -38,7 +38,6 @@ const Menu = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setList(data);
       });
   }, []);
@@ -75,7 +74,7 @@ const Menu = () => {
                     <td>{item.price}</td>
                     <td>{item.sort}</td>
 		                <td>{item.image ? <div><img src={imagePath} style={{width:'150px'}}/></div>: <div>No Image</div>}</td>
-                    <td><input type="button" akey={count} onClick={goToUpdatePage} value="Update"/></td>
+                    <td><input type="button" akey={item.id} onClick={goToUpdatePage} value="Update"/></td>
                   </tr>
                 );
               })}

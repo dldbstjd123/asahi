@@ -1,40 +1,37 @@
 import React, {useState, useEffect} from "react"
-import {useLocation} from "react-router-dom"
+import {useLocation, useHistory} from "react-router-dom"
 import {domain} from "../config"
 import "../css/MenuUpdate.css"
 
 const MenuUpdate = props => {
     let query = new URLSearchParams(useLocation().search)
+    const history = useHistory()
     const [list, setList] = useState([])
+    const [sortOption, setSortOption] = useState([])
     const [categoryOptions, setCategoryOptions] = useState([])
     const [imageFile, setImageFile] = useState(["beforeSetImage"])
     let count = 0
 
     function handleChange(event) {
         let indexOfEvent = event.target.getAttribute("akey")
-        console.log(`indexOfEvent = ${indexOfEvent}`)
         let currentObject = list[indexOfEvent]
-        console.log(`currentObject = ${currentObject}`)
         let chosenName = event.target.name
         if (chosenName == "image") {
             currentObject[chosenName] = event.target.files[0].name
         } else {
             currentObject[chosenName] = event.target.value
         }
-        //console.log(currentObject)
         setList(array => {
-            console.log("1", array)
             array.splice(indexOfEvent, 1, currentObject)
             return [...array]
         })
-        console.log(list)
     }
     function handleImageChange(event) {
-        //event.target.value = event.target.files[0].name
-        console.log(event.target.files[0])
         if (event.target.files[0] != undefined) {
             handleChange(event)
             setImageFile(event.target.files[0])
+        } else {
+            setImageFile(["beforeSetImage"])
         }
     }
     async function updateHandler(event) {
@@ -42,10 +39,9 @@ const MenuUpdate = props => {
         const formData = new FormData()
         formData.append("file1", imageFile)
         formData.append("itemid", event.target.getAttribute("aid"))
-        for (let key in formData) {
-            console.log(`formData${key} = ${formData[key]}`)
+        for (let key in imageFile) {
+            console.log(`imageFile[${key}] = ${imageFile[key]}`)
         }
-
         const doWork = await fetch(`${domain}admin/menu_update/update`, {
             method: "POST",
             mode: "cors",
@@ -56,33 +52,36 @@ const MenuUpdate = props => {
             },
             body: JSON.stringify(list[targetOfList])
         })
-        const doWork2 = await fetch(`${domain}admin/menu_update/updateImage`, {
-            method: "POST",
-            //   mode: "cors",
-            //   cache: "no-cache",
-            //   credentials: "same-origin",
-            //   headers: {
-            //     "Content-Type": "application/json",
-            //   },
-            body: formData
-        })
+        if (imageFile[0] != "beforeSetImage") {
+            const doWork2 = await fetch(
+                `${domain}admin/menu_update/updateImage`,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            )
+        }
+        history.push("/admin/menu")
         //window.location.reload();
     }
-    function deleteHandler(event){
-      fetch(`${domain}admin/menu_update/delete`, {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({id:event.target.getAttribute("aid")})
-    })
+    function deleteHandler(event) {
+        fetch(`${domain}admin/menu_update/delete`, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({id: event.target.getAttribute("aid")})
+        })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status == "succeed"){
+                  history.push("/admin/menu")
+                }
+            })
     }
-    useEffect(() => {
-        console.log(`imageFile = ${imageFile}`)
-    }, [imageFile])
     useEffect(() => {
         fetch(`${domain}admin/menu_update/get?item=${query.get("item")}`, {
             method: "POST",
@@ -95,7 +94,6 @@ const MenuUpdate = props => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setList(data)
             })
     }, [])
@@ -112,10 +110,16 @@ const MenuUpdate = props => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(`categoryOptions = ${categoryOptions}`)
                 setCategoryOptions(data)
-                console.log(`categoryOptions = ${categoryOptions}`)
             })
+    }, [])
+
+    useEffect(() => {
+        let options = []
+        for (let i = 1; i < 21; i++) {
+            options.push(i)
+        }
+        setSortOption(options)
     }, [])
     return (
         <div>
@@ -223,29 +227,22 @@ const MenuUpdate = props => {
                                     <tr>
                                         <th>SORT</th>
                                         <td>
-                                            <input
-                                                akey={count}
-                                                type="text"
-                                                name="sort"
-                                                required
-                                                value={item.sort}
-                                                onChange={handleChange}
-                                            />
-                                        </td>
-                                        <th>ACTIVE</th>
-                                        <td>
                                             <select
-                                                akey={count}
-                                                name="active"
+                                                name="sort"
+                                                value={list[0].sort}
+                                                akey={0}
                                                 onChange={handleChange}
-                                                value={item.active}
                                             >
-                                                <option value="true">
-                                                    yes
-                                                </option>
-                                                <option value="false">
-                                                    No
-                                                </option>
+                                                {sortOption.map(item => {
+                                                    return (
+                                                        <option
+                                                            key={item}
+                                                            value={item}
+                                                        >
+                                                            {item}
+                                                        </option>
+                                                    )
+                                                })}
                                             </select>
                                         </td>
                                     </tr>
@@ -262,14 +259,16 @@ const MenuUpdate = props => {
                                                 onClick={updateHandler}
                                             />
                                         </td>
-                                        <td><input
+                                        <td>
+                                            <input
                                                 type="button"
                                                 className="buttons"
                                                 akey={count}
                                                 aid={item.id}
                                                 value="Delete"
                                                 onClick={deleteHandler}
-                                            /></td>
+                                            />
+                                        </td>
                                         <td></td>
                                     </tr>
                                 </tbody>

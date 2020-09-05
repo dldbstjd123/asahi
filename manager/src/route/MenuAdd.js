@@ -1,104 +1,74 @@
 import React, {useState, useEffect} from "react"
-import {useLocation} from "react-router-dom"
+import {useLocation, useHistory} from "react-router-dom"
 import {domain} from "../config"
 import "../css/MenuUpdate.css"
 
 const MenuUpdate = props => {
-    let query = new URLSearchParams(useLocation().search)
-    const [list, setList] = useState([])
+    const history = useHistory()
+    const [name, setName] = useState("")
+    const [price, setPrice] = useState("")
+    const [description, setDescription] = useState("")
+    const [category, setCategory] = useState(1)
+    const [sort, setSort] = useState(1)
+    const [sortOption, setSortOption] = useState(<></>)
+
     const [categoryOptions, setCategoryOptions] = useState([])
     const [imageFile, setImageFile] = useState(["beforeSetImage"])
     let count = 0
 
-    function handleChange(event) {
-        let indexOfEvent = event.target.getAttribute("akey")
-        console.log(`indexOfEvent = ${indexOfEvent}`)
-        let currentObject = list[indexOfEvent]
-        console.log(`currentObject = ${currentObject}`)
-        let chosenName = event.target.name
-        if (chosenName == "image") {
-            currentObject[chosenName] = event.target.files[0].name
-        } else {
-            currentObject[chosenName] = event.target.value
-        }
-        //console.log(currentObject)
-        setList(array => {
-            console.log("1", array)
-            array.splice(indexOfEvent, 1, currentObject)
-            return [...array]
-        })
-        console.log(list)
-    }
     function handleImageChange(event) {
         //event.target.value = event.target.files[0].name
-        console.log(event.target.files[0])
         if (event.target.files[0] != undefined) {
-            handleChange(event)
             setImageFile(event.target.files[0])
         }
     }
-    async function updateHandler(event) {
-        let targetOfList = event.target.getAttribute("akey")
+    async function addHandler(event) {
+        const pass = validate()
+        if (!pass) {
+            return false
+        }
         const formData = new FormData()
         formData.append("file1", imageFile)
-        formData.append("itemid", event.target.getAttribute("aid"))
-        for (let key in formData) {
-            console.log(`formData${key} = ${formData[key]}`)
-        }
+        formData.append("name", name)
+        formData.append("price", price)
+        formData.append("description", description)
+        formData.append("category", category)
+        formData.append("sort", sort)
 
-        const doWork = await fetch(`${domain}admin/menu_update/update`, {
+        fetch(`${domain}admin/menu_add/add`, {
             method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(list[targetOfList])
-        })
-        const doWork2 = await fetch(`${domain}admin/menu_update/updateImage`, {
-            method: "POST",
-            //   mode: "cors",
-            //   cache: "no-cache",
-            //   credentials: "same-origin",
-            //   headers: {
-            //     "Content-Type": "application/json",
-            //   },
             body: formData
         })
-        //window.location.reload();
-    }
-    function deleteHandler(event){
-      fetch(`${domain}admin/menu_update/delete`, {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({id:event.target.getAttribute("aid")})
-    })
-    }
-    useEffect(() => {
-        console.log(`imageFile = ${imageFile}`)
-    }, [imageFile])
-    useEffect(() => {
-        fetch(`${domain}admin/menu_update/get?item=${query.get("item")}`, {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
+            .then(res => {
+                return res.json()
+            })
             .then(data => {
                 console.log(data)
-                setList(data)
+                if (data.status == "succeed") {
+                    history.push("/admin/menu")
+                }
             })
-    }, [])
+        //window.location.reload();
+    }
+
+    function validate() {
+        let regex = /^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/
+        if (name == "") {
+            alert("Please insert name")
+            return false
+        } else if (price == "") {
+            alert("Please insert price")
+            return false
+        } else if (!regex.test(price)) {
+            alert("Please insert valid price")
+            return false
+        } else if (description == "") {
+            alert("Please insert description")
+            return false
+        } else {
+            return true
+        }
+    }
 
     useEffect(() => {
         fetch(`${domain}admin/category/get`, {
@@ -112,169 +82,137 @@ const MenuUpdate = props => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(`categoryOptions = ${categoryOptions}`)
                 setCategoryOptions(data)
-                console.log(`categoryOptions = ${categoryOptions}`)
             })
     }, [])
+
+    useEffect(() => {
+        setSortOption(() => {
+            let options = []
+            for (let i = 1; i < 21; i++) {
+                options.push(i)
+            }
+            return (
+                <select
+                    name="sort"
+                    value={sort}
+                    onChange={event => {
+                        setSort(event.target.value)
+                    }}
+                >
+                    {options.map(array => {
+                        return (
+                            <option key={array} value={array}>
+                                {array}
+                            </option>
+                        )
+                    })}
+                </select>
+            )
+        })
+    }, [sort])
     return (
         <div>
-            <div>Menu Update Page</div>
+            <div>Menu Add Page</div>
             <div>
                 <form>
                     <table style={{width: "100%"}}>
-                        {list.map(item => {
-                            let activeSelect = ""
-                            if (item.active) {
-                                activeSelect = (
+                        <tbody id="table">
+                            <tr>
+                                <th>UPLOAD IMAGE</th>
+                                <td>
+                                    <input
+                                        akey={count}
+                                        type="file"
+                                        name="image"
+                                        onChange={handleImageChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>NAME</th>
+                                <td>
+                                    <input
+                                        akey={count}
+                                        type="text"
+                                        name="name"
+                                        required
+                                        value={name}
+                                        onChange={event => {
+                                            setName(event.target.value)
+                                        }}
+                                    />
+                                </td>
+                                <th>PRICE</th>
+                                <td>
+                                    <input
+                                        akey={count}
+                                        type="text"
+                                        name="price"
+                                        required
+                                        value={price}
+                                        onChange={event => {
+                                            setPrice(event.target.value)
+                                        }}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>DESCRIPTION</th>
+                                <td>
+                                    <input
+                                        akey={count}
+                                        type="text"
+                                        name="description"
+                                        required
+                                        value={description}
+                                        onChange={event => {
+                                            setDescription(event.target.value)
+                                        }}
+                                    />
+                                </td>
+                                <th>CATEGORY</th>
+                                <td>
                                     <select
                                         akey={count}
-                                        name="active"
-                                        onChange={handleChange}
+                                        name="category"
+                                        value={category}
+                                        onChange={event => {
+                                            setCategory(event.target.value)
+                                        }}
                                     >
-                                        <option value="true">yes</option>
-                                        <option value="false">No</option>
-                                    </select>
-                                )
-                            } else {
-                                activeSelect = (
-                                    <select
-                                        akey={count}
-                                        name="active"
-                                        onChange={handleChange}
-                                    >
-                                        <option value="true">yes</option>
-                                        <option selected value="false">
-                                            No
-                                        </option>
-                                    </select>
-                                )
-                            }
-                            return (
-                                <tbody id="table" key={item.id}>
-                                    <tr>
-                                        <th>UPLOAD IMAGE</th>
-                                        <td>
-                                            <input
-                                                akey={count}
-                                                type="file"
-                                                name="image"
-                                                onChange={handleImageChange}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>NAME</th>
-                                        <td>
-                                            <input
-                                                akey={count}
-                                                type="text"
-                                                name="name"
-                                                required
-                                                value={item.name}
-                                                onChange={handleChange}
-                                            />
-                                        </td>
-                                        <th>PRICE</th>
-                                        <td>
-                                            <input
-                                                akey={count}
-                                                type="text"
-                                                name="price"
-                                                required
-                                                value={item.price}
-                                                onChange={handleChange}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>DESCRIPTION</th>
-                                        <td>
-                                            <input
-                                                akey={count}
-                                                type="text"
-                                                name="description"
-                                                required
-                                                value={item.description}
-                                                onChange={handleChange}
-                                            />
-                                        </td>
-                                        <th>CATEGORY</th>
-                                        <td>
-                                            <select
-                                                akey={count}
-                                                name="category"
-                                                onChange={handleChange}
-                                                value={item.category}
-                                            >
-                                                {categoryOptions.map(array => {
-                                                    return (
-                                                        <option
-                                                            key={array.id}
-                                                            value={array.id}
-                                                        >
-                                                            {array.name}
-                                                        </option>
-                                                    )
-                                                })}
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>SORT</th>
-                                        <td>
-                                            <input
-                                                akey={count}
-                                                type="text"
-                                                name="sort"
-                                                required
-                                                value={item.sort}
-                                                onChange={handleChange}
-                                            />
-                                        </td>
-                                        <th>ACTIVE</th>
-                                        <td>
-                                            <select
-                                                akey={count}
-                                                name="active"
-                                                onChange={handleChange}
-                                                value={item.active}
-                                            >
-                                                <option value="true">
-                                                    yes
+                                        {categoryOptions.map(array => {
+                                            return (
+                                                <option
+                                                    key={array.id}
+                                                    value={array.id}
+                                                >
+                                                    {array.name}
                                                 </option>
-                                                <option value="false">
-                                                    No
-                                                </option>
-                                            </select>
-                                        </td>
-                                    </tr>
+                                            )
+                                        })}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>SORT</th>
+                                <td>{sortOption}</td>
+                            </tr>
 
-                                    <tr style={{marginTop: "20px"}}>
-                                        <td></td>
-                                        <td>
-                                            <input
-                                                type="button"
-                                                className="buttons"
-                                                akey={count}
-                                                aid={item.id}
-                                                value="Update"
-                                                onClick={updateHandler}
-                                            />
-                                        </td>
-                                        <td><input
-                                                type="button"
-                                                className="buttons"
-                                                akey={count}
-                                                aid={item.id}
-                                                value="Delete"
-                                                onClick={deleteHandler}
-                                            /></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            )
-                        })}
+                            <tr style={{marginTop: "20px"}}>
+                                <td></td>
+                                <td>
+                                    <input
+                                        type="button"
+                                        className="buttons"
+                                        akey={count}
+                                        value="Add"
+                                        onClick={addHandler}
+                                    />
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </form>
             </div>

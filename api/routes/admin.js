@@ -258,9 +258,31 @@ router.post("/menu_update/delete", async function (req, res, next) {
     connection.query(
         `DELETE FROM asahi.menu WHERE id = ${req.body.id}`,
         function (error, results) {
-            res.json(results)
+            res.json({status: "succeed"})
         }
     )
+    connection.end()
+})
+
+router.post("/menu_add/add", upload.single("file1"), async function (
+    req,
+    res,
+    next
+) {
+    let query
+    if (req.file != undefined) {
+        query = `INSERT INTO asahi.menu (name, description, price, category, sort, image) VALUES('${req.body.name}', '${req.body.description}', ${req.body.price}, ${req.body.category}, ${req.body.sort}, '${req.file.filename}')`
+    } else {
+        query = `INSERT INTO asahi.menu (name, description, price, category, sort) VALUES('${req.body.name}', '${req.body.description}', ${req.body.price}, ${req.body.category}, ${req.body.sort})`
+    }
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(query, function (error, results) {
+        if(error){
+          throw error
+        }
+        res.json({status:'succeed'})
+    })
     connection.end()
 })
 
