@@ -4,6 +4,27 @@ var path = require("path");
 const passport = require("passport");
 var mysql = require("mysql");
 const { mysqlconfig } = require("../../ignore/config.js");
+var multer = require("multer");
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../client/public/images/menu/");
+    //cb(null, "../public/images/");
+  },
+  filename: function (req, file, cb) {
+    console.log("fileName");
+    console.log(file);
+    console.log(req.body.name);
+    console.log(`Date.now() = ${Date.now()}`);
+    console.log(
+      `path.extname(file.originalname) = ${path.extname(file.originalname)}`
+    );
+    console.log("fileName");
+    cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+  },
+});
+
+var upload = multer({ storage: storage });
 
 //const User = require("../models/userModel");
 
@@ -168,6 +189,40 @@ router.post("/menu_update/get", async function (req, res, next) {
   connection.query(
     `SELECT menu.*, category.name AS categoryName FROM asahi.menu LEFT JOIN asahi.category ON menu.category = category.id WHERE menu.id = ${req.query.item}`,
     function (error, results) {
+      res.json(results);
+    }
+  );
+  connection.end();
+});
+
+router.post("/menu_update/update", async function (req, res, next) {
+  //if(req.user == undefined){res.redirect('/admin')}
+  //console.log("menu_update/update requested");
+  //console.log(req.body);
+  var connection = mysql.createConnection(mysqlconfig);
+  connection.connect();
+  connection.query(
+    `UPDATE asahi.menu SET name='${req.body.name}', description='${req.body.description}', price='${req.body.price}', category=${req.body.category}, sort=${req.body.sort} WHERE id = ${req.body.id}`,
+    function (error, results) {
+      res.json(results);
+    }
+  );
+  connection.end();
+});
+router.post("/menu_update/updateImage", upload.single("file1"), function (
+  req,
+  res,
+  next
+) {
+  //if(req.user == undefined){res.redirect('/admin')}
+  var connection = mysql.createConnection(mysqlconfig);
+  connection.connect();
+  connection.query(
+    `UPDATE asahi.menu SET image='${req.file.filename}' WHERE id = ${req.body.itemid}`,
+    function (error, results) {
+      if (error) {
+        throw error;
+      }
       res.json(results);
     }
   );

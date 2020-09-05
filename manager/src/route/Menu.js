@@ -72,7 +72,7 @@ const Menu = () => {
                     <td>{item.description}</td>
                     <td>{item.price}</td>
                     <td>{item.sort}</td>
-		    <td>{item.image}</td>
+		                <td>{item.image}</td>
                     <td><input type="button" akey={count} onClick={goToUpdatePage} value="Update"/></td>
                   </tr>
                 );

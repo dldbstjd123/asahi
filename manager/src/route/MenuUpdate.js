@@ -3,32 +3,72 @@ import { useLocation } from "react-router-dom";
 import { domain } from "../config";
 
 const MenuUpdate = (props) => {
-  let query = new URLSearchParams(useLocation().search)
+  let query = new URLSearchParams(useLocation().search);
   const [list, setList] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const [imageFile, setImageFile] = useState();
+  const [imageFile, setImageFile] = useState(["beforeSetImage"]);
   let count = 0;
+
   function handleChange(event) {
     let indexOfEvent = event.target.getAttribute("akey");
     console.log(`indexOfEvent = ${indexOfEvent}`);
     let currentObject = list[indexOfEvent];
     console.log(`currentObject = ${currentObject}`);
     let chosenName = event.target.name;
-    currentObject[chosenName] = event.target.value;
+    if (chosenName == "image") {
+      currentObject[chosenName] = event.target.files[0].name;
+    } else {
+      currentObject[chosenName] = event.target.value;
+    }
     //console.log(currentObject)
     setList((array) => {
       console.log("1", array);
       array.splice(indexOfEvent, 1, currentObject);
       return [...array];
     });
-    //console.log(list)
+    console.log(list);
   }
-  function handleImageChange(event){
-    event.target.value = event.target.files[0].name
-    setImageFile(event.target.files[0])
-    console.log(imageFile)
-    handleChange(event)
+  function handleImageChange(event) {
+    //event.target.value = event.target.files[0].name
+    handleChange(event);
+    setImageFile(event.target.files[0]);
   }
+  async function updateHandler(event) {
+    let targetOfList = event.target.getAttribute("akey");
+    const formData = new FormData();
+    formData.append("file1", imageFile);
+    formData.append("itemid", event.target.getAttribute("aid"));
+    for(let key in formData){
+      console.log(`formData${key} = ${formData[key]}`);
+    }
+    
+
+    const doWork = await fetch(`${domain}admin/menu_update/update`, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(list[targetOfList]),
+    });
+    const doWork2 = await fetch(`${domain}admin/menu_update/updateImage`, {
+      method: "POST",
+    //   mode: "cors",
+    //   cache: "no-cache",
+    //   credentials: "same-origin",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+      body: formData,
+    });
+    //window.location.reload();
+  }
+  useEffect(() => {
+    console.log(`imageFile = ${imageFile}`);
+    
+  }, [imageFile]);
   useEffect(() => {
     fetch(`${domain}admin/menu_update/get?item=${query.get("item")}`, {
       method: "POST",
@@ -69,39 +109,31 @@ const MenuUpdate = (props) => {
       <div>
         <form>
           <table style={{ width: "100%" }}>
-              {list.map((item) => {
-                let activeSelect = "";
-                if (item.active) {
-                  activeSelect = (
-                    <select
-                      akey={count}
-                      name="active"
-                      onChange={handleChange}
-                    >
-                      <option value="true">yes</option>
-                      <option value="false">No</option>
-                    </select>
-                  );
-                } else {
-                  activeSelect = (
-                    <select
-                      akey={count}
-                      name="active"
-                      onChange={handleChange}
-                    >
-                      <option value="true">yes</option>
-                      <option selected value="false">
-                        No
-                      </option>
-                    </select>
-                  );
-                }
-                return (
-		  <tbody key={item.id}>
+            {list.map((item) => {
+              let activeSelect = "";
+              if (item.active) {
+                activeSelect = (
+                  <select akey={count} name="active" onChange={handleChange}>
+                    <option value="true">yes</option>
+                    <option value="false">No</option>
+                  </select>
+                );
+              } else {
+                activeSelect = (
+                  <select akey={count} name="active" onChange={handleChange}>
+                    <option value="true">yes</option>
+                    <option selected value="false">
+                      No
+                    </option>
+                  </select>
+                );
+              }
+              return (
+                <tbody key={item.id}>
                   <tr>
-		    <th>NAME</th>
+                    <th>NAME</th>
                     <td>
-		      <input
+                      <input
                         akey={count}
                         type="text"
                         name="name"
@@ -109,10 +141,10 @@ const MenuUpdate = (props) => {
                         value={item.name}
                         onChange={handleChange}
                       />
-    		    </td>
-		    <th>PRICE</th>
-		    <td>
-		      <input
+                    </td>
+                    <th>PRICE</th>
+                    <td>
+                      <input
                         akey={count}
                         type="text"
                         name="price"
@@ -120,11 +152,11 @@ const MenuUpdate = (props) => {
                         value={item.price}
                         onChange={handleChange}
                       />
-		    </td>
-		  </tr>
-		  <tr>
-		    <th>DESCRIPTION</th>
-		    <td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>DESCRIPTION</th>
+                    <td>
                       <input
                         akey={count}
                         type="text"
@@ -134,8 +166,8 @@ const MenuUpdate = (props) => {
                         onChange={handleChange}
                       />
                     </td>
-		    <th>CATEGORY</th>
-		    <td>
+                    <th>CATEGORY</th>
+                    <td>
                       <select
                         akey={count}
                         name="category"
@@ -151,9 +183,9 @@ const MenuUpdate = (props) => {
                         })}
                       </select>
                     </td>
-		  </tr>	
-		  <tr>
-		    <th>SORT</th>
+                  </tr>
+                  <tr>
+                    <th>SORT</th>
                     <td>
                       <input
                         akey={count}
@@ -164,7 +196,7 @@ const MenuUpdate = (props) => {
                         onChange={handleChange}
                       />
                     </td>
-		    <th>ACTIVE</th>
+                    <th>ACTIVE</th>
                     <td>
                       <select
                         akey={count}
@@ -176,10 +208,10 @@ const MenuUpdate = (props) => {
                         <option value="false">No</option>
                       </select>
                     </td>
-		  </tr>
-		  <tr>
-		    <td>IMAGE CONTINER</td>
-		    <td>
+                  </tr>
+                  <tr>
+                    <td>IMAGE CONTINER</td>
+                    <td>
                       <input
                         akey={count}
                         type="file"
@@ -187,14 +219,22 @@ const MenuUpdate = (props) => {
                         onChange={handleImageChange}
                       />
                     </td>
-		  </tr>
-		  <tr>
-                    <td>Update</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="button"
+                        akey={count}
+                        aid={item.id}
+                        value="Update"
+                        onClick={updateHandler}
+                      />
+                    </td>
                     <td>Delete</td>
                   </tr>
-		  </tbody>
-                );
-              })}
+                </tbody>
+              );
+            })}
           </table>
         </form>
       </div>

@@ -7,3 +7,4 @@ manager/src/config.js
 .DS_Store?
 manager/node_modules/.cache/
 client/node_modules/.cache/
+client/public/images/menu/
