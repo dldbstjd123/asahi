@@ -29,8 +29,7 @@ const Menu = (props)=>{
                         <div>{item.name}</div>
                         <div>{item.description}</div>
                         <div>{item.price}</div>
-                        <div><img src={source} style={{width:'200px'}}/></div>
-                        <div>{item.name}</div>
+                        <div><img src={source} style={{width:'200px', height:'200px'}}/></div>
                     </div>
                 )
             })}
