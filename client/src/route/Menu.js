@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {domain} from '../config';
 
 const Menu = (props)=>{
     const [list, setList] = useState([])
