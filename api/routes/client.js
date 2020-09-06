@@ -15,6 +15,19 @@ router.post('/hours/get', function(req, res, next) {
   connection.end();
 });
 
+router.post("/menu/get", async function (req, res, next) {
+  //if(req.user == undefined){res.redirect('/admin')}
+  var connection = mysql.createConnection(mysqlconfig)
+  connection.connect()
+  connection.query(
+      `SELECT menu.*, category.name AS categoryName FROM asahi.menu LEFT JOIN asahi.category ON menu.category = category.id ORDER BY category, sort`,
+      function (error, results) {
+          res.json(results)
+      }
+  )
+  connection.end()
+})
+
 router.get('/image',function(req, res, next){
   let filename = req.query.image
   let location = path.join(__dirname,'..', '..', 'client', 'public', 'images', 'menu')
