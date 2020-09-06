@@ -22,7 +22,18 @@ const Menu = (props)=>{
     },[])
     return(
         <div className='bodyContainer'>
-            {list}
+            {list.map((item)=>{
+                let source = `${domain}client/image?image=${item.image}`
+                return(
+                    <div key={item.id}>
+                        <div>{item.name}</div>
+                        <div>{item.description}</div>
+                        <div>{item.price}</div>
+                        <div><img src={source} style={{width:'200px'}}/></div>
+                        <div>{item.name}</div>
+                    </div>
+                )
+            })}
         </div>
     )
 }
