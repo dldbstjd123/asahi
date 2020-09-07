@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: red;
-    height: 5vh;
+    min-height: 5vh;
     padding: 0 20px;
     color:gray;
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;

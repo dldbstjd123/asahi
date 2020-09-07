@@ -32,3 +32,11 @@
   width: 50px;
   text-align: center;
 }
+
+
+/* under 600px width*/
+@media only screen and (max-width:600px){
+  #aboutContainer{
+    grid-template-columns: 1fr;
+  }
+}
