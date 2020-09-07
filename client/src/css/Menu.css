@@ -38,3 +38,26 @@
 .menuItemLeft{
     padding:15px;
 }
+
+
+/* under 900px width*/
+@media only screen and (max-width:1200px){
+    .menuItems{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        width:95%;
+        margin:auto;
+    }
+  }
+
+  /* under 750px width*/
+@media only screen and (max-width:750px){
+    .menuItems{
+        display:grid;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        width:95%;
+        margin:auto;
+    }
+  }

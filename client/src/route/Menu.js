@@ -74,7 +74,7 @@ const Menu = props => {
                                                     {item.name}
                                                 </div>
                                                 <div>{item.description}</div>
-                                                <div>{item.price}</div>
+                                                <div>{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                                             </div>
                                             <div>
                                                 <img
@@ -98,7 +98,7 @@ const Menu = props => {
                                                     {item.name}
                                                 </div>
                                                 <div>{item.description}</div>
-                                                <div>{item.price}</div>
+                                                <div>{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                                             </div>
                                         </div>
                                     )
