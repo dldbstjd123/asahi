@@ -38,7 +38,8 @@
 .menuTitle{
     font-size:25px;
     width:95%;
-    margin:25px auto; 
+    margin:0 auto; 
+    padding: 25px 0;
 }
 .menuItems{
     display:grid;

@@ -28,9 +28,17 @@ const Home = props => {
     return (
         <div className="bodyContainer">
             <div id="mainImages">
-                <img src="/images/combo1.jpeg" />
-                <img src="/images/combo2.jpeg" />
-                <img src="/images/combo3.jpeg" />
+                <img src="/images/home/home1.jpg" />
+                <img src="/images/home/home2.jpg" />
+                <img src="/images/home/home3.jpg" />
+                <img src="/images/home/home4.jpg" />
+                <img src="/images/home/home5.jpg" />
+                <img src="/images/home/home6.jpg" />
+                <img src="/images/home/home7.jpg" />
+                <img src="/images/home/home8.jpg" />
+                <img src="/images/home/home9.jpg" />
+                <img src="/images/home/home10.jpg" />
+
             </div>
         </div>
     )

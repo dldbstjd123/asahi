@@ -8,6 +8,7 @@ const Menu = props => {
     const [updatedList, setUpdatedList] = useState({});
     const [categories, setCategories] = useState([]);
     const [currentPosition, setCurrentPosition] = useState(0);
+    let count = -1;
     function moveToLeft(){
         let totalPages = Math.floor(categories.length / 5)
         if(categories.length%5 != 0 ){
@@ -41,6 +42,17 @@ const Menu = props => {
             document.getElementById("menuMovingCategory").style.left = currentPosition - document.getElementById("menuMovingCategory").clientWidth + "px"
             setCurrentPosition(prev => prev - document.getElementById("menuMovingCategory").clientWidth)
         }
+    }
+    function scrollTo(n){
+        let baseHeight = document.getElementById("navigationContainer").clientHeight
+        let menuHeight = 0
+        if(n != 0){
+            for(let i=0; i<n; i++){
+                menuHeight += document.getElementsByClassName("menuPerCategoryContainer")[i].clientHeight
+            }
+        }
+        document.body.scrollTop = baseHeight + menuHeight
+        document.documentElement.scrollTop = baseHeight + menuHeight
     }
 
     useEffect(() => {
@@ -91,7 +103,8 @@ const Menu = props => {
                 <div id="catagoriesItemsContainer">
                     <div id="menuMovingCategory">
                         {categories.map(item => {
-                            return <div key={item}>{item}</div>
+                            count++
+                            return <div key={item} onClick={()=>scrollTo(count)}>{item}</div>
                         })}
                     </div>
                 </div>
