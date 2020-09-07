@@ -1,11 +1,47 @@
 import React, {useState, useEffect} from "react"
 import {domain} from "../config"
+import {FaChevronLeft, FaChevronRight} from "react-icons/fa"
 import "../css/Menu.css"
 
 const Menu = props => {
-    const [list, setList] = useState([])
-    const [updatedList, setUpdatedList] = useState({})
-    const [categories, setCategories] = useState([])
+    const [list, setList] = useState([]);
+    const [updatedList, setUpdatedList] = useState({});
+    const [categories, setCategories] = useState([]);
+    const [currentPosition, setCurrentPosition] = useState(0);
+    function moveToLeft(){
+        let totalPages = Math.floor(categories.length / 5)
+        if(categories.length%5 != 0 ){
+            totalPages++
+        }
+        let totalWidth = document.getElementById("menuMovingCategory").clientWidth*totalPages
+        if(totalWidth < document.getElementById("menuMovingCategory").clientWidth){
+            totalWidth = document.getElementById("menuMovingCategory").clientWidth
+        }
+        if(currentPosition == 0){
+            document.getElementById("menuMovingCategory").style.left = -totalWidth + document.getElementById("menuMovingCategory").clientWidth + "px"
+            setCurrentPosition(-totalWidth + document.getElementById("menuMovingCategory").clientWidth)
+        }else{
+            document.getElementById("menuMovingCategory").style.left = (currentPosition + document.getElementById("menuMovingCategory").clientWidth)+ "px"
+            setCurrentPosition(prev => prev + document.getElementById("menuMovingCategory").clientWidth)
+        }
+    }
+    function moveToRight(){
+        let totalPages = Math.floor(categories.length / 5)
+        if(categories.length%5 != 0 ){
+            totalPages++
+        }
+        let totalWidth = document.getElementById("menuMovingCategory").clientWidth*totalPages
+        if(totalWidth < document.getElementById("menuMovingCategory").clientWidth){
+            totalWidth = document.getElementById("menuMovingCategory").clientWidth
+        }
+        if(currentPosition == totalWidth - document.getElementById("menuMovingCategory").clientWidth){
+            document.getElementById("menuMovingCategory").style.left = "0px"
+            setCurrentPosition(0)
+        }else{
+            document.getElementById("menuMovingCategory").style.left = currentPosition - document.getElementById("menuMovingCategory").clientWidth + "px"
+            setCurrentPosition(prev => prev - document.getElementById("menuMovingCategory").clientWidth)
+        }
+    }
 
     useEffect(() => {
         fetch(`${domain}client/menu/get`, {
@@ -49,9 +85,19 @@ const Menu = props => {
     return (
         <div className="bodyContainer">
             <div id="categoriesContainer">
-                {categories.map(item => {
-                    return <div key={item}>{item}</div>
-                })}
+                <div>
+                    <FaChevronLeft className="moveLeftRight" size="20px" onClick={moveToLeft}/>
+                </div>
+                <div id="catagoriesItemsContainer">
+                    <div id="menuMovingCategory">
+                        {categories.map(item => {
+                            return <div key={item}>{item}</div>
+                        })}
+                    </div>
+                </div>
+                <div>
+                    <FaChevronRight className="moveLeftRight" size="20px" onClick={moveToRight}/>
+                </div>
             </div>
             {categories.map(key => {
                 console.log(`outer ${key}`)
@@ -69,12 +115,20 @@ const Menu = props => {
                                             key={item.id}
                                             className="menuItemContainerWithImage"
                                         >
-                                            <div className='menuItemLeft'>
+                                            <div className="menuItemLeft">
                                                 <div className="menuItemName">
                                                     {item.name}
                                                 </div>
                                                 <div>{item.description}</div>
-                                                <div>{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                                                <div>
+                                                    {item.price.toLocaleString(
+                                                        "en-US",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "USD"
+                                                        }
+                                                    )}
+                                                </div>
                                             </div>
                                             <div>
                                                 <img
@@ -93,12 +147,20 @@ const Menu = props => {
                                             key={item.id}
                                             className="menuItemContainerWithOutImage"
                                         >
-                                            <div className='menuItemLeft'>
+                                            <div className="menuItemLeft">
                                                 <div className="menuItemName">
                                                     {item.name}
                                                 </div>
                                                 <div>{item.description}</div>
-                                                <div>{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                                                <div>
+                                                    {item.price.toLocaleString(
+                                                        "en-US",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "USD"
+                                                        }
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     )

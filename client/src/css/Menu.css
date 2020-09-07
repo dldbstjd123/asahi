@@ -3,8 +3,36 @@
     top:0;
     display:flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    height:50px;
+    background-color: rgba(255,255,255,0.8);
+}
+
+#catagoriesItemsContainer{
+    /* display:flex;
+    flex-direction: row;
+    justify-content: left; */
+    width:100%;
+    overflow: hidden;
+}
+
+#menuMovingCategory {
+    float:left;
+    white-space:nowrap;
+    width:100%;
+    position: relative;
+    transition: ease-in-out 0.5s;
+    -webkit-transition: ease-in-out 0.5s;
+    -moz-transition: ease-in-out 0.5s;
+    -o-transition: ease-in-out 0.5s;
+    left:0px;
+}
+#catagoriesItemsContainer > div > div{
+    display: inline-block;
+    width:20%;
+    text-align: center;
+    /* margin: 0 15px */
 }
 
 .menuTitle{
