@@ -37,7 +37,7 @@ app.use(session({
   secret: 'asdjgijfvnie12ASD_$%%!@',
   resave: true,
   saveUninitialized: true,
-  cookie:{secure:false, maxAge:(4 * 60 * 60 * 1000)}, //4hours
+  cookie:{secure:true, maxAge:(4 * 60 * 60 * 1000)}, //4hours
 }))
 
 var passport = require('passport')

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { domain } from "../config";
+import { useHistory } from "react-router-dom";
 
 const Category = () => {
+  const history = useHistory();
   const [list, setList] = useState([]);
   const [addData, setAddData] = useState();
   const [optionTo20, setOptionTo20] = useState([]);
@@ -40,7 +42,8 @@ const Category = () => {
       },
       body: JSON.stringify(list[targetOfList]),
     });
-    window.location.reload();
+    //window.location.reload();
+    history.push('/admin/category')
   }
 
   async function deleteHandler(event) {
@@ -57,7 +60,8 @@ const Category = () => {
       },
       body: JSON.stringify(list[targetOfList]),
     });
-    window.location.reload();
+    history.push('/admin/category')
+    //window.location.reload();
   }
   async function addHandler(event) {
     event.preventDefault();
@@ -75,7 +79,8 @@ const Category = () => {
         sort: event.target.sort.value,
       }),
     });
-    window.location.reload();
+    history.push('/admin/category')
+    //window.location.reload();
     console.log(event.target.name.value);
   }
   //   function makeOptions(n){

@@ -89,7 +89,7 @@ const MenuUpdate = props => {
     useEffect(() => {
         setSortOption(() => {
             let options = []
-            for (let i = 1; i < 21; i++) {
+            for (let i = 1; i < 51; i++) {
                 options.push(i)
             }
             return (
