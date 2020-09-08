@@ -44,7 +44,9 @@
     text-align: center;
     /* margin: 0 15px */
 }
-
+.menuPerCategoryContainer{
+    padding-bottom: 10px;
+}
 .menuTitle{
     font-size:25px;
     width:95%;
