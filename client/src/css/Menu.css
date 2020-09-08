@@ -38,6 +38,11 @@
     -o-transition: ease-in-out 0.5s;
     left:0px;
 }
+
+#menuMovingCategory > div{
+    white-space: normal;
+    vertical-align: middle;
+}
 #catagoriesItemsContainer > div > div{
     display: inline-block;
     width:20%;
