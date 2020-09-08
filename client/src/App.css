@@ -1,3 +1,6 @@
+html{
+    scroll-behavior: smooth;
+}
 .bodyContainer{
     min-height: 75vh;
 }

@@ -1,7 +1,11 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
+import {domain} from '../config'
 import "../css/Home.css"
+import Loading from "../components/Loading";
 
 const Home = props => {
+    const [onLoad, setOnLoad] = useState(true)
+
     useEffect(() => {
         let mainImage = document.getElementById("mainImages").childNodes
         mainImage[0].style.opacity = 1
@@ -22,12 +26,28 @@ const Home = props => {
                     mainImage[current].style.opacity = 1
                     current++
                 }
-            }, 3000)
+            }, 5000)
         }
+        //check image is loaded
+        document.getElementById("mainImages").childNodes[document.getElementById("mainImages").childNodes.length-1].addEventListener("load",()=>{
+            setOnLoad(false)
+        })
     }, [])
     return (
         <div className="bodyContainer">
-            <div id="mainImages">
+            {onLoad? <Loading /> : null}
+            <div id="mainImages" >
+                {/* <div style={{width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home2.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home3.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home4.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home5.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home6.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home7.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home8.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home9.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
+                <div style={{backgroundImage:"url("+domain+"images/home/home10.jpg)", width:'100%', height:"100%",opacity: "0"}}></div> */}
+
                 <img src="/images/home/home1.jpg" />
                 <img src="/images/home/home2.jpg" />
                 <img src="/images/home/home3.jpg" />
@@ -37,7 +57,7 @@ const Home = props => {
                 <img src="/images/home/home7.jpg" />
                 <img src="/images/home/home8.jpg" />
                 <img src="/images/home/home9.jpg" />
-                <img src="/images/home/home10.jpg" />
+                <img src="/images/home/home10.jpg"/>
 
             </div>
         </div>

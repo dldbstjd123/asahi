@@ -2,8 +2,10 @@ import React, {useState, useEffect} from "react"
 import {domain} from "../config"
 import {FaChevronLeft, FaChevronRight} from "react-icons/fa"
 import "../css/Menu.css"
+import Loading from "../components/Loading"
 
 const Menu = props => {
+    const [onLoad, setOnLoad] = useState(true)
     const [list, setList] = useState([]);
     const [updatedList, setUpdatedList] = useState({});
     const [categories, setCategories] = useState([]);
@@ -43,7 +45,8 @@ const Menu = props => {
             setCurrentPosition(prev => prev - document.getElementById("menuMovingCategory").clientWidth)
         }
     }
-    function scrollTo(n){
+    function scrollTo(event){
+        let n = event.target.getAttribute("akey")
         let baseHeight = document.getElementById("navigationContainer").clientHeight
         let menuHeight = 0
         if(n != 0){
@@ -67,7 +70,6 @@ const Menu = props => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 let preUpdateList = {}
                 for (let i = 0; i < data.length; i++) {
                     if (preUpdateList[data[i].categoryName]) {
@@ -76,12 +78,19 @@ const Menu = props => {
                         preUpdateList[data[i].categoryName] = [data[i]]
                     }
                 }
-                for (let key in preUpdateList) {
-                    console.log(`after Update${key} = ${preUpdateList[key]}`)
-                }
                 setUpdatedList(preUpdateList)
                 setList(data)
             })
+
+            const categoryNavigationEffect = setInterval(()=>{
+                document.getElementById("moveLeft").style.left = "-5px"
+                document.getElementById("moveRight").style.left = "5px"
+                setTimeout(()=>{
+                    document.getElementById("moveLeft").style.left = "0px"
+                    document.getElementById("moveRight").style.left = "0px"
+                },500)
+            }, 5000)
+            return ()=>clearInterval(categoryNavigationEffect)
     }, [])
 
     useEffect(() => {
@@ -93,34 +102,33 @@ const Menu = props => {
                 return array
             })
         }
+        setOnLoad(false)
     }, [updatedList])
     return (
         <div className="bodyContainer">
+            {onLoad? <Loading /> : null}
             <div id="categoriesContainer">
                 <div>
-                    <FaChevronLeft className="moveLeftRight" size="20px" onClick={moveToLeft}/>
+                    <FaChevronLeft className="moveLeftRight" id="moveLeft" size="20px" onClick={moveToLeft}/>
                 </div>
                 <div id="catagoriesItemsContainer">
                     <div id="menuMovingCategory">
                         {categories.map(item => {
                             count++
-                            return <div key={item} onClick={()=>scrollTo(count)}>{item}</div>
+                            return <div key={item} akey={count} onClick={scrollTo}>{item}</div>
                         })}
                     </div>
                 </div>
                 <div>
-                    <FaChevronRight className="moveLeftRight" size="20px" onClick={moveToRight}/>
+                    <FaChevronRight className="moveLeftRight" id="moveRight" size="20px" onClick={moveToRight}/>
                 </div>
             </div>
             {categories.map(key => {
-                console.log(`outer ${key}`)
                 return (
                     <div key={key} className="menuPerCategoryContainer">
                         <div className="menuTitle">{key}</div>
                         <div className="menuItems">
                             {updatedList[key].map(item => {
-                                console.log(key)
-                                console.log(`item = ${item.name}`)
                                 let source = `${domain}client/image?image=${item.image}`
                                 if (item.image != null) {
                                     return (

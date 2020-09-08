@@ -11,7 +11,7 @@ const Navigation = (props)=>{
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
                 <Link to="/menu">Menu</Link>
-                <Link to="/news">News</Link>
+                {/* <Link to="/news">News</Link> */}
                 {/* <Link to="/reservation">Reservations</Link> */}
             </div>
         </div>
