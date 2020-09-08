@@ -7,7 +7,7 @@ var logger = require('morgan');
 var session = require('express-session');
 const {mysqlconfig} = require('../ignore/config.js');
 var mysql = require('mysql')
-
+var bodyParser = require('body-parser')
 
 
 var usersRouter = require('./routes/users');
@@ -25,7 +25,7 @@ app.use(logger('dev'));
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser('asdjgijfvnie12ASD_$%%!@'));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+ '/../client/build/index.html'))
 });
@@ -33,12 +33,15 @@ app.get('/', (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname + '/../manager/build/')));
 app.use(express.static(path.join(__dirname + '/../client/build/')));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(session({
   secret: 'asdjgijfvnie12ASD_$%%!@',
-  resave: true,
-  saveUninitialized: true,
-  cookie:{secure:true, maxAge:(4 * 60 * 60 * 1000)}, //4hours
+  resave: false,
+  saveUninitialized: false,
+  cookie:{secure:false, maxAge:(4 * 60 * 60 * 1000)}, //4hours
 }))
+app.use(bodyParser.urlencoded({extended:false}))
 
 var passport = require('passport')
 , LocalStrategy = require('passport-local').Strategy;
@@ -70,6 +73,7 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user,done){
+  console.log(`serializeUser = ${user.id}`)
   done(null, user.id)
 })
 
@@ -92,15 +96,26 @@ app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
 app.use('/admin/users', usersRouter);
 
+app.use((req, res, next)=>{
+  console.log(`req.session = ${req.session}`);
+  return next();
+})
+
 app.get('/admin/*', (req, res) => {
   console.log('requested2')
   console.log('requested', new Date())
+  console.log(`isAuthenticated = ${req.isAuthenticated()}`)
+  //console.log(`req.passport.session = ${req.session.passport.user}`)
+for(let key in req.session){
+  console.log(`session${key} = ${req.session[key]}`)
+}
   console.log('Check User is authenticated with this', req.user)
   if(req.user == undefined){
     res.redirect('/admin')
+  }else{
+     res.sendFile(path.join(__dirname+ '/../manager/build/index.html'))
   }
-  res.sendFile(path.join(__dirname+ '/../manager/build/index.html'))
-});
+ });
 
 app.get('/*', (req, res) => {
   console.log('requested')

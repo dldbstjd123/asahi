@@ -40,6 +40,7 @@ router.post("/login", function (req, res, next) {
             return res.json({status: "failed"})
         }
         req.logIn(user, function (err) {
+	    console.log(`req.logIn Function called, user = ${user}`)
             if (err) {
                 return next(err)
             }

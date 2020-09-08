@@ -43,7 +43,8 @@ const Category = () => {
       body: JSON.stringify(list[targetOfList]),
     });
     //window.location.reload();
-    history.push('/admin/category')
+    //history.push('/admin/category')
+    history.go(0)
   }
 
   async function deleteHandler(event) {

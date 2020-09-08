@@ -15,10 +15,12 @@ const Login = (props)=>{
             
             let fetchData = await fetch(`${domain}admin/login`, {
                 method: 'POST',
-                mode: 'cors',
-                cache: 'no-cache',
+                //mode: 'cors',
+                mode: 'same-origin',
+		cache: 'no-cache',
                 credentials: 'same-origin',
-                headers: {
+                //credentials: 'include',
+		headers: {
                 'Content-Type':'application/json'
                 },
                 body: JSON.stringify({username,password})
