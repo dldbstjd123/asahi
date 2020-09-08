@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import {domain} from "../config.js"
+import {domain, googleMapAPI} from "../config.js"
 import "../css/About.css"
 
 const About = props => {
@@ -7,6 +7,7 @@ const About = props => {
     const [location2, setLocation2] = useState("Olympia, WA 98501")
     const [phone, setPhone] = useState("(360)-705-8000")
     const [schedule, setSchedule] = useState([])
+    const [googleAPI, setGoogleAPI] = useState(`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJVW-dpaB1kVQR7GkEIBBF6Bc&key=${googleMapAPI}`)    
 
     useEffect(() => {
         fetch(`${domain}client/hours/get`, {
@@ -30,7 +31,7 @@ const About = props => {
                 <iframe
                     frameBorder="0"
                     style={{border: "0"}}
-                    src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJVW-dpaB1kVQR7GkEIBBF6Bc&key=AIzaSyCX2DfHSIyHJkRY1hoCHuZrp6I2Go2lkXM"
+                    src={googleAPI}
                     allowFullScreen
                 ></iframe>
             </div>
