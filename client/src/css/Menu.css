@@ -7,7 +7,7 @@
     align-items: center;
     height:50px;
     background-color: rgba(255,255,255,0.8);
-    padding:0 5%;
+    padding:0 2%;
 }
 
 #catagoriesItemsContainer{
@@ -42,6 +42,7 @@
 #menuMovingCategory > div{
     white-space: normal;
     vertical-align: middle;
+    word-break: break-all;
 }
 #catagoriesItemsContainer > div > div{
     display: inline-block;

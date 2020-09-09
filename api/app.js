@@ -53,17 +53,12 @@ passport.use(new LocalStrategy(
     var connection = mysql.createConnection(mysqlconfig)
     connection.connect();
     connection.query(`SELECT * FROM asahi.users WHERE userid= '${username}'`, function (error, results) {
-      console.log('query')
-      console.log(results)
       if(results[0] == undefined){ return done(null, false, {message: 'Incorrect username.'})}
       if(username != results[0].userid){
-          console.log(1)
           return done(null, false, {message: 'Incorrect username.'})
       }else if(username == results[0].userid && password != results[0].password){
-        console.log(2)
         return done(null, false, {message: 'Incorrect password.'})
       }else{
-        console.log(JSON.parse(JSON.stringify(results[0])))
         return done(null, JSON.parse(JSON.stringify(results[0])))
       }
     });
@@ -73,22 +68,17 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user,done){
-  console.log(`serializeUser = ${user.id}`)
   done(null, user.id)
 })
 
 passport.deserializeUser(function(id, done){
-  console.log('deserializeUser', id)
   var connection = mysql.createConnection(mysqlconfig)
   connection.connect();
-  console.log('connection connect2')
   connection.query(`SELECT * FROM asahi.users WHERE id= '${id}'`, function (error, results) {
-       console.log('query')
        if(error){console.log(`query error = ${eror}`)}
        return done(null, JSON.parse(JSON.stringify(results[0])))
   });
   connection.end();
-  console.log('connection end')
 })
 
 
@@ -96,20 +86,7 @@ app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
 app.use('/admin/users', usersRouter);
 
-app.use((req, res, next)=>{
-  console.log(`req.session = ${req.session}`);
-  return next();
-})
-
 app.get('/admin/*', (req, res) => {
-  console.log('requested2')
-  console.log('requested', new Date())
-  console.log(`isAuthenticated = ${req.isAuthenticated()}`)
-  //console.log(`req.passport.session = ${req.session.passport.user}`)
-for(let key in req.session){
-  console.log(`session${key} = ${req.session[key]}`)
-}
-  console.log('Check User is authenticated with this', req.user)
   if(req.user == undefined){
     res.redirect('/admin')
   }else{
@@ -118,7 +95,6 @@ for(let key in req.session){
  });
 
 app.get('/*', (req, res) => {
-  console.log('requested')
   res.sendFile(path.join(__dirname+ '/../client/build/index.html'))
 });
 // catch 404 and forward to error handler
