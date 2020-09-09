@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
 import {domain, googleMapAPI} from "../config.js"
+impot {RiFileCopyLine} from "react-icons/ri"
 import "../css/About.css"
 
 const About = props => {
@@ -40,11 +41,11 @@ const About = props => {
                     <div className="aboutTitle">Location</div>
                     <div>
                         <div>{location}</div>
-                        <div>{location2}</div>
+                        <div>{location2}<RiFileCopyLine size='25'/></div>
                     </div>
-					<div className="aboutTitle">Phone</div>
+		    <div className="aboutTitle">Phone</div>
                     <div>
-                        <div>{phone}</div>
+                        <div>{phone}<RiFileCopyLine size='25' /></div>
                     </div>
                     <div>
                         <div className="aboutTitle">Hours</div>
