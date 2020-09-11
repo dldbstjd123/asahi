@@ -60,9 +60,10 @@ const Category = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(list[targetOfList]),
-    });    
-    console.log(numberOfItems)
-    if(numberOfItems =="test"){const doWork = await fetch(`${domain}admin/category/delete`, {
+    }).then((response)=>{return response.json()})
+      .then((res)=>{return res.results[0].count});    
+    
+    if(numberOfItems ==0){const doWork = await fetch(`${domain}admin/category/delete`, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
@@ -73,7 +74,10 @@ const Category = () => {
       body: JSON.stringify(list[targetOfList]),
     });
     history.push('/admin/category')
-    //window.location.reload();}
+    //window.location.reload()
+    }else{
+      alert("delete menu items before deleting category")
+    }
   }
   async function addHandler(event) {
     event.preventDefault();
