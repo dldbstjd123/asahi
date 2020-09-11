@@ -108,6 +108,18 @@ router.post("/category/update", async function (req, res, next) {
     }
 })
 
+router.post("/category/checkbeforedelete", function(req, res, next){
+    //if(req.user == undefined){res.redirect('/admin')}
+    console.log(req.user)
+
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(`SELECT COUNT(id) as count FROM asahi.menu WHERE category = ${req.body.id}`, function(error, results){
+      if(error){throw error}
+      res.json({status:"succeed", results: results})
+    })
+})
+
 router.post("/category/delete", async function (req, res, next) {
     //if(req.user == undefined){res.redirect('/admin')}
     if (req.body.name == undefined || req.body.name.length == 0) {

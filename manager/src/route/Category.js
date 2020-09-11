@@ -51,7 +51,18 @@ const Category = () => {
     let targetOfList = event.target.getAttribute("akey");
     console.log(list[targetOfList]);
 
-    const doWork = await fetch(`${domain}admin/category/delete`, {
+    const numberOfItems = await fetch(`${domain}admin/category/checkbeforedelete`, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(list[targetOfList]),
+    });    
+    console.log(numberOfItems)
+    if(numberOfItems =="test"){const doWork = await fetch(`${domain}admin/category/delete`, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
@@ -62,7 +73,7 @@ const Category = () => {
       body: JSON.stringify(list[targetOfList]),
     });
     history.push('/admin/category')
-    //window.location.reload();
+    //window.location.reload();}
   }
   async function addHandler(event) {
     event.preventDefault();
