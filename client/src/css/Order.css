@@ -1,0 +1,110 @@
+#categoriesContainer{
+    position: sticky;
+    top:0;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height:50px;
+    background-color: rgba(255,255,255,0.8);
+    padding:0 2%;
+}
+
+#catagoriesItemsContainer{
+    /* display:flex;
+    flex-direction: row;
+    justify-content: left; */
+    width:100%;
+    overflow: hidden;
+}
+.moveLeftRight{
+    user-select: none;
+    position: relative;
+    transition: ease-in-out 0.5s;
+    -webkit-transition: ease-in-out 0.5s;
+    -moz-transition: ease-in-out 0.5s;
+    -o-transition: ease-in-out 0.5s;
+    left: 0px;
+}
+
+#menuMovingCategory {
+    float:left;
+    white-space:nowrap;
+    width:100%;
+    position: relative;
+    transition: ease-in-out 0.5s;
+    -webkit-transition: ease-in-out 0.5s;
+    -moz-transition: ease-in-out 0.5s;
+    -o-transition: ease-in-out 0.5s;
+    left:0px;
+}
+
+#menuMovingCategory > div{
+    white-space: normal;
+    vertical-align: middle;
+    word-break: break-all;
+}
+#catagoriesItemsContainer > div > div{
+    display: inline-block;
+    width:20%;
+    text-align: center;
+    /* margin: 0 15px */
+}
+.menuPerCategoryContainer{
+    padding-bottom: 10px;
+}
+.menuTitle{
+    font-size:25px;
+    width:95%;
+    margin:0 auto; 
+    padding: 25px 0;
+}
+.menuItems{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    width:95%;
+    margin:auto;
+}
+
+.menuItemName{
+    font-size:20px;
+}
+
+.menuItemContainerWithImage{
+    height:200px;
+    border:1px solid #e2e2e2;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.menuItemContainerWithOutImage{
+    height:200px;
+    border:1px solid #e2e2e2;
+}
+.menuItemLeft{
+    padding:15px;
+}
+
+
+/* under 900px width*/
+@media only screen and (max-width:1200px){
+    .menuItems{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        width:95%;
+        margin:auto;
+    }
+  }
+
+  /* under 750px width*/
+@media only screen and (max-width:750px){
+    .menuItems{
+        display:grid;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        width:95%;
+        margin:auto;
+    }
+  }
