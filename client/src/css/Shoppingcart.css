@@ -28,9 +28,8 @@
     position: sticky;
     top:0;
     height:40px;
-    width:290px;
-    padding-top:10px;
-    padding-left:10px;
+    width:calc(100%- 20px);
+    padding: 10px 10px 10px 0px;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
@@ -39,12 +38,13 @@
 }
 #shoppingCartItems{
     padding-bottom:70px;
+    min-height: calc(100vh - 130px);
 }
 #shoppingCartBottom{
     position: sticky;
     bottom:0;
     height:70px;
-    width:290px;
+    width: 100%;
     background-color: white;
 }
 
