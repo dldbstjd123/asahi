@@ -56,5 +56,6 @@
     align-items: center;
     margin:auto;
     background-color: black;
-    color:white
+    color:white;
+    cursor: pointer;
 }

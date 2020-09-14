@@ -7,19 +7,17 @@ import {FiMinus, FiPlus} from 'react-icons/fi'
 import "../css/CartItem.css"
 
 const CartItem = props => {
-    console.log(`props.itemId = ${props.itemId}`)
     const dispatch = useDispatch();
     function incrementCart(event){
-
-        console.log('CartItem Trigger',event.target.getAttribute("akey"))
-        dispatch(incrementToCartAction(event.target.getAttribute("akey")))
+	let theKey = event.currentTarget.getAttribute("akey")
+        dispatch(incrementToCartAction(theKey))
     }
 
     function decrementCart(event){
-        dispatch(decrementToCartAction(event.target.getAttribute("akey")))
+        dispatch(decrementToCartAction(event.currentTarget.getAttribute("akey")))
     }
     function deleteCart(event){
-        dispatch(deleteToCartAction(event.target.getAttribute("akey")))
+        dispatch(deleteToCartAction(event.currentTarget.getAttribute("akey")))
     }
     return (
         <div className="cartItemContainer">
