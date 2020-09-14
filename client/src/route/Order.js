@@ -3,8 +3,14 @@ import {domain} from "../config"
 import {FaChevronLeft, FaChevronRight} from "react-icons/fa"
 import "../css/Order.css"
 import Loading from "../components/Loading"
+import addToCartAction from "../store/actions/addToCart"
+
+import { useSelector, useDispatch } from 'react-redux';
 
 const Order = props => {
+    const dispatch = useDispatch();
+    const rawData = useSelector((state) => state.cart)
+    
     const [onLoad, setOnLoad] = useState(true)
     const [list, setList] = useState([]);
     const [updatedList, setUpdatedList] = useState({});
@@ -58,7 +64,17 @@ const Order = props => {
         document.documentElement.scrollTop = baseHeight + menuHeight
     }
     function addToCart(event){
-        console.log(event.target.getAttribute('akey'))
+        let id = event.target.getAttribute('akey')
+        let name = event.target.getAttribute('aname')
+        let basePrice = event.target.getAttribute('aprice')
+        dispatch(addToCartAction(id,name, basePrice))
+        showShoppingCart();
+    }
+    function showShoppingCart(){
+        document.getElementById("shoppingCartContainer").style.left = "0"
+        setTimeout(()=>{
+            document.getElementById("restOfParts").style.backgroundColor = "rgba(255,255,255,0.4)"
+        },600)
     }
 
     useEffect(() => {
@@ -139,7 +155,8 @@ const Order = props => {
                                             key={item.id}
                                             className="menuItemContainerWithImage"
                                         >
-                                            <div className="menuItemLeft">
+                                            <div className="orderItemLeft">
+                                                <div>
                                                 <div className="menuItemName">
                                                     {item.name}
                                                 </div>
@@ -153,7 +170,8 @@ const Order = props => {
                                                         }
                                                     )}
                                                 </div>
-                                                <div id='addToCart' akey={item.id} onClick={addToCart}>Add to cart</div>
+                                                </div>
+                                                <div id='addToCart' akey={item.id} aname={item.name} aprice={item.price} onClick={addToCart}>Add to cart</div>
                                             </div>
                                             <div>
                                                 <img
@@ -172,7 +190,8 @@ const Order = props => {
                                             key={item.id}
                                             className="menuItemContainerWithOutImage"
                                         >
-                                            <div className="menuItemLeft">
+                                            <div className="orderItemLeft orderItemLeftWithoutImage">
+                                                <div>
                                                 <div className="menuItemName">
                                                     {item.name}
                                                 </div>
@@ -186,6 +205,8 @@ const Order = props => {
                                                         }
                                                     )}
                                                 </div>
+                                                </div>
+                                                <div id='addToCart' akey={item.id} aname={item.name} aprice={item.price} onClick={addToCart}>Add to cart</div>
                                             </div>
                                         </div>
                                     )

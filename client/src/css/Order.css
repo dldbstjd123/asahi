@@ -82,8 +82,15 @@
     height:200px;
     border:1px solid #e2e2e2;
 }
-.menuItemLeft{
+.orderItemLeftWithoutImage{
+    height: 170px;
+}
+.orderItemLeft{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding:15px;
+    user-select: none;
 }
 
 

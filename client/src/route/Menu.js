@@ -81,16 +81,19 @@ const Menu = props => {
                 setUpdatedList(preUpdateList)
                 setList(data)
             })
-
+            let categoryNavigationEffect2
             const categoryNavigationEffect = setInterval(()=>{
                 document.getElementById("moveLeft").style.left = "-5px"
                 document.getElementById("moveRight").style.left = "5px"
-                setTimeout(()=>{
+                categoryNavigationEffect2 = setTimeout(()=>{
                     document.getElementById("moveLeft").style.left = "0px"
                     document.getElementById("moveRight").style.left = "0px"
                 },500)
             }, 5000)
-            return ()=>clearInterval(categoryNavigationEffect)
+            return ()=>{
+                clearInterval(categoryNavigationEffect)
+                clearTimeout(categoryNavigationEffect2)
+            }
     }, [])
 
     useEffect(() => {

@@ -1,8 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Provider } from 'react-redux';
 
+import store from './store/store';
 import "./App.css";
 
+import ShoppingCart from "./layout/ShoppingCart";
 import Navigation from "./layout/Navigation";
 import Home from "./route/Home";
 import About from "./route/About";
@@ -12,10 +15,13 @@ import News from "./route/News";
 import Reservation from "./route/Reservation";
 import Footer from "./layout/Footer";
 
+
 function App() {
   return (
+    <Provider store={store} >
     <div className="App">
       <Router>
+        <ShoppingCart />
         <Navigation />
         <Switch>
           <Route exact path={"/"} component={Home} />
@@ -29,6 +35,7 @@ function App() {
         <Footer />
       </Router>
     </div>
+    </Provider>
   );
 }
 

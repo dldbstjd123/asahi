@@ -18,6 +18,11 @@
     width: 150px;
     height: 120px;
 }
+#cartIcon{
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
 #navigationLinks{
     display: flex;
     flex-direction: row;
