@@ -11,10 +11,7 @@ const ShoppingCart = (props)=>{
     const [subTotal, setSubTotal] = useState(0)
 
     const rawData = useSelector((state) => state.cart)
-    for(let key in rawData){
-        console.log(`rawData[${key}] = ${rawData[key]}`)
-    }
-
+    
     function hideCart(){
         document.getElementById("restOfParts").style.backgroundColor = "rgba(255,255,255,0)"
             document.getElementById("shoppingCartContainer").style.left = "100%"
@@ -55,7 +52,7 @@ const ShoppingCart = (props)=>{
 }
 
 function mapStateToProps(state){
-  const {cart} = list
+  const {cart} = state
   return {cart}
 }
 export default connect(mapStateToProps)(ShoppingCart);
