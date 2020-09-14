@@ -23,18 +23,19 @@
     background-color: white;
     border-left: 1px solid black;
     overflow-y: scroll;
-    padding-top:40px;
+    padding-top:50px;
 }
 #shoppingCartTop{
     position: fixed;
     top:0;
-    height:20px;
+    height:40px;
     width:280px;
     padding-top:10px;
     padding-left:10px;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: white;
 }
 #shoppingCartItems{
