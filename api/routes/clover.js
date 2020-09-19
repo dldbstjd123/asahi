@@ -32,6 +32,7 @@ router.post('/proceed', async function(req,res,next){
         console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
+        console.log(`final reuslt orderId = ${orderId}`)
 
 })
 
@@ -105,7 +106,8 @@ async function createOrder(cart, access_token){
         },
         body: {
           items: [{amount: 3000, currency: 'usd', description: 'salmon roll', quantity: 3}],
-          currency: 'usd'
+          currency: 'usd',
+          email: 'dannydannyl@me.com'
         },
         json: true
     };
