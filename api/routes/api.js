@@ -10,7 +10,7 @@ let client_id = 'SJD3F92ASG2GG'
 let auth_code = '8cbc5621-59d0-1ffe-19db-e7eba0a8380c'
 
 //const access_token = '006f59fa-67c9-67ec-6d12-9f6c70a7ac84' //you get this when you request https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=23027da9-74a6-4470-c4a0-7482e451c3b0'
-const access_token = '0ab398a7-26ea-a738-9ad4-341883c0199c'
+let access_token = '0ab398a7-26ea-a738-9ad4-341883c0199c'
 const api_access_key = 'db7b80d37e5b5988c1acff2a385d309d' //you get this when you request https://apisandbox.dev.clover.com/pakms/apikey
 
 
@@ -38,7 +38,9 @@ router.get('/getaccesstoken', function(req, res, next) {
 
     request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    console.log(body); //return access_token
+    access_token = body.access_token
+    console.log(body.access_token); //return access_token
+    res.redirect("/api/payOrder")
     })
     
 });
@@ -153,5 +155,32 @@ router.post('/charge', function(req, res, next) {
     }
     })
 });
+
+router.get("/payOrder", function(req, res, next){
+    const request = require('request');
+
+    const options = {
+    method: 'POST',
+    url: 'https://scl-sandbox.dev.clover.com/v1/orders/BS0PV4S6KN3DG/pay',
+    headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: `Bearer ${access_token}`
+    },
+    body: {
+        ecomind: 'ecom',
+        metadata: {newKey: 'New Value'},
+        email: 'dannydannyl@me.com',
+        source: 'clv_1TSTSzvSumAT8VTW8q8Spgev'
+    },
+    json: true
+    };
+
+    request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    console.log(body);
+    });
+})
   
 module.exports = router;
