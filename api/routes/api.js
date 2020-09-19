@@ -268,18 +268,41 @@ router.get("/payment", function(req, res, next){
     getAuthCode();
 });
 
+router.get("/authorized", function(req, res, next){
+    if(!req.query.code){
+        console.log('unauthorized!!!')
+    }else{
+        getAccessToken(req.query.code)
+    }
+});
+
 function getAuthCode(){
+    const request = require('request');
+
     const options = {
         method: 'GET',
-        url: `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}`,
+        url: `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/authorized`,
         headers: {accept: 'application/json'}
     };
     
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
-            console.log(JSON.stringify(response))
-            console.log(JSON.stringify(body))
-        })
+    })
+}
+
+function getAccessToken(authCode){
+    const request = require('request');
+
+    const options = {
+        method: 'GET',
+        url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${authCode}`,
+        headers: {accept: 'application/json'}
+    };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(`body = ${JSON.parse(body).access_token}`)
+    })
 }
   
 module.exports = router;
