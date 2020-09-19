@@ -22,6 +22,7 @@ router.get('/unauthorized',function(req,res,next){
 })
 router.get('/unauthorizedCode',function(req,res,next){
     auth_code = req.query.code
+    console.log(`auth_code = ${auth_code}`)
     res.redirect('/api/getaccesstoken')
 })
 
@@ -39,7 +40,7 @@ router.get('/getaccesstoken', function(req, res, next) {
     request(options, function (error, response, body) {
     if (error) throw new Error(error);
     access_token = body.access_token
-    console.log(body.access_token); //return access_token
+    console.log(`access_token = ${body.access_token}`); //return access_token
     res.redirect("/api/payOrder")
     })
     
