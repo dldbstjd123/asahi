@@ -269,12 +269,10 @@ router.get("/payment", function(req, res, next){
 });
 
 router.get("/authorized", async function(req, res, next){
-    let accessToken = undefined
     if(!req.query.code){
         console.log('unauthorized!!!')
     }else{
-        accessToken = await getAccessToken(req.query.code)
-        payOrder(accessToken)
+        getAccessToken(req.query.code)
     }
 });
 
@@ -304,7 +302,7 @@ function getAccessToken(authCode){
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         console.log(`body = ${JSON.parse(body).access_token}`)
-        return JSON.parse(body).access_token
+        payOrder(JSON.parse(body).access_token)
     })
 }
 
