@@ -26,6 +26,7 @@ router.post('/proceed', async function(req,res,next){
         let access_token = await getAccessToken(auth_code)
         let api_key = await getApiKey(access_token)
         let source = await getSourceCode(api_key, req)
+        let charge = await chargeOrder(access_token, source)
         console.log(`final reuslt auth_code = ${auth_code}`)
         console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
@@ -88,7 +89,30 @@ async function getSourceCode(api_key, req){
     };
     let source_code = await request(options)
     console.log(source_code.id)
-    return source_code
+    return source_code.id
+}
+
+async function chargeOrder(access_token, source){
+    const request = require('request-promise');
+    const options = {
+        method: 'POST',
+        url: 'https://scl-sandbox.dev.clover.com/v1/orders/BS0PV4S6KN3DG/pay',
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: `Bearer ${access_token}`
+        },
+        body: {
+            ecomind: 'ecom',
+            metadata: {newKey: 'New Value'},
+            //email: 'dannydannyl@me.com',
+            source: source
+        },
+        json: true
+    };
+    let result = await request(options)
+    console.log(`result of chargeOrder = ${JSON.stringify(result)}`)
+    return result
 }
 
 module.exports = router;
