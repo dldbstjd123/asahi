@@ -14,6 +14,7 @@ var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var clientRouter = require('./routes/client');
 var apiRouter = require('./routes/api');
+var cloverRouter = require('/routes/clover');
 
 var app = express();
 
@@ -87,6 +88,8 @@ app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
 app.use('/admin/users', usersRouter);
 app.use('/api', apiRouter);
+app.use('/clover', cloverRouter);
+
 
 app.get('/admin/*', (req, res) => {
   if(req.user == undefined){
