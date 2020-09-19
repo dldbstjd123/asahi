@@ -174,7 +174,7 @@ router.post('/charge', function(req, res, next) {
     console.log(`req.body.cardNumber = ${req.body.cardNumber}`)
     console.log(`cardToekn = ${cardToekn}`)
     if(cardToekn !== undefined){
-        res.redirect('/api/unauthorized')
+        //res.redirect('/api/unauthorized')
     }
     })
 });
