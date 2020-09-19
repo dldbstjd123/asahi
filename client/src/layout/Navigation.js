@@ -13,7 +13,7 @@ const Navigation = (props)=>{
     }
     return(
         <div id='navigationContainer'>
-            <Link id='navigationToHome' to="/"><img id='navigationLogo' src="/images/logo3.svg"/></Link>
+            <Link id='navigationToHome' to="/"><img id='navigationLogo' src="/images/mainLogo.svg"/></Link>
             <FiShoppingCart size='20px' id='cartIcon' onClick={showShoppingCart}/>
             <div id='navigationLinks'>
                 <Link to="/">Home</Link>

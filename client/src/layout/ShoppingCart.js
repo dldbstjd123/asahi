@@ -4,8 +4,10 @@ import '../css/Shoppingcart.css';
 import {FiShoppingCart} from "react-icons/fi"
 import CartItem from "../components/CartItem"
 import {connect, useSelector} from "react-redux"
+import { useHistory } from "react-router-dom";
 
 const ShoppingCart = (props)=>{
+    const history = useHistory();
     const [total, setTotal] = useState(0)
     const [tax, setTax] = useState(0)
     const [subTotal, setSubTotal] = useState(0)
@@ -17,7 +19,12 @@ const ShoppingCart = (props)=>{
             document.getElementById("shoppingCartContainer").style.left = "100%"
     }
     function goToCheckOut(){
-        console.log("navigate to Check Out page")
+        if(Object.keys(rawData).length == 0){
+            alert('Your cart is empty.')
+        }else{
+            hideCart();
+            history.push('/payment')
+        }
     }
     useEffect(()=>{
         let totalHolder = 0

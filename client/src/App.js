@@ -11,6 +11,7 @@ import Home from "./route/Home";
 import About from "./route/About";
 import Menu from "./route/Menu";
 import Order from "./route/Order";
+import Payment from './route/Payment';
 import News from "./route/News";
 import Reservation from "./route/Reservation";
 import Footer from "./layout/Footer";
@@ -28,6 +29,7 @@ function App() {
           <Route path={"/about"} component={About} />
           <Route path={"/menu"} component={Menu} />
           <Route path={"/order"} component={Order} />
+          <Route path={"/payment"} component={Payment} />
           <Route path={"/news"} component={News} />
           <Route path={"/reservation"} component={Reservation} />
         </Switch>

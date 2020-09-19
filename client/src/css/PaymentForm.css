@@ -1,0 +1,104 @@
+#paymentSection {
+    min-height: 80vh;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#paymentHeader {
+    margin: 15px 0;
+    font-size: 45px;
+    color: white;;
+    transition: ease-in 0.3s;
+}
+
+#paymentContainerHead{
+    font-size: 25px;
+    margin: 20px 0;
+}
+#paymentForm{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+}
+.inputContainer{
+    position: relative;
+    margin-top: 30px;
+    width:400px;
+}
+#expiration{
+    display:grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-gap: 15px;
+    width: 400px;
+}
+.inputContainer2{
+    position: relative;
+    margin-top: 30px;
+}
+.inputContainer > input, .inputContainer2 > input{
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    margin-bottom: 5px;
+    border:0;
+    padding:0;
+    min-height:50px;
+    width:100%;
+    outline: none;
+    color: white;
+    background-color:#424242;
+}
+.paymentLabel{
+    color: white;
+    position: absolute;
+    top:12px;
+    left:0;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    transition: ease-in 0.3s;
+    -webkit-transition: ease-in 0.3s;
+    -moz-transition: ease-in 0.3s;
+    -o-transition: ease-in 0.3s;
+}
+.paymentBar{
+    position: relative;
+    background-color: #424242;
+    height:3px;
+    width:100%;
+    overflow: hidden;
+}
+.paymentBar2{
+    position: absolute;
+    left:-100%;
+    background-color: white;
+    height:3px;
+    width:100%;
+    transition: ease-in 0.5s;
+    -webkit-transition: ease-in 0.5s;
+    -moz-transition: ease-in 0.5s;
+    -o-transition: ease-in 0.5s;
+}
+
+#paymentFormSendContainer{
+    margin-top: 25px;
+    display:flex;
+    justify-content: flex-end;
+    transition: ease-in 0.5s;
+}
+#paymentFormSend{
+    width:100px;
+    height:50px;
+    border: 1px solid black;
+    color: white;
+    background-color: #424242;
+    transition: ease-in 0.5s;
+}
+#paymentFormSend:hover{
+    color:black;
+    background-color: white;
+}
+
+#paymentFormAfterSubmit{
+    color:white;
+    font-size: 18px;
+}

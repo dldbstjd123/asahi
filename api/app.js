@@ -13,6 +13,7 @@ var bodyParser = require('body-parser')
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var clientRouter = require('./routes/client');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -85,6 +86,7 @@ passport.deserializeUser(function(id, done){
 app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
 app.use('/admin/users', usersRouter);
+app.use('/api', apiRouter);
 
 app.get('/admin/*', (req, res) => {
   if(req.user == undefined){
