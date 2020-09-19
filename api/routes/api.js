@@ -12,7 +12,7 @@ let auth_code = '8cbc5621-59d0-1ffe-19db-e7eba0a8380c'
 //const access_token = '006f59fa-67c9-67ec-6d12-9f6c70a7ac84' //you get this when you request https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=23027da9-74a6-4470-c4a0-7482e451c3b0'
 let access_token = '0ab398a7-26ea-a738-9ad4-341883c0199c'
 let api_access_key = 'db7b80d37e5b5988c1acff2a385d309d' //you get this when you request https://apisandbox.dev.clover.com/pakms/apikey
-
+let cardToekn = ""
 
 /* GET home page. */
 
@@ -170,7 +170,7 @@ router.post('/charge', function(req, res, next) {
     request(options, function (error, response, body) {
     if (error) throw new Error(`error = ${error}`);
     console.log(`body = ${JSON.stringify(body)}`);
-    let cardToekn = body.id
+    cardToekn = body.id
     console.log(`req.body.cardNumber = ${req.body.cardNumber}`)
     console.log(`cardToekn = ${cardToekn}`)
     if(cardToekn !== undefined){
@@ -195,7 +195,7 @@ router.get("/payOrder", function(req, res, next){
         ecomind: 'ecom',
         metadata: {newKey: 'New Value'},
         email: 'dannydannyl@me.com',
-        source: 'clv_1TSTSzvSumAT8VTW8q8Spgev'
+        source: cardToekn
     },
     json: true
     };
