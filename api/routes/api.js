@@ -19,7 +19,7 @@ let cardToken = ""
 
 router.get('/unauthorized',function(req,res,next){
     console.log('/api/unauthorized')
-    res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/unauthorizedCode`)
+    res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/authorized`)
 })
 router.get('/unauthorizedCode',function(req,res,next){
     auth_code = req.query.code
