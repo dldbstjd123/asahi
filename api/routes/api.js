@@ -21,7 +21,7 @@ router.get('/unauthorized',function(req,res,next){
     res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/unauthorizedCode`)
 })
 router.get('/unauthorizedCode',function(req,res,next){
-    console.log(req.body)
+    console.log(req.query)
     auth_code = req.body
 })
 
