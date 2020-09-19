@@ -32,7 +32,7 @@ async function getAccessToken(auth_code){
         };
     var result = await request(options);
     console.log(JSON.stringify(result))
-    return JSON.parse(result).body.access_token
+    return JSON.parse(result).access_token
 }
 
 async function getApiKey(access_token){
