@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+let auth_code = undefined
+
 //const clover = require('clover-ecomm-sdk')(access_token)
 
 router.get('/unauthorized', function(req,res,next){
@@ -13,13 +15,14 @@ router.get('/authorized', async function(req,res,next){
         let client_id = 'SJD3F92ASG2GG'
         res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`)
     }else{
-        res.json({auth_code : req.query.code})
+        auth_code = req.query.code
+        //res.json({auth_code : req.query.code})
     }
 })
 
 router.get('/proceed', async function(req,res,next){
 
-        let auth_code = await getAuthCode()
+        //let auth_code = await getAuthCode()
         let access_token = await getAccessToken(auth_code)
         let api_key = await getApiKey(access_token)
         console.log(`final reuslt auth_code = ${auth_code}`)
