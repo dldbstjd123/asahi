@@ -268,7 +268,7 @@ router.get("/payment", function(req, res, next){
     getAuthCode();
 });
 
-router.get("/authorized", async function(req, res, next){
+router.all("/authorized", async function(req, res, next){
     if(!req.query.code){
         console.log('unauthorized!!!')
         res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/authorized`)
