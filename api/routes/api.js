@@ -158,7 +158,7 @@ router.post('/charge', function(req, res, next) {
         qs: {created: '[object Object]', status_transitions: '[object Object]'},
         headers: {
           accept: 'application/json',
-          authorization: 'Bearer 4bfd4113-d7ca-c030-94ec-2fb01f2c788f'
+          authorization: `Bearer ${access_token}`
         }
       };
       
@@ -200,7 +200,7 @@ router.post('/charge', function(req, res, next) {
             headers: {
                 accept: 'application/json',
                 'content-type': 'application/json',
-                authorization: `Bearer ${api_access_key}`
+                authorization: `Bearer ${access_token}`
             },
             body: {
                 ecomind: 'ecom',
