@@ -135,7 +135,6 @@ router.get('/createOrder', function(req, res, next) {
 
 router.post('/charge', function(req, res, next) {
     console.log('/charge requested')
-    console.log(JSON.stringify(req.body))
     try {
         // Parse a JSON
         userData = JSON.parse(JSON.stringify({card: JSON.parse(JSON.stringify(req.body))})); 
@@ -264,5 +263,22 @@ router.get("/payOrder", function(req, res, next){
     console.log(`payOrder return = ${JSON.stringify(body)}`);
     });
 })
+
+router.get("/payment", function(req, res, next){
+    getAuthCode();
+});
+
+function getAuthCode(){
+    const options = {
+        method: 'GET',
+        url: `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}`,
+        headers: {accept: 'application/json'}
+    };
+    
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+            console.log(JSON.stringify(body))
+        })
+}
   
 module.exports = router;
