@@ -280,7 +280,6 @@ router.get("/authorized", async function(req, res, next){
 
 function getAuthCode(){
     const request = require('request');
-
     const options = {
         method: 'GET',
         url: `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/authorized`,
@@ -293,6 +292,7 @@ function getAuthCode(){
 }
 
 function getAccessToken(authCode){
+    console.log('order 1 Get Access Token')
     const request = require('request');
 
     const options = {
@@ -309,6 +309,7 @@ function getAccessToken(authCode){
 }
 
 function payOrder(accessToken){
+    console.log('order 2 Pay Order')
     const request = require('request');
 
     const options = {
