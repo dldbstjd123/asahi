@@ -23,19 +23,16 @@ router.get('/authorized', async function(req,res,next){
 })
 
 async function getAccessToken(auth_code){
-    const request = require('request');
+    const request = require('request-promise');
 
     const options = {
             method: 'GET',
             url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
             headers: {accept: 'application/json'}
         };
-    let result = await request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-            console.log(`access_token = ${JSON.parse(body).access_token}`); //return access_token
-            return JSON.parse(body).access_token
-        })
-    return result
+    var result = await request(options);
+    console.log(JSON.stringify(result))
+    return JSON.parse(result).body.access_token
 }
 
 async function getApiKey(access_token){
