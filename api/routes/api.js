@@ -153,6 +153,23 @@ router.post('/charge', function(req, res, next) {
     const request = require('request');
 
     const options = {
+        method: 'GET',
+        url: 'https://scl-sandbox.dev.clover.com/v1/orders',
+        qs: {created: '[object Object]', status_transitions: '[object Object]'},
+        headers: {
+          accept: 'application/json',
+          authorization: 'Bearer 4bfd4113-d7ca-c030-94ec-2fb01f2c788f'
+        }
+      };
+      
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+      
+        console.log(`get Order = ${JSON.stringify(body)}`);
+      });
+
+
+    const options = {
     method: 'POST',
     url: 'https://token-sandbox.dev.clover.com/v1/tokens',
     headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
