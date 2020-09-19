@@ -152,7 +152,7 @@ router.post('/charge', function(req, res, next) {
 
     const request = require('request');
 
-    const options = {
+    let options = {
         method: 'GET',
         url: 'https://scl-sandbox.dev.clover.com/v1/orders',
         qs: {created: '[object Object]', status_transitions: '[object Object]'},
@@ -169,7 +169,7 @@ router.post('/charge', function(req, res, next) {
       });
 
 
-    const options = {
+    options = {
     method: 'POST',
     url: 'https://token-sandbox.dev.clover.com/v1/tokens',
     headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
@@ -194,7 +194,7 @@ router.post('/charge', function(req, res, next) {
     if(cardToken !== undefined){
         //res.redirect('/api/unauthorized')
 
-        const options = {
+        options = {
             method: 'POST',
             url: 'https://scl-sandbox.dev.clover.com/v1/orders/BS0PV4S6KN3DG/pay',
             headers: {
