@@ -17,7 +17,7 @@ router.get('/authorized', async function(req,res,next){
     }
 })
 
-router.get('proceed', async function(req,res,next){
+router.get('/proceed', async function(req,res,next){
 
         let auth_code = await getAuthCode()
         let access_token = await getAccessToken(auth_code)
