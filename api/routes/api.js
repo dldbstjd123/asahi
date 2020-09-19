@@ -277,6 +277,7 @@ function getAuthCode(){
     
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
+            console.log(JSON.stringify(response))
             console.log(JSON.stringify(body))
         })
 }
