@@ -36,7 +36,7 @@ async function getAccessToken(auth_code){
 }
 
 async function getApiKey(access_token){
-    const request = require('request');
+    const request = require('request-promise');
 
     const options = {
     method: 'GET',
@@ -44,12 +44,8 @@ async function getApiKey(access_token){
     headers: {accept: 'application/json', authorization: `Bearer ${access_token}`}
     };
 
-    let api_access_key = await request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-        console.log(`api_access_key = ${JSON.parse(body).apiAccessKey}`)
-        return JSON.parse(body).apiAccessKey
-    })
-    return api_access_key
+    let api_access_key = await request(options)
+    return JSON.parse(api_access_key).apiAccessKey
 }
 
 module.exports = router;
