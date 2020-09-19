@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const request = require('request')
+
 
 
 //TESTING KEYS
@@ -268,7 +268,16 @@ router.get("/payment", function(req, res, next){
     getAuthCode();
 });
 
-router.all("/authorized", async function(req, res, next){
+router.get("/authorized", function(req, res, next){
+    if(!req.query.code){
+        console.log('unauthorized!!!')
+        res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/authorized`)
+    }else{
+        getCardSource(req)
+    }
+});
+
+router.post("/authorized", function(req, res, next){
     if(!req.query.code){
         console.log('unauthorized!!!')
         res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/authorized`)
