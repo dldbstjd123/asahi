@@ -88,11 +88,11 @@ async function getSourceCode(api_key, req){
         json:true
     };
     let source_code = await request(options)
-    console.log(source_code.id)
     return source_code.id
 }
 
 async function chargeOrder(access_token, source){
+    console.log(`before charge ${access_token} , ${source}`)
     const request = require('request-promise');
     const options = {
         method: 'POST',
