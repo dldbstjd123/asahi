@@ -82,7 +82,7 @@ const PaymentForm = (props)=>{
             resetColor()
             
             try {
-                let fetchData = await fetch(`${domain}api/charge`, {
+                let fetchData = await fetch(`${domain}api/authorized`, {
                     method: 'POST',
                     mode: 'cors',
                     cache: 'no-cache',

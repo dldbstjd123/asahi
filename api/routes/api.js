@@ -271,8 +271,9 @@ router.get("/payment", function(req, res, next){
 router.get("/authorized", async function(req, res, next){
     if(!req.query.code){
         console.log('unauthorized!!!')
+        res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/authorized`)
     }else{
-        getAccessToken(req.query.code)
+        getCardSource(req)
     }
 });
 
@@ -289,7 +290,7 @@ function getAuthCode(){
     })
 }
 
-function getAccessToken(authCode){
+function getAccessToken(authCode, source){
     console.log('order 1 Get Access Token')
     const request = require('request');
 
@@ -302,12 +303,12 @@ function getAccessToken(authCode){
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         console.log(`body = ${JSON.parse(body).access_token}`)
-        payOrder(JSON.parse(body).access_token)
+        payOrder(JSON.parse(body).access_token, source)
     })
 }
 
-function payOrder(accessToken){
-    console.log('order 2 Pay Order')
+function payOrder(accessToken, source){
+    console.log('order 3 Pay Order')
     const request = require('request');
 
     const options = {
@@ -322,7 +323,7 @@ function payOrder(accessToken){
         ecomind: 'ecom',
         metadata: {newKey: 'New Value'},
         //email: 'dannydannyl@me.com',
-        source: 'clv_1TSTSpU43jZ3cfWP7oFMFgf3'
+        source: source
     },
     json: true
     };
@@ -332,6 +333,32 @@ function payOrder(accessToken){
 
     console.log(`payOrder return = ${JSON.stringify(body)}`);
     });
+}
+
+function getCardSource(){
+    console.log('order 2 get Card Source')
+    const request = require('request');
+
+    const options = {
+        method: 'POST',
+        url: 'https://token-sandbox.dev.clover.com/v1/tokens',
+        headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
+        body: {
+            card:{
+                number: req.body.cardNumber, 
+                exp_month: req.body.expMonth,
+                exp_year: req.body.expYear,
+                cvv: req.body.cvv
+            }
+        },
+        json:true
+    };
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        getAccessToken(req.query.code, body.id)
+    });
+
+        
 }
   
 module.exports = router;
