@@ -268,11 +268,13 @@ router.get("/payment", function(req, res, next){
     getAuthCode();
 });
 
-router.get("/authorized", function(req, res, next){
+router.get("/authorized", async function(req, res, next){
+    let accessToken = undefined
     if(!req.query.code){
         console.log('unauthorized!!!')
     }else{
-        getAccessToken(req.query.code)
+        accessToken = await getAccessToken(req.query.code)
+        payOrder(accessToken)
     }
 });
 
@@ -302,7 +304,35 @@ function getAccessToken(authCode){
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         console.log(`body = ${JSON.parse(body).access_token}`)
+        return JSON.parse(body).access_token
     })
+}
+
+function payOrder(accessToken){
+    const request = require('request');
+
+    const options = {
+    method: 'POST',
+    url: 'https://scl-sandbox.dev.clover.com/v1/orders/BS0PV4S6KN3DG/pay',
+    headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: `Bearer ${accessToken}`
+    },
+    body: {
+        ecomind: 'ecom',
+        metadata: {newKey: 'New Value'},
+        //email: 'dannydannyl@me.com',
+        source: 'clv_1TSTSpU43jZ3cfWP7oFMFgf3'
+    },
+    json: true
+    };
+
+    request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    console.log(`payOrder return = ${JSON.stringify(body)}`);
+    });
 }
   
 module.exports = router;
