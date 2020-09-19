@@ -82,7 +82,7 @@ const PaymentForm = (props)=>{
             resetColor()
             
             try {
-                let fetchData = await fetch(`${domain}api/authorized`, {
+                let fetchData = await fetch(`${domain}clover/proceed`, {
                     method: 'POST',
                     mode: 'cors',
                     cache: 'no-cache',
