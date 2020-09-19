@@ -197,7 +197,7 @@ router.get("/payOrder", function(req, res, next){
     request(options, function (error, response, body) {
     if (error) throw new Error(error);
 
-    console.log(body);
+    console.log(`payOrder return = ${body}`);
     });
 })
   
