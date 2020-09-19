@@ -35,7 +35,7 @@ async function getAuthCode(){
 
     const options = {
             method: 'GET',
-            url: `https://asahisushiolympia/clover/authorized`,
+            url: `https://asahisushiolympia.com/clover/authorized`,
             headers: {accept: 'application/json'}
         };
     var result = await request(options);
