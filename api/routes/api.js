@@ -34,7 +34,7 @@ router.get('/unauthorizedCode',function(req,res,next){
     console.log(options.url)
     request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    console.log(`body = ${body}`)
+    console.log(`body = ${JSON.parse(body).access_token}`)
     access_token = body.access_token
     console.log(`access_token = ${body.access_token}`); //return access_token
     res.redirect("/api/payOrder")
