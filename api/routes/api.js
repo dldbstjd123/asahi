@@ -174,13 +174,14 @@ router.post('/charge', function(req, res, next) {
     console.log(`req.body.cardNumber = ${req.body.cardNumber}`)
     console.log(`cardToekn = ${cardToekn}`)
     if(cardToekn !== undefined){
-        
+        res.redirect('/api/unauthorized')
     }
     })
 });
 
 router.get("/payOrder", function(req, res, next){
     console.log(`payOrder access_token = ${access_token}`)
+    console.log(`payOrder cardToekn = ${cardToekn}`)
     const request = require('request');
 
     const options = {
