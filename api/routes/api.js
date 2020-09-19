@@ -17,6 +17,7 @@ const api_access_key = 'db7b80d37e5b5988c1acff2a385d309d' //you get this when yo
 /* GET home page. */
 
 router.get('/unauthorized',function(req,res,next){
+    console.log('/api/unauthorized')
     res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/unauthorizedCode`)
 })
 router.get('/unauthorizedCode',function(req,res,next){
