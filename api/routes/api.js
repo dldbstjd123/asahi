@@ -7,7 +7,7 @@ const request = require('request')
 const merchant_id = '97WKE1CHM2N81'
 let client_id = 'SJD3F92ASG2GG'
 //const auth_code = '23027da9-74a6-4470-c4a0-7482e451c3b0' //you get this when you request https://sandbox.dev.clover.com/oauth/authorize?client_id={appId}
-const auth_code = '8cbc5621-59d0-1ffe-19db-e7eba0a8380c'
+let auth_code = '8cbc5621-59d0-1ffe-19db-e7eba0a8380c'
 
 //const access_token = '006f59fa-67c9-67ec-6d12-9f6c70a7ac84' //you get this when you request https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=23027da9-74a6-4470-c4a0-7482e451c3b0'
 const access_token = '0ab398a7-26ea-a738-9ad4-341883c0199c'
@@ -21,8 +21,8 @@ router.get('/unauthorized',function(req,res,next){
     res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/api/unauthorizedCode`)
 })
 router.get('/unauthorizedCode',function(req,res,next){
-    console.log(req.query)
-    auth_code = req.body
+    auth_code = req.query.code
+    res.redirect('/api/getaccesstoken')
 })
 
 router.get('/getaccesstoken', function(req, res, next) {
@@ -32,7 +32,7 @@ router.get('/getaccesstoken', function(req, res, next) {
 
     const options = {
     method: 'GET',
-    url: 'https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=54a6a069-53e9-05ed-14c5-603dfbb2276d',
+    url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
     headers: {accept: 'application/json'}
     };
 
