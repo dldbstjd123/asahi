@@ -87,8 +87,8 @@ async function getSourceCode(api_key, req){
         json:true
     };
     let source_code = await request(options)
-    console.log(source_code)
-    return JSON.parse(source_code)
+    console.log(source_code.id)
+    return source_code
 }
 
 module.exports = router;
