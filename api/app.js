@@ -14,7 +14,7 @@ var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var clientRouter = require('./routes/client');
 var apiRouter = require('./routes/api');
-var cloverRouter = require('/routes/clover');
+var cloverRouter = require('./routes/clover');
 
 var app = express();
 
