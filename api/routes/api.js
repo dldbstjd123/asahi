@@ -154,6 +154,21 @@ router.post('/charge', function(req, res, next) {
 
     let options = {
         method: 'GET',
+        url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
+        headers: {accept: 'application/json'}
+    };
+    
+    console.log(options.url)
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(`body = ${JSON.parse(body).access_token}`)
+        access_token = JSON.parse(body).access_token
+        console.log(`access_token = ${JSON.parse(body).access_token}`); //return access_token
+        //res.redirect("/api/payOrder")
+    })
+
+    options = {
+        method: 'GET',
         url: 'https://scl-sandbox.dev.clover.com/v1/orders',
         qs: {created: '[object Object]', status_transitions: '[object Object]'},
         headers: {
