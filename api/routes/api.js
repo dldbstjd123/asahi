@@ -11,7 +11,7 @@ let auth_code = '8cbc5621-59d0-1ffe-19db-e7eba0a8380c'
 
 //const access_token = '006f59fa-67c9-67ec-6d12-9f6c70a7ac84' //you get this when you request https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=23027da9-74a6-4470-c4a0-7482e451c3b0'
 let access_token = '0ab398a7-26ea-a738-9ad4-341883c0199c'
-const api_access_key = 'db7b80d37e5b5988c1acff2a385d309d' //you get this when you request https://apisandbox.dev.clover.com/pakms/apikey
+let api_access_key = 'db7b80d37e5b5988c1acff2a385d309d' //you get this when you request https://apisandbox.dev.clover.com/pakms/apikey
 
 
 /* GET home page. */
@@ -58,7 +58,8 @@ router.get('/getaccesstoken', function(req, res, next) {
     if (error) throw new Error(error);
     access_token = body.access_token
     console.log(`access_token = ${body.access_token}`); //return access_token
-    res.redirect("/api/payOrder")
+    res.redirect("/api/getapikey")
+    //res.redirect("/api/payOrder")
     })
     
 });
@@ -71,12 +72,14 @@ router.get('/getapikey', function(req, res, next) {
     const options = {
     method: 'GET',
     url: 'https://apisandbox.dev.clover.com/pakms/apikey',
-    headers: {accept: 'application/json', authorization: 'Bearer 0ab398a7-26ea-a738-9ad4-341883c0199c'}
+    headers: {accept: 'application/json', authorization: `Bearer ${access_token}`}
     };
 
     request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    console.log(body);
+    api_access_key = JSON.parse(body).api_access_key
+    console.log(`api key = ${body}`);
+    console.log(`api_access_key = ${api_access_key}`)
     })
     
 });
