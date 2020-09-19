@@ -23,7 +23,23 @@ router.get('/unauthorized',function(req,res,next){
 router.get('/unauthorizedCode',function(req,res,next){
     auth_code = req.query.code
     console.log(`auth_code = ${auth_code}`)
-    res.redirect('/api/getaccesstoken')
+    const request = require('request');
+
+    const options = {
+    method: 'GET',
+    url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
+    headers: {accept: 'application/json'}
+    };
+
+    console.log(options.url)
+    request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    access_token = body.access_token
+    console.log(`access_token = ${body.access_token}`); //return access_token
+    res.redirect("/api/payOrder")
+    })
+
+    //res.redirect('/api/getaccesstoken')
 })
 
 router.get('/getaccesstoken', function(req, res, next) {
