@@ -16,8 +16,8 @@ router.get('/authorized', async function(req,res,next){
         let access_token = await getAccessToken(auth_code)
         let api_key = await getApiKey(access_token)
         console.log(`final reuslt auth_code = ${auth_code}`)
-        console.log(`final reuslt access_token = ${access_token}`)
-        console.log(`final reuslt api_key = ${api_key}`)
+        console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
+        console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
     }
 
 })
