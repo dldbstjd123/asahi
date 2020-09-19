@@ -78,9 +78,10 @@ router.get('/getapikey', function(req, res, next) {
 
     request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    api_access_key = JSON.parse(body).api_access_key
+    api_access_key = JSON.parse(body).apiAccessKey
     console.log(`api key = ${body}`);
     console.log(`api_access_key = ${api_access_key}`)
+    res.redirect("/api/payOrder")
     })
     
 });
@@ -188,7 +189,7 @@ router.get("/payOrder", function(req, res, next){
     headers: {
         accept: 'application/json',
         'content-type': 'application/json',
-        authorization: `Bearer ${access_token}`
+        authorization: `Bearer ${api_access_key}`
     },
     body: {
         ecomind: 'ecom',
