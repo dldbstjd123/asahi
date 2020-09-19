@@ -25,11 +25,11 @@ router.get('/proceed', async function(req,res,next){
         //let auth_code = await getAuthCode()
         let access_token = await getAccessToken(auth_code)
         let api_key = await getApiKey(access_token)
+        let source = await getSourceCode(api_key, req)
         console.log(`final reuslt auth_code = ${auth_code}`)
         console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
-        const clover = require('clover-ecomm-sdk')(access_token)
-    
+        console.log(`final reuslt source = ${JSON.stringify(source)}`)
 
 })
 
@@ -60,7 +60,6 @@ async function getAccessToken(auth_code){
 
 async function getApiKey(access_token){
     const request = require('request-promise');
-
     const options = {
     method: 'GET',
     url: 'https://apisandbox.dev.clover.com/pakms/apikey',
@@ -69,6 +68,26 @@ async function getApiKey(access_token){
 
     let api_access_key = await request(options)
     return JSON.parse(api_access_key).apiAccessKey
+}
+
+async function getSourceCode(api_key, req){
+    const request = require('request-promise');
+    const options = {
+        method: 'POST',
+        url: 'https://token-sandbox.dev.clover.com/v1/tokens',
+        headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
+        body: {
+            card:{
+                number: req.body.cardNumber, 
+                exp_month: req.body.expMonth,
+                exp_year: req.body.expYear,
+                cvv: req.body.cvv
+            }
+        },
+        json:true
+    };
+    let source_code = await request(options)
+    return JSON.parse(source_code).id
 }
 
 module.exports = router;
