@@ -28,7 +28,7 @@ router.get('/proceed', async function(req,res,next){
         console.log(`final reuslt auth_code = ${auth_code}`)
         console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
-        const clover = require('clover-ecomm-sdk')(access_token)
+        const clover = require('clover')(access_token)
     
 
 })
