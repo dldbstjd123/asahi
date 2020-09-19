@@ -39,7 +39,8 @@ async function getAuthCode(){
             headers: {accept: 'application/json'}
         };
     var result = await request(options);
-    return JSON.parse(result).auth_code
+    console.log(`getAuthCode result = ${result}`)
+    return JSON.parse(result)
 }
 
 async function getAccessToken(auth_code){
