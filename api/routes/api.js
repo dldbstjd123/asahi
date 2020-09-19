@@ -175,6 +175,7 @@ router.post('/charge', function(req, res, next) {
 });
 
 router.get("/payOrder", function(req, res, next){
+    console.log(`payOrder access_token = ${access_token}`)
     const request = require('request');
 
     const options = {
