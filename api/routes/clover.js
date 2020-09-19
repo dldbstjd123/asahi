@@ -14,7 +14,7 @@ router.get('/authorized', async function(req,res,next){
     }else{
         let auth_code = req.query.code
         let access_token = await getAccessToken(auth_code)
-        let api_key = getApiKey(access_token)
+        let api_key = await getApiKey(access_token)
         console.log(`final reuslt auth_code = ${auth_code}`)
         console.log(`final reuslt access_token = ${access_token}`)
         console.log(`final reuslt api_key = ${api_key}`)
@@ -25,18 +25,17 @@ router.get('/authorized', async function(req,res,next){
 async function getAccessToken(auth_code){
     const request = require('request');
 
-        const options = {
+    const options = {
             method: 'GET',
             url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
             headers: {accept: 'application/json'}
         };
-        let result = await request(options, function (error, response, body) {
-                if (error) throw new Error(error);
-                console.log(`access_token = ${JSON.parse(body).access_token}`); //return access_token
-                return JSON.parse(body).access_token
-            })
-        access_token = result
-        return access_token
+    let result = await request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+            console.log(`access_token = ${JSON.parse(body).access_token}`); //return access_token
+            return JSON.parse(body).access_token
+        })
+    return result
 }
 
 async function getApiKey(access_token){
