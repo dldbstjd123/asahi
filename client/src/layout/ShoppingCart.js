@@ -63,9 +63,9 @@ const ShoppingCart = (props)=>{
                     }
                 </div>
                 <div id="shoppingCartBottom">
-                    <div className="shoppingCartBottomPrice">Subtotal: {total.toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
-                    <div className="shoppingCartBottomPrice">Tax: {(total*tax).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
-                    <div className="shoppingCartBottomPrice">Total: {(total+ (total*tax)).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
+                    <div className="shoppingCartBottomPrice"><div>Subtotal:</div><div>{total.toLocaleString("en-US",{style: "currency",currency: "USD"})}</div></div>
+                    <div className="shoppingCartBottomPrice"><div>Tax:</div><div>{(total*tax).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div></div>
+                    <div className="shoppingCartBottomPrice"><div>Total:</div><div>{(total+ (total*tax)).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div></div>
                     <div id='shoppingCartCheckOut' onClick={goToCheckOut}>Check Out</div>
                 </div>
             </div>
