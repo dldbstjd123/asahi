@@ -42,3 +42,11 @@
     width: 90%;
     margin:auto;
 }
+
+/* under 900px width*/
+@media only screen and (max-width:1200px){
+    #orderSummaryContainer{
+        order:0;
+    
+    }
+}

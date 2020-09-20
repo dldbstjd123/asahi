@@ -102,3 +102,11 @@
     color:red;
     font-size: 18px;
 }
+
+/* under 900px width*/
+@media only screen and (max-width:1200px){
+    #paymentForm{
+        order:1;
+    
+    }
+}

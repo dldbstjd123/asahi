@@ -38,9 +38,9 @@ router.post('/proceed', async function(req,res,next){
             res.json({status: 0, error: source.error})
             return
         }
-        let taxRate = await getTaxRate();
-        console.log(`final reuslt taxRate = ${taxRate}`)
-        let orderId = await createOrder(req.body.cart, access_token, taxRate)
+        //let taxRate = await getTaxRate();
+        //console.log(`final reuslt taxRate = ${taxRate}`)
+        let orderId = await createOrder(req.body.cart, access_token)
         console.log(`final reuslt orderId = ${orderId}`)
         let charge = await chargeOrder(access_token, source, orderId)
         console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
@@ -129,7 +129,7 @@ function getTaxRate(){
     connection.end()
 }
 
-async function createOrder(cart, access_token, taxRate){
+async function createOrder(cart, access_token){
     console.log(`cart = ${JSON.stringify(cart)}`)
     let items = []
     let totalPrice = 0
@@ -137,7 +137,7 @@ async function createOrder(cart, access_token, taxRate){
         totalPrice += (cart[key].basePrice * 100)*cart[key].qty
         items.push({amount: cart[key].basePrice * 100, currency: 'usd', description: cart[key].name, quantity: cart[key].qty })
     }
-    items.push({type:'tax', amount:totalPrice*taxRate, currency:'usd', description: 'Tax', quantity:1})
+    //items.push({type:'tax', amount:totalPrice*taxRate, currency:'usd', description: 'Tax', quantity:1})
     console.log(`items = ${items}`)
     const request = require('request-promise');
     const options = {
