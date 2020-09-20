@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-let auth_code = undefined
+let auth_code = undefined //|| '3a149af4-2c25-ea26-f992-97b1a2852306'
 
 //const clover = require('clover-ecomm-sdk')(access_token)
 
@@ -33,9 +33,19 @@ router.post('/proceed', async function(req,res,next){
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
         let source = await getSourceCode(api_key, req)
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
-        let orderId = await createOrder(req.body.cart, access_token)
+        //let orderId = await createOrder(req.body.cart, access_token)
+        let orderId = await createOrder(req.body.cart, api_key)
         console.log(`final reuslt orderId = ${orderId}`)
-        let charge = await chargeOrder(access_token, source, orderId)
+        //let charge = await chargeOrder(access_token, source, orderId)
+        let charge = await chargeOrder(api_key, source, orderId)
+
+        // let api_key = await getApiKey(access_token)
+        // console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
+        // let source = await getSourceCode(api_key, req)
+        // console.log(`final reuslt source = ${JSON.stringify(source)}`)
+        // let orderId = await createOrder(req.body.cart, access_token)
+        // console.log(`final reuslt orderId = ${orderId}`)
+        // let charge = await chargeOrder(access_token, source, orderId)
         
         
         
