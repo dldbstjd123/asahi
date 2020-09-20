@@ -34,5 +34,17 @@ router.get('/image',function(req, res, next){
   res.sendFile(location+"/"+filename)
 })
 
+router.get('/tax/get', function (req,res,next){
+  var connection = mysql.createConnection(mysqlconfig)
+  connection.connect()
+  connection.query(
+      `SELECT rate FROM asahi.tax WHERE id=1`,
+      function (error, results) {
+          res.json({rate: results[0].rate})
+      }
+  )
+  connection.end()
+})
+
 module.exports = router;
 

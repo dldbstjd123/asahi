@@ -32,7 +32,19 @@ const ShoppingCart = (props)=>{
             totalHolder = totalHolder + (rawData[key].basePrice * rawData[key].qty)
         }
         setTotal(totalHolder)
-        setTax(totalHolder * 0.08)
+        //get Tax rate
+        fetch(`${domain}client/tax/get`, {
+            method: "get",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+            },
+        }).then((res) => res.json())
+        .then((data) => {
+          setTax(data.rate);
+        });
         setSubTotal(totalHolder * 1.08)
     })
     return(
@@ -50,7 +62,9 @@ const ShoppingCart = (props)=>{
                     }
                 </div>
                 <div id="shoppingCartBottom">
-                <div>Subtotal: {total.toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
+                    <div>Subtotal: {total.toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
+                    <div>Tax: {(total*tax).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
+                    <div>Total: {(total+ (total*tax)).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
                     <div id='shoppingCartCheckOut' onClick={goToCheckOut}>Check Out</div>
                 </div>
             </div>
