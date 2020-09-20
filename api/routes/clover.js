@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var mysql = require("mysql");
+const { mysqlconfig } = require("../../ignore/config.js");
 
 let auth_code = undefined //|| '3a149af4-2c25-ea26-f992-97b1a2852306'
 
@@ -36,7 +38,9 @@ router.post('/proceed', async function(req,res,next){
             res.json({status: 0, error: source.error})
             return
         }
-        let orderId = await createOrder(req.body.cart, access_token)
+        let taxRate = await getTaxRate();
+        console.log(`final reuslt taxRate = ${taxRate}`)
+        let orderId = await createOrder(req.body.cart, access_token, taxRate)
         console.log(`final reuslt orderId = ${orderId}`)
         let charge = await chargeOrder(access_token, source, orderId)
         console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
@@ -113,12 +117,27 @@ async function getSourceCode(api_key, req){
     
 }
 
-async function createOrder(cart, access_token){
+function getTaxRate(){
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(
+        `SELECT rate FROM asahi.tax WHERE id=1`,
+        function (error, results) {
+            return results[0].rate
+        }
+    )
+    connection.end()
+}
+
+async function createOrder(cart, access_token, taxRate){
     console.log(`cart = ${JSON.stringify(cart)}`)
     let items = []
+    let totalPrice = 0
     for(let key in cart){
+        totalPrice += (cart[key].basePrice * 100)*cart[key].qty
         items.push({amount: cart[key].basePrice * 100, currency: 'usd', description: cart[key].name, quantity: cart[key].qty })
     }
+    items.push({type:'tax', amount:totalPrice*taxRate, currency:'usd', description: 'Tax', quantity:1})
     console.log(`items = ${items}`)
     const request = require('request-promise');
     const options = {
