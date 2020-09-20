@@ -312,6 +312,7 @@ router.post("/tax/get", function(req, res, next){
 })
 
 router.post("/tax/update", function(req, res, next){
+    if(req.user == undefined){res.redirect('/admin')}
     var connection = mysql.createConnection(mysqlconfig)
     connection.connect()
     connection.query(`UPDATE asahi.tax SET rate = ${req.body.tax} WHERE id = 1`, function (error, results) {
