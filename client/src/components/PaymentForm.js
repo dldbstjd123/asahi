@@ -93,8 +93,11 @@ const PaymentForm = (props)=>{
                     body: JSON.stringify({name, email, cardNumber, expMonth, expYear, cvv, cart: rawData})
                 })
                     .then(res => res.json())
-                    .then(res => { return res.status })
-                console.log(fetchData)
+                    if(fetchData.status == 1){
+                        console.log('succeed!!')
+                    }else{
+                        console.log(fetchData.error)
+                    }
             } catch (err) {
                 console.log(err)
             }

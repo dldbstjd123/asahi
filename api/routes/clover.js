@@ -33,7 +33,8 @@ router.post('/proceed', async function(req,res,next){
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
         if(source.error){
             console.log('responding error!!')
-            res.json({error: source.error})
+            res.json({status: 0, error: source.error})
+            return
         }
         let orderId = await createOrder(req.body.cart, access_token)
         console.log(`final reuslt orderId = ${orderId}`)
