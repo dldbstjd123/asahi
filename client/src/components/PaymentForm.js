@@ -153,7 +153,7 @@ const PaymentForm = (props)=>{
                     </div>
                     <div id="paymentFormAfterSubmit">{error}</div>
                     <div id='paymentFormSendContainer'>
-                        {loading?<input id="paymentFormSend" type="button" value="Pay" onClick={() => validateForm()} /> :<PaymentLoading />}
+                        {loading === false?<input id="paymentFormSend" type="button" value="Pay" onClick={() => validateForm()} /> :<PaymentLoading />}
                     </div>
                 </form>
     )
