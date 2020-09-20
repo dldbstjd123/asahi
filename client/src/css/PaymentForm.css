@@ -109,7 +109,7 @@
         order:1;
         min-width: 0px;
     }
-    .inputContainer, .inputContainer2{
+    .inputContainer, .inputContainer2, #expiration{
         width:100%;
     }
 }
