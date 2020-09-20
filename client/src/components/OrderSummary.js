@@ -6,6 +6,7 @@ import decrementToCartAction from "../store/actions/decrementCart"
 import deleteToCartAction from "../store/actions/deleteCart"
 import {FiMinus, FiPlus} from 'react-icons/fi' 
 import '../css/OrderSummary.css'
+import {domain} from '../config'
 
 const OrderSummary = (props)=>{
     const history = useHistory();
