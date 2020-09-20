@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import incrementToCartAction from "../store/actions/incrementCart"
@@ -10,6 +10,7 @@ import '../css/OrderSummary.css'
 const OrderSummary = (props)=>{
     const history = useHistory();
     const rawData = useSelector((state) =>state.cart)
+    const [total, setTotal] = useState(0)
     const dispatch = useDispatch();
 
     function incrementCart(event){
@@ -32,6 +33,11 @@ const OrderSummary = (props)=>{
     }
     useEffect(()=>{
         checkEmptyCart()
+        let totalHolder = 0
+        for(let key in rawData){
+            totalHolder = totalHolder + (rawData[key].basePrice * rawData[key].qty)
+        }
+        setTotal(totalHolder)
     }, [rawData])
 
     return(
@@ -56,6 +62,9 @@ const OrderSummary = (props)=>{
                 </div>
                 )
             })}
+            <div>
+                <div>Subtotal: {total.toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
+            </div>
         </div>
     )
 }
