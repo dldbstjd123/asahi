@@ -102,6 +102,7 @@ const PaymentForm = (props)=>{
                 setLoading(false)
             }
         }
+        setLoading(false)
     }
     function resetColor(){
         document.getElementsByClassName('paymentLabel')[0].style.color = "gray"
