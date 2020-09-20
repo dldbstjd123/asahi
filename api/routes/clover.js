@@ -23,16 +23,24 @@ router.get('/authorized', async function(req,res,next){
 router.post('/proceed', async function(req,res,next){
 
         //let auth_code = await getAuthCode()
-        let access_token = await getAccessToken(auth_code)
-        let api_key = await getApiKey(access_token)
-        let source = await getSourceCode(api_key, req)
-        let orderId = await createOrder(req.body.cart, access_token)
-        let charge = await chargeOrder(access_token, source, orderId)
+        if(auth_code === undefined){
+            let doIt = await getAuthCode()
+        }
         console.log(`final reuslt auth_code = ${auth_code}`)
+        let access_token = await getAccessToken(auth_code)
         console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
+        let api_key = await getApiKey(access_token)
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
+        let source = await getSourceCode(api_key, req)
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
+        let orderId = await createOrder(req.body.cart, access_token)
         console.log(`final reuslt orderId = ${orderId}`)
+        let charge = await chargeOrder(access_token, source, orderId)
+        
+        
+        
+        
+        
 
 })
 
@@ -45,7 +53,7 @@ async function getAuthCode(){
             headers: {accept: 'application/json'}
         };
     var result = await request(options);
-    console.log(`getAuthCode result = ${result}`)
+    //console.log(`getAuthCode result = ${result}`)
     return JSON.parse(result)
 }
 
@@ -112,7 +120,7 @@ async function createOrder(cart, access_token){
         json: true
     };
     let result = await request(options)
-    console.log(`result of create order = ${JSON.stringify(result)}`)
+    //console.log(`result of create order = ${JSON.stringify(result)}`)
     return result.id
 }
 
@@ -136,7 +144,7 @@ async function chargeOrder(access_token, source, orderId){
         json: true
     };
     let result = await request(options)
-    console.log(`result of chargeOrder = ${JSON.stringify(result)}`)
+    //console.log(`result of chargeOrder = ${JSON.stringify(result)}`)
     return result
 }
 
