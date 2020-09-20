@@ -3,6 +3,7 @@ import { domain } from "../config";
 
 const Tax = ()=>{
     const [tax, setTax] = useState(0)
+    const [message, setMessage] = useState('')
 
     function onAmountChange(e) {
         const amount = e.target.value;
@@ -25,6 +26,7 @@ const Tax = ()=>{
         .then(data => {
             if(data.status === 1){
                 console.log('succeed changing tax')
+                setMessage('Tax rate has been changed.')
             }
         })
     }
@@ -46,10 +48,12 @@ const Tax = ()=>{
     },[])
     return(
         <div>
-            Tax Page
-            current tax = {tax}
-            <input type='text' onChange={onAmountChange}/>
-            <input type='button' value="Change" onClick={changeTax} />
+            <div>Tax Page</div>
+            <div>
+                <input type='text' value={tax} onChange={onAmountChange}/>
+                <input type='button' value="Change" onClick={changeTax} />
+            </div>
+            <div>{message}</div>
         </div>
     )
 }
