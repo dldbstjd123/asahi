@@ -32,6 +32,7 @@ router.post('/proceed', async function(req,res,next){
         let source = await getSourceCode(api_key, req)
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
         if(source.error){
+            console.log('responding error!!')
             res.json({error: source.error})
         }
         let orderId = await createOrder(req.body.cart, access_token)
