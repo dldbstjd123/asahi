@@ -40,7 +40,13 @@ router.post('/proceed', async function(req,res,next){
         console.log(`final reuslt orderId = ${orderId}`)
         let charge = await chargeOrder(access_token, source, orderId)
         console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
-
+        if(charge.id){
+            res.json({status: 1})
+            return
+        }else{
+            res.json({status: 0, error: 'Failed to pay.'})
+            return
+        }
 })
 
 async function getAuthCode(){
