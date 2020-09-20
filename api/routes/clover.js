@@ -31,6 +31,9 @@ router.post('/proceed', async function(req,res,next){
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
         let source = await getSourceCode(api_key, req)
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
+        if(source.error){
+            res.json({error: source.error})
+        }
         let orderId = await createOrder(req.body.cart, access_token)
         console.log(`final reuslt orderId = ${orderId}`)
         let charge = await chargeOrder(access_token, source, orderId)
@@ -95,8 +98,8 @@ async function getSourceCode(api_key, req){
         return source_code.id
     }catch(err){
         let splited = err.message.split("-")
-        console.log(`source code error = ${JSON.parse(splited[1].trim()).error.message}`)
-        console.log(`source code error = ${JSON.parse(splited[1].trim()).message.error.message}`)
+        let errorMessage = JSON.parse(splited[1].trim()).error.message
+        return {error : errorMessage}
         //console.log(`source code error = ${JSON.stringify(err.message)}`)
     }
     
