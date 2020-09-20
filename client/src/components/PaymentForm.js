@@ -9,7 +9,6 @@ const PaymentForm = (props)=>{
     const history = useHistory();
     const rawData = useSelector((state) => state.cart)
     const [error, setError] = useState('')
-    console.log(JSON.stringify(rawData))
 
     function inputClicked(input) {
         document.getElementsByClassName('paymentLabel')[input].style.top = '-28px';
@@ -88,13 +87,11 @@ const PaymentForm = (props)=>{
                 })
                     .then(res => res.json())
                     if(fetchData.status == 1){
-                        console.log('succeed!!')
                         //redirect to confirmation page
+                        history.push('/confirmation')
                     }else{
-                        setError(fetchData.error)
-                        console.log(fetchData.error)
                         //show error message
-
+                        setError(fetchData.error)
                     }
             } catch (err) {
                 console.log(err)
