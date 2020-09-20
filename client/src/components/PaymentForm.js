@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import {domain} from "../config.js"
 import '../css/PaymentForm.css'
+import PaymentLoading from './PaymentLoading';
 
 
 const PaymentForm = (props)=>{
     const history = useHistory();
     const rawData = useSelector((state) => state.cart)
+    const [loading, setLoading] =useState(false)
     const [error, setError] = useState('')
 
     function inputClicked(input) {
@@ -36,6 +38,7 @@ const PaymentForm = (props)=>{
     }
 
     async function validateForm() {
+        setLoading(true)
         let name = document.getElementsByClassName('inputContainer')[0].children[0].value
         let email = document.getElementsByClassName('inputContainer')[1].children[0].value
         let cardNumber = document.getElementsByClassName('inputContainer')[2].children[0].value
@@ -92,9 +95,11 @@ const PaymentForm = (props)=>{
                     }else{
                         //show error message
                         setError(fetchData.error)
+                        setLoading(false)
                     }
             } catch (err) {
                 console.log(err)
+                setLoading(false)
             }
         }
     }
@@ -147,7 +152,9 @@ const PaymentForm = (props)=>{
                         </div>
                     </div>
                     <div id="paymentFormAfterSubmit">{error}</div>
-                    <div id='paymentFormSendContainer'><input id="paymentFormSend" type="button" value="Pay" onClick={() => validateForm()} /></div>
+                    <div id='paymentFormSendContainer'>
+                        {loading?<input id="paymentFormSend" type="button" value="Pay" onClick={() => validateForm()} /> :<PaymentLoading />}
+                    </div>
                 </form>
     )
 }
