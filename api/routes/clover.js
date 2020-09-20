@@ -12,6 +12,7 @@ router.get('/unauthorized', function(req,res,next){
 
 router.get('/authorized', async function(req,res,next){
     if(!req.query.code){
+        //Change Client_ID WHEN SWITCHING TO PRODUCTION
         let client_id = 'SJD3F92ASG2GG'
         res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`)
     }else{
@@ -31,23 +32,9 @@ router.post('/proceed', async function(req,res,next){
         let source = await getSourceCode(api_key, req)
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
         let orderId = await createOrder(req.body.cart, access_token)
-        //let orderId = await createOrder(req.body.cart, api_key)
         console.log(`final reuslt orderId = ${orderId}`)
         let charge = await chargeOrder(access_token, source, orderId)
-        //let charge = await chargeOrder(api_key, source, orderId)
-
-        // let api_key = await getApiKey(access_token)
-        // console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
-        // let source = await getSourceCode(api_key, req)
-        // console.log(`final reuslt source = ${JSON.stringify(source)}`)
-        // let orderId = await createOrder(req.body.cart, access_token)
-        // console.log(`final reuslt orderId = ${orderId}`)
-        // let charge = await chargeOrder(access_token, source, orderId)
-        
-        
-        
-        
-        
+        console.log(`final reuslt charge = ${charge}`)
 
 })
 
@@ -59,7 +46,6 @@ async function getAuthCode(){
             headers: {accept: 'application/json'}
         };
     var result = await request(options);
-    //console.log(`getAuthCode result = ${result}`)
     return JSON.parse(result)
 }
 
@@ -92,7 +78,8 @@ async function getSourceCode(api_key, req){
     const options = {
         method: 'POST',
         url: 'https://token-sandbox.dev.clover.com/v1/tokens',
-        headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
+        //headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
+        headers: {accept: 'application/json', apiKey: api_key, 'content-type':'application/json'},
         body: {
             card:{
                 number: req.body.cardNumber, 
@@ -132,7 +119,6 @@ async function createOrder(cart, access_token){
         json: true
     };
     let result = await request(options)
-    //console.log(`result of create order = ${JSON.stringify(result)}`)
     return result.id
 }
 
@@ -150,7 +136,6 @@ async function chargeOrder(access_token, source, orderId){
         body: {
             ecomind: 'ecom',
             metadata: {newKey: 'New Value'},
-            //email: 'dannydannyl@me.com',
             source: source
         },
         json: true
