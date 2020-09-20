@@ -90,8 +90,13 @@ async function getSourceCode(api_key, req){
         },
         json:true
     };
-    let source_code = await request(options)
-    return source_code.id
+    try{
+        let source_code = await request(options)
+        return source_code.id
+    }catch(err){
+        console.log(`source code error = ${err}`)
+    }
+    
 }
 
 async function createOrder(cart, access_token){
