@@ -5,6 +5,7 @@ import {FiShoppingCart} from "react-icons/fi"
 import CartItem from "../components/CartItem"
 import {connect, useSelector} from "react-redux"
 import { useHistory } from "react-router-dom";
+import { domain } from "../config";
 
 const ShoppingCart = (props)=>{
     const history = useHistory();
