@@ -21,23 +21,24 @@ router.get('/authorized', async function(req,res,next){
 })
 
 router.post('/proceed', async function(req,res,next){
-        console.log(`auth_code = ${auth_code}`)
-        //let auth_code = await getAuthCode()
-        if(auth_code === undefined){
-            let doIt = await getAuthCode()
-        }
-        console.log(`final reuslt auth_code = ${auth_code}`)
-        let access_token = await getAccessToken(auth_code)
+        // console.log(`auth_code = ${auth_code}`)
+        // //let auth_code = await getAuthCode()
+        // if(auth_code === undefined){
+        //     let doIt = await getAuthCode()
+        // }
+        // console.log(`final reuslt auth_code = ${auth_code}`)
+        // let access_token = await getAccessToken(auth_code)
+        let access_token = '96f8d7cd-dc30-1185-47b3-83a2ae91df64'
         console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
         let api_key = await getApiKey(access_token)
         console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
         let source = await getSourceCode(api_key, req)
         console.log(`final reuslt source = ${JSON.stringify(source)}`)
-        //let orderId = await createOrder(req.body.cart, access_token)
-        let orderId = await createOrder(req.body.cart, api_key)
+        let orderId = await createOrder(req.body.cart, access_token)
+        //let orderId = await createOrder(req.body.cart, api_key)
         console.log(`final reuslt orderId = ${orderId}`)
-        //let charge = await chargeOrder(access_token, source, orderId)
-        let charge = await chargeOrder(api_key, source, orderId)
+        let charge = await chargeOrder(access_token, source, orderId)
+        //let charge = await chargeOrder(api_key, source, orderId)
 
         // let api_key = await getApiKey(access_token)
         // console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
