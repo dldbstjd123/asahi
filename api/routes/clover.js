@@ -34,7 +34,7 @@ router.post('/proceed', async function(req,res,next){
         let orderId = await createOrder(req.body.cart, access_token)
         console.log(`final reuslt orderId = ${orderId}`)
         let charge = await chargeOrder(access_token, source, orderId)
-        console.log(`final reuslt charge = ${charge}`)
+        console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
 
 })
 
