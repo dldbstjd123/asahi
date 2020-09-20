@@ -16,18 +16,14 @@ router.get('/authorized', async function(req,res,next){
         res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`)
     }else{
         auth_code = req.query.code
+        console.log('*****************STORE THIS ACCESS TOKEN ****************')
+        console.log(auth_code)
+        console.log('*****************STORE THIS ACCESS TOKEN ****************')
         //res.json({auth_code : req.query.code})
     }
 })
 
 router.post('/proceed', async function(req,res,next){
-        // console.log(`auth_code = ${auth_code}`)
-        // //let auth_code = await getAuthCode()
-        // if(auth_code === undefined){
-        //     let doIt = await getAuthCode()
-        // }
-        // console.log(`final reuslt auth_code = ${auth_code}`)
-        // let access_token = await getAccessToken(auth_code)
         let access_token = '96f8d7cd-dc30-1185-47b3-83a2ae91df64'
         console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
         let api_key = await getApiKey(access_token)
@@ -113,6 +109,11 @@ async function getSourceCode(api_key, req){
 
 async function createOrder(cart, access_token){
     console.log(`cart = ${JSON.stringify(cart)}`)
+    let items = []
+    for(let key in cart){
+        items.push({amount: cart[key].basePrice * 100, currency: 'usd', description: cart[key].name, quantity: cart[key].qty })
+    }
+    console.log(`items = ${items}`)
     const request = require('request-promise');
     const options = {
         method: 'POST',
@@ -123,7 +124,8 @@ async function createOrder(cart, access_token){
           authorization: `Bearer ${access_token}`
         },
         body: {
-          items: [{amount: 3000, currency: 'usd', description: 'salmon roll', quantity: 3}],
+          //items: [{amount: 3000, currency: 'usd', description: 'salmon roll', quantity: 3}],
+          items: items,
           currency: 'usd',
           email: 'dannydannyl@me.com'
         },
