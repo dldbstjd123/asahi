@@ -14,7 +14,7 @@ const Footer = (props)=>{
             <div id='footerSocialContainer'>
                 <a href="https://facebook.com/Asahi-Sushi-102796514642869"><AiFillFacebook color="gray" size="25px"/></a>
                 <a href="https://www.instagram.com/asahi_sushi_olympia/?hl=en"><AiFillInstagram color="gray" size="25px"/></a>
-                <a href="https://www.yelp.com/biz/asahi-sushi-olympia?osq=asahi+sushi+olympia"><ImYelp color="gray" size="25px"/></a>
+                <a href="https://www.yelp.com/biz/asahi-sushi-olympia?osq=asahi+sushi+olympia"><ImYelp color="gray" height="21px" width="25px"/></a>
             </div>
             
         </div>
