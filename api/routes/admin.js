@@ -299,4 +299,17 @@ router.post("/menu_add/add", upload.single("file1"), async function (
     connection.end()
 })
 
+router.post("/tax/get", function(req, res, next){
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(`SELECT rate FROM asahi.tax`, function (error, results) {
+        if(error){
+          throw error
+        }
+        res.json({rate: results[0].rate})
+    })
+    connection.end()
+})
+
+
 module.exports = router

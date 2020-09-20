@@ -10,6 +10,7 @@ import MenuAdd from "../route/MenuAdd";
 import Category from "../route/Category";
 import Reservation from "../route/Reservation";
 import Hours from "../route/Hours";
+import Tax from "../route/Tax";
 
 
 const Navigation = () => {
@@ -52,6 +53,9 @@ const Navigation = () => {
         <Link className="links" to={`/admin/hours`}>
           Hours
         </Link>
+        <Link className="links" to={`/admin/tax`}>
+          Tax
+        </Link>
         
       </div>
       <div id='mainContainer'>
@@ -66,6 +70,7 @@ const Navigation = () => {
           <Route path={"/admin/category"} component={Category} />
           <Route path={"/admin/reservation"} component={Reservation} />
           <Route path={"/admin/hours"} component={Hours} />
+          <Route path={"/admin/tax"} component={Tax} />
         </Switch>
       </div>
     </div>
