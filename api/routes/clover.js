@@ -95,6 +95,7 @@ async function getSourceCode(api_key, req){
         return source_code.id
     }catch(err){
         let splited = err.message.split("-")
+        console.log(`source code error = ${JSON.parse(splited[1].trim()).message.error}`)
         console.log(`source code error = ${JSON.parse(splited[1].trim()).message.error.message}`)
         //console.log(`source code error = ${JSON.stringify(err.message)}`)
     }
