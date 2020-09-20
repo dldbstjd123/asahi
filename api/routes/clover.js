@@ -21,7 +21,7 @@ router.get('/authorized', async function(req,res,next){
 })
 
 router.post('/proceed', async function(req,res,next){
-
+        console.log(`auth_code = ${auth_code}`)
         //let auth_code = await getAuthCode()
         if(auth_code === undefined){
             let doIt = await getAuthCode()
@@ -46,7 +46,6 @@ router.post('/proceed', async function(req,res,next){
 
 async function getAuthCode(){
     const request = require('request-promise');
-
     const options = {
             method: 'GET',
             url: `https://asahisushiolympia.com/clover/authorized`,
