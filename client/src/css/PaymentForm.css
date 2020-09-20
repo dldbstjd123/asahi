@@ -107,6 +107,9 @@
 @media only screen and (max-width:1200px){
     #paymentForm{
         order:1;
-    
+        min-width: 0px;
+    }
+    .inputContainer, .inputContainer2{
+        width:100%;
     }
 }
