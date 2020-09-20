@@ -8,6 +8,7 @@ import '../css/PaymentForm.css'
 const PaymentForm = (props)=>{
     const history = useHistory();
     const rawData = useSelector((state) => state.cart)
+    const [error, setError] = useState('')
     console.log(JSON.stringify(rawData))
 
     function inputClicked(input) {
@@ -73,14 +74,7 @@ const PaymentForm = (props)=>{
             //document.getElementsByClassName('paymentLabel')[5].innerHTML = 'Please insert cvv.';
             document.getElementsByClassName('paymentLabel')[5].style.color = "red"
         } else {
-            // document.getElementsByClassName('paymentLabel')[0].innerHTML = 'Name';
-            // document.getElementsByClassName('paymentLabel')[1].innerHTML = 'Email';
-            // document.getElementsByClassName('paymentLabel')[2].innerHTML = 'Card Number';
-            // document.getElementsByClassName('paymentLabel')[3].innerHTML = 'Exp Month';
-            // document.getElementsByClassName('paymentLabel')[4].innerHTML = 'Exp Year';
-            // document.getElementsByClassName('paymentLabel')[5].innerHTML = 'CVV';
             resetColor()
-            
             try {
                 let fetchData = await fetch(`${domain}clover/proceed`, {
                     method: 'POST',
@@ -95,8 +89,12 @@ const PaymentForm = (props)=>{
                     .then(res => res.json())
                     if(fetchData.status == 1){
                         console.log('succeed!!')
+                        //redirect to confirmation page
                     }else{
+                        setError(fetchData.error)
                         console.log(fetchData.error)
+                        //show error message
+
                     }
             } catch (err) {
                 console.log(err)
@@ -151,7 +149,7 @@ const PaymentForm = (props)=>{
                             <div className='paymentBar'><div className='paymentBar2'></div></div>
                         </div>
                     </div>
-                    <div id="paymentFormAfterSubmit"></div>
+                    <div id="paymentFormAfterSubmit">{error}</div>
                     <div id='paymentFormSendContainer'><input id="paymentFormSend" type="button" value="Pay" onClick={() => validateForm()} /></div>
                 </form>
     )
