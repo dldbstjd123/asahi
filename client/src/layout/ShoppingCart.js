@@ -11,7 +11,6 @@ const ShoppingCart = (props)=>{
     const history = useHistory();
     const [total, setTotal] = useState(0)
     const [tax, setTax] = useState(0)
-    const [subTotal, setSubTotal] = useState(0)
 
     const rawData = useSelector((state) => state.cart)
     
@@ -46,7 +45,6 @@ const ShoppingCart = (props)=>{
         .then((data) => {
           setTax(data.rate);
         });
-        setSubTotal(totalHolder * 1.08)
     })
     return(
         <div id='shoppingCartContainer'>

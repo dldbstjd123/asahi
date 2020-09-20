@@ -11,6 +11,7 @@ const OrderSummary = (props)=>{
     const history = useHistory();
     const rawData = useSelector((state) =>state.cart)
     const [total, setTotal] = useState(0)
+    const [tax, setTax] = useState(0)
     const dispatch = useDispatch();
 
     function incrementCart(event){
@@ -40,6 +41,22 @@ const OrderSummary = (props)=>{
         setTotal(totalHolder)
     }, [rawData])
 
+    useEffect(()=>{
+        //get Tax rate
+        fetch(`${domain}client/tax/get`, {
+            method: "get",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+            },
+        }).then((res) => res.json())
+        .then((data) => {
+          setTax(data.rate);
+        });
+    }, [])
+
     return(
         <div id='orderSummaryContainer'>
             <div>Order Summary</div>
@@ -63,7 +80,9 @@ const OrderSummary = (props)=>{
                 )
             })}
             <div>
-                <div>Subtotal: {total.toLocaleString("en-US",{style: "currency",currency: "USD"})}</div>
+                <div className="orderSummaryBottomPrice"><div>Subtotal:</div><div>{total.toLocaleString("en-US",{style: "currency",currency: "USD"})}</div></div>
+                <div className="orderSummaryBottomPrice"><div>Tax:</div><div>{(total*tax).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div></div>
+                <div className="orderSummaryBottomPrice"><div>Total:</div><div>{(total+ (total*tax)).toLocaleString("en-US",{style: "currency",currency: "USD"})}</div></div>
             </div>
         </div>
     )
