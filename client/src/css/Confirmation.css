@@ -1,0 +1,10 @@
+#confirmationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#thankMessage {
+    font-size: 25px;
+}
