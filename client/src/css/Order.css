@@ -93,6 +93,9 @@
     user-select: none;
 }
 
+#addToCart{
+    cursor: pointer;
+}
 
 /* under 900px width*/
 @media only screen and (max-width:1200px){

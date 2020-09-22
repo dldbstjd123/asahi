@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import {useLocation} from 'react-router-dom';
 
 const Confirmation = (props)=>{
+    const location = useLocation();
+
+    useEffect(()=>{
+        console.log(location.items)
+    }, [location])
     return(
         <div className='bodyContainer'>
             <div>Thank you for your order!</div>
