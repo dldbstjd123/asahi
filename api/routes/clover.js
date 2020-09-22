@@ -1,186 +1,233 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require("mysql");
-const { mysqlconfig } = require("../../ignore/config.js");
+var express = require("express")
+var router = express.Router()
+var mysql = require("mysql")
+const { mysqlconfig, emailConfig } = require("../../ignore/config.js")
+var nodemailer = require("nodemailer")
 
 let auth_code = undefined //|| '3a149af4-2c25-ea26-f992-97b1a2852306'
 
 //const clover = require('clover-ecomm-sdk')(access_token)
 
-router.get('/unauthorized', function(req,res,next){
-    let client_id = 'SJD3F92ASG2GG'
-    res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`)
+router.get("/unauthorized", function (req, res, next) {
+    let client_id = "SJD3F92ASG2GG"
+    res.redirect(
+        `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`
+    )
 })
 
-router.get('/authorized', async function(req,res,next){
-    if(!req.query.code){
+router.get("/authorized", async function (req, res, next) {
+    if (!req.query.code) {
         //Change Client_ID WHEN SWITCHING TO PRODUCTION
-        let client_id = 'SJD3F92ASG2GG'
-        res.redirect(`https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`)
-    }else{
+        let client_id = "SJD3F92ASG2GG"
+        res.redirect(
+            `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`
+        )
+    } else {
         auth_code = req.query.code
-        console.log('*****************STORE THIS ACCESS TOKEN ****************')
+        console.log("*****************STORE THIS ACCESS TOKEN ****************")
         console.log(auth_code)
-        console.log('*****************STORE THIS ACCESS TOKEN ****************')
+        console.log("*****************STORE THIS ACCESS TOKEN ****************")
         //res.json({auth_code : req.query.code})
     }
 })
 
-router.post('/proceed', async function(req,res,next){
-        let access_token = '96f8d7cd-dc30-1185-47b3-83a2ae91df64'
-        console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
-        let api_key = await getApiKey(access_token)
-        console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
-        let source = await getSourceCode(api_key, req)
-        console.log(`final reuslt source = ${JSON.stringify(source)}`)
-        if(source.error){
-            console.log('responding error!!')
-            res.json({status: 0, error: source.error})
-            return
-        }
-        //let taxRate = await getTaxRate();
-        //console.log(`final reuslt taxRate = ${taxRate}`)
-        let orderId = await createOrder(req.body.cart, access_token)
-        console.log(`final reuslt orderId = ${orderId}`)
-        let charge = await chargeOrder(access_token, source, orderId)
-        console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
-        if(charge.id){
-            res.json({status: 1, items: charge.items})
-            return
-        }else{
-            res.json({status: 0, error: 'Failed to pay.'})
-            return
-        }
+router.post("/proceed", async function (req, res, next) {
+    let access_token = "96f8d7cd-dc30-1185-47b3-83a2ae91df64"
+    console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
+    let api_key = await getApiKey(access_token)
+    console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
+    let source = await getSourceCode(api_key, req)
+    console.log(`final reuslt source = ${JSON.stringify(source)}`)
+    if (source.error) {
+        console.log("responding error!!")
+        res.json({ status: 0, error: source.error })
+        return
+    }
+    //let taxRate = await getTaxRate();
+    //console.log(`final reuslt taxRate = ${taxRate}`)
+    let orderId = await createOrder(req.body.cart, access_token)
+    console.log(`final reuslt orderId = ${orderId}`)
+    let charge = await chargeOrder(access_token, source, orderId)
+    console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
+    if (charge.id) {
+        res.json({ status: 1, items: charge.items })
+        sendEmail(req.body.email)
+        return
+    } else {
+        res.json({ status: 0, error: "Failed to pay." })
+        return
+    }
 })
 
-async function getAuthCode(){
-    const request = require('request-promise');
+router.get("/email", function (req, res, next) {
+    console.log("email")
+    let emailStatus = sendEmail("dannydannyl@me.com")
+    console.log(emailStatus)
+})
+
+async function getAuthCode() {
+    const request = require("request-promise")
     const options = {
-            method: 'GET',
-            url: `https://asahisushiolympia.com/clover/authorized`,
-            headers: {accept: 'application/json'}
-        };
-    var result = await request(options);
+        method: "GET",
+        url: `https://asahisushiolympia.com/clover/authorized`,
+        headers: { accept: "application/json" }
+    }
+    var result = await request(options)
     return JSON.parse(result)
 }
 
-async function getAccessToken(auth_code){
-    const request = require('request-promise');
+async function getAccessToken(auth_code) {
+    const request = require("request-promise")
 
     const options = {
-            method: 'GET',
-            url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
-            headers: {accept: 'application/json'}
-        };
-    var result = await request(options);
+        method: "GET",
+        url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
+        headers: { accept: "application/json" }
+    }
+    var result = await request(options)
     return JSON.parse(result).access_token
 }
 
-async function getApiKey(access_token){
-    const request = require('request-promise');
+async function getApiKey(access_token) {
+    const request = require("request-promise")
     const options = {
-    method: 'GET',
-    url: 'https://apisandbox.dev.clover.com/pakms/apikey',
-    headers: {accept: 'application/json', authorization: `Bearer ${access_token}`}
-    };
+        method: "GET",
+        url: "https://apisandbox.dev.clover.com/pakms/apikey",
+        headers: {
+            accept: "application/json",
+            authorization: `Bearer ${access_token}`
+        }
+    }
 
     let api_access_key = await request(options)
     return JSON.parse(api_access_key).apiAccessKey
 }
 
-async function getSourceCode(api_key, req){
-    const request = require('request-promise');
+async function getSourceCode(api_key, req) {
+    const request = require("request-promise")
     const options = {
-        method: 'POST',
-        url: 'https://token-sandbox.dev.clover.com/v1/tokens',
+        method: "POST",
+        url: "https://token-sandbox.dev.clover.com/v1/tokens",
         //headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
-        headers: {accept: 'application/json', apiKey: api_key, 'content-type':'application/json'},
+        headers: {
+            accept: "application/json",
+            apiKey: api_key,
+            "content-type": "application/json"
+        },
         body: {
-            card:{
-                number: req.body.cardNumber, 
+            card: {
+                number: req.body.cardNumber,
                 exp_month: req.body.expMonth,
                 exp_year: req.body.expYear,
                 cvv: req.body.cvv
             }
         },
-        json:true
-    };
-    try{
+        json: true
+    }
+    try {
         let source_code = await request(options)
         return source_code.id
-    }catch(err){
+    } catch (err) {
         let splited = err.message.split("-")
         let errorMessage = JSON.parse(splited[1].trim()).error.message
-        return {error : errorMessage}
+        return { error: errorMessage }
         //console.log(`source code error = ${JSON.stringify(err.message)}`)
     }
-    
 }
 
-function getTaxRate(){
+function getTaxRate() {
     var connection = mysql.createConnection(mysqlconfig)
     connection.connect()
-    connection.query(
-        `SELECT rate FROM asahi.tax WHERE id=1`,
-        function (error, results) {
-            return results[0].rate
-        }
-    )
+    connection.query(`SELECT rate FROM asahi.tax WHERE id=1`, function (
+        error,
+        results
+    ) {
+        return results[0].rate
+    })
     connection.end()
 }
 
-async function createOrder(cart, access_token){
+async function createOrder(cart, access_token) {
     console.log(`cart = ${JSON.stringify(cart)}`)
     let items = []
     let totalPrice = 0
-    for(let key in cart){
-        totalPrice += (cart[key].basePrice * 100)*cart[key].qty
-        items.push({amount: cart[key].basePrice * 100, currency: 'usd', description: cart[key].name, quantity: cart[key].qty })
+    for (let key in cart) {
+        totalPrice += cart[key].basePrice * 100 * cart[key].qty
+        items.push({
+            amount: cart[key].basePrice * 100,
+            currency: "usd",
+            description: cart[key].name,
+            quantity: cart[key].qty
+        })
     }
     //items.push({type:'tax', amount:totalPrice*taxRate, currency:'usd', description: 'Tax', quantity:1})
     console.log(`items = ${items}`)
-    const request = require('request-promise');
+    const request = require("request-promise")
     const options = {
-        method: 'POST',
-        url: 'https://scl-sandbox.dev.clover.com/v1/orders',
+        method: "POST",
+        url: "https://scl-sandbox.dev.clover.com/v1/orders",
         headers: {
-          accept: 'application/json',
-          'content-type': 'application/json',
-          authorization: `Bearer ${access_token}`
+            accept: "application/json",
+            "content-type": "application/json",
+            authorization: `Bearer ${access_token}`
         },
         body: {
-          //items: [{amount: 3000, currency: 'usd', description: 'salmon roll', quantity: 3}],
-          items: items,
-          currency: 'usd',
-          email: 'dannydannyl@me.com'
+            //items: [{amount: 3000, currency: 'usd', description: 'salmon roll', quantity: 3}],
+            items: items,
+            currency: "usd",
+            email: "dannydannyl@me.com"
         },
         json: true
-    };
+    }
     let result = await request(options)
     return result.id
 }
 
-async function chargeOrder(access_token, source, orderId){
+async function chargeOrder(access_token, source, orderId) {
     console.log(`before charge ${access_token} , ${source}`)
-    const request = require('request-promise');
+    const request = require("request-promise")
     const options = {
-        method: 'POST',
+        method: "POST",
         url: `https://scl-sandbox.dev.clover.com/v1/orders/${orderId}/pay`,
         headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
+            accept: "application/json",
+            "content-type": "application/json",
             authorization: `Bearer ${access_token}`
         },
         body: {
-            ecomind: 'ecom',
-            metadata: {newKey: 'New Value'},
+            ecomind: "ecom",
+            metadata: { newKey: "New Value" },
             source: source
         },
         json: true
-    };
+    }
     let result = await request(options)
     //console.log(`result of chargeOrder = ${JSON.stringify(result)}`)
     return result
 }
 
-module.exports = router;
+function sendEmail(emailTo) {
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: emailConfig
+    })
+    mailOptions = {
+        from: "asahisushioly@gmail.com",
+        to: emailTo,
+        //to: 'dannydannyl@me.com',
+        bcc: "dannydannyl@me.com",
+        subject: "Asahi Sushi order confirmation.",
+        replyTo: "asahisushioly@gmail.com",
+        html: `<h1> Thank you for your order!</h1><h1>Testing</h1><p>testing2</p>`
+    }
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error)
+            return 0
+        } else {
+            return 1
+        }
+    })
+}
+
+module.exports = router
