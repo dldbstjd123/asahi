@@ -91,7 +91,10 @@ const PaymentForm = (props)=>{
                     .then(res => res.json())
                     if(fetchData.status == 1){
                         //redirect to confirmation page
-                        history.push('/confirmation')
+                        history.push({
+                            pathname:'/confirmation',
+                            state: {item:fetchData.items}
+                        })
                     }else{
                         //show error message
                         setError(fetchData.error)
