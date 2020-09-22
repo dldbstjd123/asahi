@@ -93,7 +93,7 @@ const PaymentForm = (props)=>{
                         //redirect to confirmation page
                         history.push({
                             pathname:'/confirmation',
-                            state: {item:fetchData.items}
+                            items:fetchData.items
                         })
                     }else{
                         //show error message
