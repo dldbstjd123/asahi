@@ -14,7 +14,7 @@
 
 #confirmationTable {
     width: 50%;
-    text-align: left;
+    text-align: center;
     margin: 15px;
     border-spacing: 0;
 }
@@ -40,6 +40,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
+    margin-bottom: 15px;
 }
 #confirmationMidContainer {
     display: flex;

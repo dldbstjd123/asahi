@@ -67,7 +67,7 @@ const Confirmation = props => {
                 <table id="confirmationTable">
                     <tr id="tableHeader">
                         <th>Item</th>
-                        <th>Quantity</th>
+                        <th>Qty</th>
                         <th>Price</th>
                     </tr>
                     {location.items ? (
@@ -95,7 +95,7 @@ const Confirmation = props => {
                 <div id="summaryContainer">
                     <table>
                         <tr>
-                            <td>Subtotal</td>
+                            <th>Subtotal</th>
                             <td>
                                 {total.toLocaleString("en-US", {
                                     style: "currency",
@@ -104,7 +104,7 @@ const Confirmation = props => {
                             </td>
                         </tr>
                         <tr>
-                            <td>Tax</td>
+                            <th>Tax</th>
                             <td>
                                 {(total * tax).toLocaleString("en-US", {
                                     style: "currency",
@@ -113,7 +113,7 @@ const Confirmation = props => {
                             </td>
                         </tr>
                         <tr>
-                            <td>Total</td>
+                            <th>Total</th>
                             <td>
                                 {(total * tax + total).toLocaleString("en-US", {
                                     style: "currency",
