@@ -43,11 +43,14 @@
 #confirmationMidContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    width: 50%;
+    margin: auto;
 }
 #locationHolder {
     display: flex;
+    flex-direction: column;
 }
 #confirmationBottomContainer {
     width: 50%;
@@ -56,6 +59,9 @@
 
 @media only screen and (max-width: 750px) {
     #confirmationTable {
+        width: 90%;
+    }
+    #confirmationMidContainer {
         width: 90%;
     }
 
