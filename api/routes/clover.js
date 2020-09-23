@@ -50,7 +50,7 @@ router.post("/proceed", async function (req, res, next) {
     let charge = await chargeOrder(access_token, source, orderId)
     console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
     if (charge.id) {
-        res.json({ status: 1, items: charge.items })
+        res.json({ status: 1, items: charge.items, orderId: charge.id })
         sendEmail(req.body.email)
         return
     } else {
