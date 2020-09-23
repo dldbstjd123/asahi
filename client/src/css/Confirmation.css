@@ -32,3 +32,11 @@
 #confirmationTable > tr > td {
     border-top: 1px solid #dcdcdc;
 }
+
+#summaryContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}

@@ -15,9 +15,10 @@ const Confirmation = props => {
         if (location.items.length > 0) {
             for (let i = 0; i < location.items.length; i++) {
                 sum +=
-                    location.items[i].amount * 100 * location.items[i].quantity
+                    (location.items[i].amount / 100) *
+                    location.items[i].quantity
             }
-            setTotal(sum)
+            setTotal(sum / 1000)
         }
     }, [location])
 
@@ -54,7 +55,7 @@ const Confirmation = props => {
                         <th>Quantity</th>
                         <th>Price</th>
                     </tr>
-                    {location.items.length > 0 ? (
+                    {location.items ? (
                         location.items.map(item => {
                             return (
                                 <tr className="items">
@@ -76,35 +77,37 @@ const Confirmation = props => {
                         <div>No items</div>
                     )}
                 </table>
-                <table id="summaryContainer">
-                    <tr>
-                        <td>Subtotal</td>
-                        <td>
-                            {total.toLocaleString("en-US", {
-                                style: "currency",
-                                currency: "USD"
-                            })}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tax</td>
-                        <td>
-                            {(total * tax).toLocaleString("en-US", {
-                                style: "currency",
-                                currency: "USD"
-                            })}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>
-                            {(total * tax + total).toLocaleString("en-US", {
-                                style: "currency",
-                                currency: "USD"
-                            })}
-                        </td>
-                    </tr>
-                </table>
+                <div id="summaryContainer">
+                    <table>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>
+                                {total.toLocaleString("en-US", {
+                                    style: "currency",
+                                    currency: "USD"
+                                })}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tax</td>
+                            <td>
+                                {(total * tax).toLocaleString("en-US", {
+                                    style: "currency",
+                                    currency: "USD"
+                                })}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>
+                                {(total * tax + total).toLocaleString("en-US", {
+                                    style: "currency",
+                                    currency: "USD"
+                                })}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div id="confirmationBottomContainer">
                 <About />
