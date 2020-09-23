@@ -40,3 +40,17 @@
     justify-content: flex-start;
     align-items: flex-end;
 }
+#confirmationBottomContainer {
+    width: 50%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 750px) {
+    #confirmationTable {
+        width: 90%;
+    }
+
+    #confirmationBottomContainer {
+        width: 90%;
+    }
+}

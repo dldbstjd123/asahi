@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import "../css/Confirmation.css"
-import About from "./About.js"
+import Map from "../components/Map"
 import { domain } from "../config"
 
 const Confirmation = props => {
@@ -12,7 +12,7 @@ const Confirmation = props => {
     useEffect(() => {
         console.log(location.items)
         let sum = 0
-        if (location.items.length > 0) {
+        if (location.items > 0) {
             for (let i = 0; i < location.items.length; i++) {
                 sum +=
                     (location.items[i].amount / 100) *
@@ -109,8 +109,12 @@ const Confirmation = props => {
                     </table>
                 </div>
             </div>
+            <div id="confirmationMidContainer">
+                <div>location</div>
+                <div>Phone</div>
+            </div>
             <div id="confirmationBottomContainer">
-                <About />
+                <Map />
             </div>
         </div>
     )
