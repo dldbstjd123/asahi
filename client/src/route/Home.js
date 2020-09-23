@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react"
-import {domain} from '../config'
+import React, { useEffect, useState } from "react"
+import { domain } from "../config"
 import "../css/Home.css"
-import Loading from "../components/Loading";
+import Loading from "../components/Loading"
 
 const Home = props => {
     const [onLoad, setOnLoad] = useState(true)
@@ -30,17 +30,20 @@ const Home = props => {
         }
 
         //check image is loaded
-        document.getElementById("mainImages").childNodes[document.getElementById("mainImages").childNodes.length-1].addEventListener("load",()=>{
-            //setBodyHeight same as image
-            //document.getElementById("bodyContainerHome").style.height = document.getElementById("mainImages").children[0].clientHeight + "px";
-            console.log(document.getElementById("bodyContainerHome").clientHeight)
-            setOnLoad(false)
-        })
+        document
+            .getElementById("mainImages")
+            .childNodes[
+                document.getElementById("mainImages").childNodes.length - 1
+            ].addEventListener("load", () => {
+                //setBodyHeight same as image
+                //document.getElementById("bodyContainerHome").style.height = document.getElementById("mainImages").children[0].clientHeight + "px";
+                setOnLoad(false)
+            })
     }, [])
     return (
-        <div className="bodyContainer" id='bodyContainerHome'>
-            {onLoad? <Loading /> : null}
-            <div id="mainImages" >
+        <div className="bodyContainer" id="bodyContainerHome">
+            {onLoad ? <Loading /> : null}
+            <div id="mainImages">
                 {/* <div style={{width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home2.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home3.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
@@ -51,8 +54,8 @@ const Home = props => {
                 <div style={{backgroundImage:"url("+domain+"images/home/home8.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home9.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home10.jpg)", width:'100%', height:"100%",opacity: "0"}}></div> */}
-                <img src="/images/home/home1.jpg"/>
-                <img src="/images/home/home2.jpg"/>
+                <img src="/images/home/home1.jpg" />
+                <img src="/images/home/home2.jpg" />
                 {/* <img src="/images/home/home1.jpg" />
                 <img src="/images/home/home2.jpg" />
                 <img src="/images/home/home3.jpg" />
@@ -63,7 +66,6 @@ const Home = props => {
                 <img src="/images/home/home8.jpg" />
                 <img src="/images/home/home9.jpg" />
                 <img src="/images/home/home10.jpg"/> */}
-
             </div>
         </div>
     )

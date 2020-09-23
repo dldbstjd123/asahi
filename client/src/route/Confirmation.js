@@ -62,7 +62,7 @@ const Confirmation = props => {
                 </div>
                 <div>
                     The receipt has been sent to
-                    <span id="emailSpan">{location.email}</span>
+                    <span id="emailSpan"> {location.email}</span>
                 </div>
                 <div id="orderIdContainer">
                     Order ID : <span>{location.orderId}</span>

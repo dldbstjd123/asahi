@@ -137,8 +137,17 @@ const Order = props => {
                 <div id="catagoriesItemsContainer">
                     <div id="menuMovingCategory">
                         {categories.map(item => {
-                            count++
-                            return <div key={item} akey={count} onClick={scrollTo}>{item}</div>
+			    count++
+			    if(item.trim().includes(" ")){
+				let itemList = item.trim().split(" ")
+				let itemListDiv = ""
+				for(let i=0; i<itemList.length; i++){
+				    itemListDiv += `<div>${itemList[i]}</div>`
+				}
+				return <div key={item} akey={count} onClick={scrollTo}>{itemListDiv}</div>
+			    }else{
+				return <div key={item} akey={count} onClick={scrollTo}>{item}</div>
+			    }                           
                         })}
                     </div>
                 </div>
