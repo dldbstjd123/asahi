@@ -51,7 +51,7 @@ router.post("/proceed", async function (req, res, next) {
     console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
     if (charge.id) {
         res.json({ status: 1, items: charge.items, id: charge.id })
-        sendEmail(req.body.email)
+        sendEmail(req.body.email, charge.id, req.body.name)
         return
     } else {
         res.json({ status: 0, error: "Failed to pay." })
@@ -61,8 +61,12 @@ router.post("/proceed", async function (req, res, next) {
 
 router.get("/email", function (req, res, next) {
     console.log("email")
-    let emailStatus = sendEmail("dannydannyl@me.com")
-    console.log(emailStatus)
+    let emailStatus = sendEmail(
+        "dannydannyl@me.com",
+        "FA554832148",
+        "yoon jung"
+    )
+    console.log(`email status = ${emailStatus}`)
 })
 
 async function getAuthCode() {
@@ -206,7 +210,62 @@ async function chargeOrder(access_token, source, orderId) {
     return result
 }
 
-function sendEmail(emailTo) {
+function sendEmail(emailTo, orderId, customer) {
+    let emailContent = `<div width='100%' style='min-width:640px; width:640px; border:15px solid #00000014; font-family:railway; color:black; height:auto; position: relative; display: table'>`
+    emailContent += `<table class='header' style= 'width:640px; padding:20px 10px 0px 10px; position: relative; '><tbody>`
+    emailContent += `<tr style='width:640px;'><td></td><td style='margin:auto; width:245px;'><a href='https://asahisushiolympia.com/'><img style='display:block; margin:0 auto; width:245px; border-bottom: 1px solid #7e7e7e; padding-bottom:8px;' src='https://asahisushiolympia.com/images/mainLogo.svg'></a></td><td></td></tr>`
+    emailContent += `<tr style='width:640px;'><td></td><td style='margin-top: 8px; width:245px; text-align:center; font-weight: bold; font-size:20px;'>Order Confirmation</td><td></td></tr>`
+    emailContent += `</tbody></table>`
+    emailContent += `<table style='padding:5px 15px; position: relative;'>`
+    emailContent += `<tr class='Notice' style='color: rgb(253,140,0)'><td>`
+
+    emailContent += `</td></tr>`
+    emailContent += `<tr style='width:640px;'><td style='color: #2222229e; font-size:20px; text-align:center; width:640px;'>Dear ${customer.toUpperCase()}, Thank you for placing an online order. Your food will be ready within 20 minutes</td></tr>`
+    emailContent += `</table>`
+    emailContent += `<div style='width:100%; min-height:424px; position: relative;'>`
+    emailContent += `<img id='imagefile' class='imagefile' style='width:100%; min-height:424px;' src='https://asahisushiolympia.com/images/home/home2.jpg'>`
+    emailContent += `</div>`
+    emailContent += `<table style='width:640px; padding:20px 0; position: relative;'><tbody><tr><td></td><td style='width: 400px; margin:auto; padding-bottom: 10px; color:rgb(253,140,0); text-align: center; font-size:27px;' >${orderId}</td><td></td></tr><tr><tr></td><td><td style='width: 400px; margin:auto; padding-bottom: 10px; color:#2222229e; text-align: center; font-size:17px;'>${new Date().toLocaleString(
+        "en-US",
+        { timeZone: "America/Los_Angeles" }
+    )}</td></td></tr></tbody></table>`
+    emailContent += `<table class='fabricList' style='width: 600px; margin:auto; position: relative; display:table-row'>`
+
+    emailContent += `<tr>`
+    emailContent += `<td style='width:171px; height: 144px;'>`
+    emailContent += `<a href="https://asahisushiolympia.com"><img src="theLink" style='width: 171px; height: 144px; margin-left:10px;'></a>`
+    emailContent += `</td>`
+    emailContent += `<td style='width:350px; height: 72px; vertical-align: top;'>`
+    emailContent += `<span style='color:rgb(253,140,0); font-family:railway; font-size:25px;'>Item Name</span>`
+    emailContent += `<br>`
+    emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Price: $13.00</span>`
+    emailContent += `<br>`
+    emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Quantity: 2</span>`
+    emailContent += `<br>`
+    emailContent += `</td>`
+    emailContent += `</tr>`
+    emailContent += `</table>`
+
+    emailContent += `<table style='width: 600px; margin:auto; position: relative; display: table-row;'>`
+    emailContent += `<tr>`
+    emailContent += `<td style='width: 80%;'></td>`
+    emailContent += `<td>Sub total</td>`
+    emailContent += `<td>$26.00</td>`
+    emailContent += `</tr>`
+    emailContent += `<tr>`
+    emailContent += `<td style='width: 80%;'></td>`
+    emailContent += `<td>Tax</td>`
+    emailContent += `<td>$2.35</td>`
+    emailContent += `</tr>`
+    emailContent += `<tr>`
+    emailContent += `<td style='width: 80%;'></td>`
+    emailContent += `<td>Total</td>`
+    emailContent += `<td>$28.35</td>`
+    emailContent += `</tr>`
+    emailContent += `</table>`
+
+    emailContent += `</div>`
+    console.log(`emailContent = ${emailContent}`)
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: emailConfig
@@ -218,7 +277,7 @@ function sendEmail(emailTo) {
         bcc: "dannydannyl@me.com",
         subject: "Asahi Sushi :: Order Confirmation",
         replyTo: "asahisushioly@gmail.com",
-        html: `<h1> Thank you for your order!</h1><h1>Testing</h1><p>testing2</p>`
+        html: emailContent
     }
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {

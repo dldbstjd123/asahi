@@ -118,7 +118,14 @@ const Menu = props => {
                     <div id="menuMovingCategory">
                         {categories.map(item => {
                             count++
-                            return <div key={item} akey={count} onClick={scrollTo}>{item}</div>
+                            if(item.trim().includes(" ")){
+                                let itemList = item.trim().split(" ")
+                                return <div key={item} akey={count} onClick={scrollTo}>{itemList.map(key=>{
+                                return <div>{key}</div>
+                                })}</div>
+                            }else{
+                                return <div key={item} akey={count} onClick={scrollTo}>{item}</div>
+                            }
                         })}
                     </div>
                 </div>

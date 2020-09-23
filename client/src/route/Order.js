@@ -140,11 +140,9 @@ const Order = props => {
 			    count++
 			    if(item.trim().includes(" ")){
 				let itemList = item.trim().split(" ")
-				let itemListDiv = ""
-				for(let i=0; i<itemList.length; i++){
-				    itemListDiv += `<div>${itemList[i]}</div>`
-				}
-				return <div key={item} akey={count} onClick={scrollTo}>{itemListDiv}</div>
+				return <div key={item} akey={count} onClick={scrollTo}>{itemList.map(key=>{
+				return <div>{key}</div>
+				})}</div>
 			    }else{
 				return <div key={item} akey={count} onClick={scrollTo}>{item}</div>
 			    }                           
