@@ -223,6 +223,7 @@ async function chargeOrder(access_token, source, orderId) {
 async function sendEmail(emailTo, orderId, customer, items) {
     console.log(`sendEmail Items = ${items}`)
     let taxRate = await getTaxRate()
+    console.log(`taxRate = ${taxRate}`)
     let emailContent = `<div width='100%' style='min-width:640px; width:640px; border:15px solid #00000014; font-family:railway; color:black; height:auto; position: relative; display: table'>`
     emailContent += `<table class='header' style= 'width:640px; padding:20px 10px 0px 10px; position: relative; '><tbody>`
     emailContent += `<tr style='width:640px;'><td></td><td style='margin:auto; width:245px;'><a href='https://asahisushiolympia.com/'><img style='display:block; margin:0 auto; width:245px; border-bottom: 1px solid #7e7e7e; padding-bottom:8px;' src='https://asahisushiolympia.com/images/mainLogo.svg'></a></td><td></td></tr>`
