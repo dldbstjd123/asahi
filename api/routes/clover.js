@@ -146,7 +146,7 @@ async function getSourceCode(api_key, req) {
 }
 
 async function getTaxRate() {
-    let pool = mysql.createPool(mysqlPoolconfig)
+    let pool = mysql2.createPool(mysqlPoolconfig)
     let promisePool = pool.promise()
     let rate = await promisePool.query(`SELECT rate FROM asahi.tax WHERE id=1`)
     return rate
