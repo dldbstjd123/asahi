@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import "../css/Confirmation.css"
 import About from "./About.js"
+import { domain } from "../config"
 
 const Confirmation = props => {
     const location = useLocation()
