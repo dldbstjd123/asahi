@@ -9,6 +9,7 @@ const Confirmation = props => {
     const location = useLocation()
     const [total, setTotal] = useState(0)
     const [tax, setTax] = useState(0)
+    const [copySucceed, setCopySucceed] = useState(false)
 
     function copyLocation() {
         var textField = document.createElement("textarea")
@@ -129,6 +130,9 @@ const Confirmation = props => {
                     <div>
                         Olympia, WA 98501{" "}
                         <RiFileCopyLine size="15" onClick={copyLocation} />
+                        {copySucceed ? (
+                            <span style={{ color: "gray" }}>copied</span>
+                        ) : null}
                     </div>
                 </div>
                 <div>(360)-705-8000</div>
