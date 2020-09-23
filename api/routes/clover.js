@@ -1,8 +1,12 @@
 var express = require("express")
 var router = express.Router()
 var mysql = require("mysql")
-let mysql2 = require('mysql2');
-const { mysqlconfig, emailConfig, mysqlPoolconfig } = require("../../ignore/config.js")
+let mysql2 = require("mysql2")
+const {
+    mysqlconfig,
+    emailConfig,
+    mysqlPoolconfig
+} = require("../../ignore/config.js")
 var nodemailer = require("nodemailer")
 
 let auth_code = undefined //|| '3a149af4-2c25-ea26-f992-97b1a2852306'
@@ -141,9 +145,9 @@ async function getSourceCode(api_key, req) {
     }
 }
 
-function getTaxRate() {
-    let pool = mysql.createPool(mysqlPoolconfig);
-    let promisePool = pool.promise();
+async function getTaxRate() {
+    let pool = mysql.createPool(mysqlPoolconfig)
+    let promisePool = pool.promise()
     let rate = await promisePool.query(`SELECT rate FROM asahi.tax WHERE id=1`)
     return rate
     // var connection = mysql.createConnection(mysqlconfig)
