@@ -33,7 +33,7 @@ const Confirmation = props => {
                     (location.items[i].amount / 100) *
                     location.items[i].quantity
             }
-            setTotal(sum / 1000)
+            setTotal(sum)
         }
     }, [location])
 
