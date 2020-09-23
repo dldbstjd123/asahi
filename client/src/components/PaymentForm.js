@@ -136,6 +136,8 @@ const PaymentForm = props => {
                 }).then(res => res.json())
                 if (fetchData.status == 1) {
                     //redirect to confirmation page
+                    console.log(`fetchData = ${JSON.stringify(fetchData)}`)
+                    console.log(`fetchData.id = ${fetchData.id}`)
                     history.push({
                         pathname: "/confirmation",
                         orderId: fetchData.id,
