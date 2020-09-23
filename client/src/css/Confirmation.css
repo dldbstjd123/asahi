@@ -4,6 +4,7 @@
     justify-content: flex-start;
     align-items: center;
     padding-top: 15px;
+    text-align: center;
 }
 
 #thankMessage {
@@ -59,6 +60,9 @@
 
 @media only screen and (max-width: 750px) {
     #confirmationTable {
+        width: 90%;
+    }
+    #summaryContainer {
         width: 90%;
     }
     #confirmationMidContainer {
