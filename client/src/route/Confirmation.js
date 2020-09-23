@@ -27,7 +27,7 @@ const Confirmation = props => {
     useEffect(() => {
         console.log(location.items)
         let sum = 0
-        if (location.items > 0) {
+        if (location.items) {
             for (let i = 0; i < location.items.length; i++) {
                 sum +=
                     (location.items[i].amount / 100) *
