@@ -211,8 +211,9 @@ async function chargeOrder(access_token, source, orderId) {
     return result
 }
 
-function sendEmail(emailTo, orderId, customer, items) {
+async function sendEmail(emailTo, orderId, customer, items) {
     console.log(`sendEmail Items = ${items}`)
+    let taxRate = await getTaxRate()
     let emailContent = `<div width='100%' style='min-width:640px; width:640px; border:15px solid #00000014; font-family:railway; color:black; height:auto; position: relative; display: table'>`
     emailContent += `<table class='header' style= 'width:640px; padding:20px 10px 0px 10px; position: relative; '><tbody>`
     emailContent += `<tr style='width:640px;'><td></td><td style='margin:auto; width:245px;'><a href='https://asahisushiolympia.com/'><img style='display:block; margin:0 auto; width:245px; border-bottom: 1px solid #7e7e7e; padding-bottom:8px;' src='https://asahisushiolympia.com/images/mainLogo.svg'></a></td><td></td></tr>`
@@ -232,37 +233,54 @@ function sendEmail(emailTo, orderId, customer, items) {
         { timeZone: "America/Los_Angeles" }
     )}</td></td></tr></tbody></table>`
     emailContent += `<table class='fabricList' style='width: 600px; margin:auto; position: relative; display:table-row'>`
-
-    emailContent += `<tr>`
-    emailContent += `<td style='width:171px; height: 144px;'>`
-    emailContent += `<a href="https://asahisushiolympia.com"><img src="theLink" style='width: 171px; height: 144px; margin-left:10px;'></a>`
-    emailContent += `</td>`
-    emailContent += `<td style='width:350px; height: 72px; vertical-align: top;'>`
-    emailContent += `<span style='color:rgb(253,140,0); font-family:railway; font-size:25px;'>Item Name</span>`
-    emailContent += `<br>`
-    emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Price: $13.00</span>`
-    emailContent += `<br>`
-    emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Quantity: 2</span>`
-    emailContent += `<br>`
-    emailContent += `</td>`
-    emailContent += `</tr>`
+    let total = 0
+    for (let i = 0; i < items.length; i++) {
+        total += (items[i].amount / 100) * items[i].quantity
+        emailContent += `<tr>`
+        emailContent += `<td style='width:171px; height: 144px;'>`
+        emailContent += `<a href="https://asahisushiolympia.com"><img src="theLink" style='width: 171px; height: 144px; margin-left:10px;'></a>`
+        emailContent += `</td>`
+        emailContent += `<td style='width:350px; height: 72px; vertical-align: top;'>`
+        emailContent += `<span style='color:rgb(253,140,0); font-family:railway; font-size:25px;'>${items[i].description}</span>`
+        emailContent += `<br>`
+        emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Price: ${(
+            items[i].amount / 100
+        ).toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD"
+        })}</span>`
+        emailContent += `<br>`
+        emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Quantity: ${items[i].quantity}</span>`
+        emailContent += `<br>`
+        emailContent += `</td>`
+        emailContent += `</tr>`
+    }
     emailContent += `</table>`
 
     emailContent += `<table style='width: 600px; margin:auto; position: relative; display: table-row;'>`
     emailContent += `<tr>`
     emailContent += `<td style='width: 80%;'></td>`
     emailContent += `<td>Sub total</td>`
-    emailContent += `<td>$26.00</td>`
+    emailContent += `<td>${total.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })}</td>`
     emailContent += `</tr>`
     emailContent += `<tr>`
     emailContent += `<td style='width: 80%;'></td>`
     emailContent += `<td>Tax</td>`
-    emailContent += `<td>$2.35</td>`
+    emailContent += `<td>${(total * taxRate).toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })}</td>`
     emailContent += `</tr>`
     emailContent += `<tr>`
     emailContent += `<td style='width: 80%;'></td>`
     emailContent += `<td>Total</td>`
-    emailContent += `<td>$28.35</td>`
+    emailContent += `<td>${(total * taxRate + total).toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })}</td>`
     emailContent += `</tr>`
     emailContent += `</table>`
 
