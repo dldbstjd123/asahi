@@ -3,8 +3,32 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    padding-top: 15px;
 }
 
 #thankMessage {
     font-size: 25px;
+    padding: 15px;
+}
+
+#confirmationTable {
+    width: 50%;
+    text-align: left;
+    margin: 15px;
+    border-spacing: 0;
+}
+#tableHeader {
+    background-color: #dcdcdc;
+}
+#emailSpan {
+    font-weight: 600;
+}
+
+#confirmationTable > tr > th,
+#confirmationTable > tr > td {
+    padding: 15px;
+}
+
+#confirmationTable > tr > td {
+    border-top: 1px solid #dcdcdc;
 }
