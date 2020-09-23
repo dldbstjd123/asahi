@@ -51,7 +51,7 @@ router.post("/proceed", async function (req, res, next) {
     console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
     if (charge.id) {
         res.json({ status: 1, items: charge.items, id: charge.id })
-        sendEmail(req.body.email, charge.id, req.body.name)
+        sendEmail(req.body.email, charge.id, req.body.name, charge.items)
         return
     } else {
         res.json({ status: 0, error: "Failed to pay." })
@@ -64,7 +64,8 @@ router.get("/email", function (req, res, next) {
     let emailStatus = sendEmail(
         "dannydannyl@me.com",
         "FA554832148",
-        "yoon jung"
+        "yoon jung",
+        { name: "test" }
     )
     console.log(`email status = ${emailStatus}`)
 })
@@ -210,7 +211,8 @@ async function chargeOrder(access_token, source, orderId) {
     return result
 }
 
-function sendEmail(emailTo, orderId, customer) {
+function sendEmail(emailTo, orderId, customer, items) {
+    console.log(`sendEmail Items = ${items}`)
     let emailContent = `<div width='100%' style='min-width:640px; width:640px; border:15px solid #00000014; font-family:railway; color:black; height:auto; position: relative; display: table'>`
     emailContent += `<table class='header' style= 'width:640px; padding:20px 10px 0px 10px; position: relative; '><tbody>`
     emailContent += `<tr style='width:640px;'><td></td><td style='margin:auto; width:245px;'><a href='https://asahisushiolympia.com/'><img style='display:block; margin:0 auto; width:245px; border-bottom: 1px solid #7e7e7e; padding-bottom:8px;' src='https://asahisushiolympia.com/images/mainLogo.svg'></a></td><td></td></tr>`
