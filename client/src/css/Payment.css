@@ -1,13 +1,15 @@
-#paymentContainer{
+#paymentContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 15px;
 }
 
-
 /* under 900px width*/
-@media only screen and (max-width:1200px){
-    #paymentContainer{
+@media only screen and (max-width: 1200px) {
+    #paymentContainer {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
