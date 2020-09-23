@@ -216,7 +216,7 @@ function sendEmail(emailTo) {
         to: emailTo,
         //to: 'dannydannyl@me.com',
         bcc: "dannydannyl@me.com",
-        subject: "Asahi Sushi order confirmation.",
+        subject: "Asahi Sushi :: Order Confirmation",
         replyTo: "asahisushioly@gmail.com",
         html: `<h1> Thank you for your order!</h1><h1>Testing</h1><p>testing2</p>`
     }
