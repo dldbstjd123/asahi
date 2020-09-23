@@ -64,6 +64,14 @@ const Confirmation = props => {
                     The receipt has been sent to{" "}
                     <span id="emailSpan">{location.email}</span>
                 </div>
+                <div id="orderIdContainer">
+                    Order ID :{" "}
+                    {location.orderId ? (
+                        <span>{location.orderId}</span>
+                    ) : (
+                        <span></span>
+                    )}
+                </div>
                 <table id="confirmationTable">
                     <tr id="tableHeader">
                         <th>Item</th>

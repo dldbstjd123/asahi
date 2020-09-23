@@ -24,6 +24,10 @@
 #emailSpan {
     font-weight: 600;
 }
+#orderIdContainer {
+    margin: 15px;
+    font-weight: 600;
+}
 
 #confirmationTable > tr > th,
 #confirmationTable > tr > td {
