@@ -5,7 +5,7 @@ let mysql2 = require("mysql2")
 const {
     mysqlconfig,
     emailConfig,
-    mysqlPoolconfig
+    mysqlPoolConfig
 } = require("../../ignore/config.js")
 var nodemailer = require("nodemailer")
 
@@ -146,7 +146,7 @@ async function getSourceCode(api_key, req) {
 }
 
 async function getTaxRate() {
-    let pool = mysql2.createPool(mysqlPoolconfig)
+    let pool = mysql2.createPool(mysqlPoolConfig)
     let promisePool = pool.promise()
     let rate = await promisePool.query(`SELECT rate FROM asahi.tax WHERE id=1`)
     return rate
