@@ -240,12 +240,12 @@ async function sendEmail(emailTo, orderId, customer, items) {
         "en-US",
         { timeZone: "America/Los_Angeles" }
     )}</td></td></tr></tbody></table>`
-    emailContent += `<table style='width: 600px; margin:auto; position: relative; display:table-row; text-align:center'>`
+    emailContent += `<table style='width: 600px; margin:auto; position: relative; display:table-row; text-align:center; border-spacing: 0;'>`
     let total = 0
-    emailContent += `<tr style='background-color: #dcdcdc;'><th style='padding:15px;font-size:20px; border-spacing: 0;'>Item</th><th style='padding:15px;font-size:20px;'>Qty</th><th style='padding:15px;font-size:20px;'>Price</th></tr>`
+    emailContent += `<tr style='background-color: #dcdcdc;'><th style='padding:15px;font-size:20px;'>Item</th><th style='padding:15px;font-size:20px;'>Qty</th><th style='padding:15px;font-size:20px;'>Price</th></tr>`
     for (let i = 0; i < items.length; i++) {
         total += (items[i].amount / 100) * items[i].quantity
-        emailContent += `<tr style= border-spacing: 0;'>`
+        emailContent += `<tr>`
         emailContent += `<td style='padding:15px; font-size:18px; border-top: 1px solid #dcdcdc;'>${items[i].description}</td>`
         emailContent += `<td style='padding:15px; font-size:18px; border-top: 1px solid #dcdcdc;'>${items[i].quantity}</td>`
         emailContent += `<td style='padding:15px; font-size:18px; border-top: 1px solid #dcdcdc;'>${(
@@ -260,7 +260,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
 
     emailContent += `<table style='width: 600px; margin:auto; position: relative; display: table-row; font-size:18px;'>`
     emailContent += `<tr>`
-    emailContent += `<td style='width: 80%;'></td>`
+    emailContent += `<td style='width: 70%;'></td>`
     emailContent += `<td style='font-weight:600;'>Sub total</td>`
     emailContent += `<td>${total.toLocaleString("en-US", {
         style: "currency",
@@ -268,7 +268,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
     })}</td>`
     emailContent += `</tr>`
     emailContent += `<tr>`
-    emailContent += `<td style='width: 80%;'></td>`
+    emailContent += `<td style='width: 70%;'></td>`
     emailContent += `<td style='font-weight:600;'>Tax</td>`
     emailContent += `<td>${(total * taxRate).toLocaleString("en-US", {
         style: "currency",
@@ -276,7 +276,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
     })}</td>`
     emailContent += `</tr>`
     emailContent += `<tr>`
-    emailContent += `<td style='width: 80%;'></td>`
+    emailContent += `<td style='width: 70%;'></td>`
     emailContent += `<td style='font-weight:600;'>Total</td>`
     emailContent += `<td>${(total * taxRate + total).toLocaleString("en-US", {
         style: "currency",
