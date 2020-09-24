@@ -258,7 +258,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
     }
     emailContent += `</table>`
 
-    emailContent += `<table style='width: 600px; margin:auto; position: relative; display: table; font-size:18px;'>`
+    emailContent += `<table style='width: 600px; margin:auto; position: relative; display: table; font-size:18px; padding-top:15px;'>`
     emailContent += `<tr>`
     emailContent += `<td style='width: 70%;'></td>`
     emailContent += `<td style='font-weight:600;'>Sub total</td>`
