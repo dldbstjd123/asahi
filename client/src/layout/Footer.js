@@ -22,7 +22,7 @@ const Footer = props => {
                 </a>
                 <a
                     href="https://www.yelp.com/biz/asahi-sushi-olympia?osq=asahi+sushi+olympia"
-                    style="margin-top:2px;"
+                    style={{ marginTop: "2px" }}
                 >
                     <ImYelp color="gray" height="21px" width="25px" />
                 </a>
