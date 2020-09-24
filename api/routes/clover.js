@@ -236,7 +236,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
     emailContent += `<div style='width:100%; min-height:424px; position: relative;'>`
     emailContent += `<img id='imagefile' class='imagefile' style='width:100%; min-height:424px;' src='https://asahisushiolympia.com/images/home/home2.jpg'>`
     emailContent += `</div>`
-    emailContent += `<table style='width:640px; padding:20px 0; position: relative;'><tbody><tr><td></td><td style='width: 400px; margin:auto; padding-bottom: 10px; color:rgb(253,140,0); text-align: center; font-size:27px;' >${orderId}</td><td></td></tr><tr><tr></td><td><td style='width: 400px; margin:auto; padding-bottom: 10px; color:#2222229e; text-align: center; font-size:17px;'>${new Date().toLocaleString(
+    emailContent += `<table style='width:640px; padding:20px 0; position: relative;'><tbody><tr><td></td><td style='width: 400px; margin:auto; padding-bottom: 10px; color:rgb(253,140,0); text-align: center; font-size:27px;' >Order ID: ${orderId}</td><td></td></tr><tr><tr></td><td><td style='width: 400px; margin:auto; padding-bottom: 10px; color:#2222229e; text-align: center; font-size:17px;'>${new Date().toLocaleString(
         "en-US",
         { timeZone: "America/Los_Angeles" }
     )}</td></td></tr></tbody></table>`
