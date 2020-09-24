@@ -70,7 +70,7 @@ router.get("/email", function (req, res, next) {
         "dannydannyl@me.com",
         "FA554832148",
         "yoon jung",
-        { name: "test" }
+        { description: "test", amount: 2000, quantity: 2 }
     )
     console.log(`email status = ${emailStatus}`)
 })
@@ -221,9 +221,7 @@ async function chargeOrder(access_token, source, orderId) {
 }
 
 async function sendEmail(emailTo, orderId, customer, items) {
-    console.log(`sendEmail Items = ${items}`)
     let taxRate = await getTaxRate()
-    console.log(`taxRate = ${taxRate}`)
     let emailContent = `<div width='100%' style='min-width:640px; width:640px; border:15px solid #00000014; font-family:railway; color:black; height:auto; position: relative; display: table'>`
     emailContent += `<table class='header' style= 'width:640px; padding:20px 10px 0px 10px; position: relative; '><tbody>`
     emailContent += `<tr style='width:640px;'><td></td><td style='margin:auto; width:245px;'><a href='https://asahisushiolympia.com/'><img style='display:block; margin:0 auto; width:245px; border-bottom: 1px solid #7e7e7e; padding-bottom:8px;' src='https://asahisushiolympia.com/images/mainLogo.svg'></a></td><td></td></tr>`
@@ -244,25 +242,18 @@ async function sendEmail(emailTo, orderId, customer, items) {
     )}</td></td></tr></tbody></table>`
     emailContent += `<table class='fabricList' style='width: 600px; margin:auto; position: relative; display:table-row'>`
     let total = 0
+    emailContent += `<tr style='background-color: #dcdcdc;'><th style='padding:15px;'>Item</th><th style='padding:15px;>Qty</th><th style='padding:15px;>Price</th></tr>`
     for (let i = 0; i < items.length; i++) {
         total += (items[i].amount / 100) * items[i].quantity
         emailContent += `<tr>`
-        emailContent += `<td style='width:171px; height: 144px;'>`
-        emailContent += `<a href="https://asahisushiolympia.com"><img src="theLink" style='width: 171px; height: 144px; margin-left:10px;'></a>`
-        emailContent += `</td>`
-        emailContent += `<td style='width:350px; height: 72px; vertical-align: top;'>`
-        emailContent += `<span style='color:rgb(253,140,0); font-family:railway; font-size:25px;'>${items[i].description}</span>`
-        emailContent += `<br>`
-        emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Price: ${(
+        emailContent += `<td style='padding:15px; font-size:18px;'>${items[i].description}</td>`
+        emailContent += `<td style='padding:15px;'>Price: ${(
             items[i].amount / 100
         ).toLocaleString("en-US", {
             style: "currency",
             currency: "USD"
-        })}</span>`
-        emailContent += `<br>`
-        emailContent += `<span style='font-size:11px; font-family:railway; font-size:20px;'>Quantity: ${items[i].quantity}</span>`
-        emailContent += `<br>`
-        emailContent += `</td>`
+        })}</td>`
+        emailContent += `<td style='padding:15px;'>Quantity: ${items[i].quantity}</td>`
         emailContent += `</tr>`
     }
     emailContent += `</table>`
