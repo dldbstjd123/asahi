@@ -149,7 +149,7 @@ async function getTaxRate() {
     let pool = mysql2.createPool(mysqlPoolConfig)
     let promisePool = pool.promise()
     let rate = await promisePool.query(`SELECT rate FROM asahi.tax WHERE id=1`)
-    return rate
+    return rate[0][0].rate
     // var connection = mysql.createConnection(mysqlconfig)
     // connection.connect()
     // connection.query(`SELECT rate FROM asahi.tax WHERE id=1`, function (
