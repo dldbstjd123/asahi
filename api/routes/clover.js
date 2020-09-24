@@ -242,7 +242,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
     )}</td></td></tr></tbody></table>`
     emailContent += `<table class='fabricList' style='width: 600px; margin:auto; position: relative; display:table-row'>`
     let total = 0
-    emailContent += `<tr style='background-color: #dcdcdc;'><th style='padding:15px;'>Item</th><th style='padding:15px;>Qty</th><th style='padding:15px;>Price</th></tr>`
+    emailContent += `<tr style='background-color: #dcdcdc;'><th style='padding:15px;'>Item</th><th style='padding:15px;'>Qty</th><th style='padding:15px;'>Price</th></tr>`
     for (let i = 0; i < items.length; i++) {
         total += (items[i].amount / 100) * items[i].quantity
         emailContent += `<tr>`
