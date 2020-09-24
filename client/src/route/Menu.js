@@ -1,57 +1,96 @@
-import React, {useState, useEffect} from "react"
-import {domain} from "../config"
-import {FaChevronLeft, FaChevronRight} from "react-icons/fa"
+import React, { useState, useEffect } from "react"
+import { domain } from "../config"
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import "../css/Menu.css"
 import Loading from "../components/Loading"
 
 const Menu = props => {
     const [onLoad, setOnLoad] = useState(true)
-    const [list, setList] = useState([]);
-    const [updatedList, setUpdatedList] = useState({});
-    const [categories, setCategories] = useState([]);
-    const [currentPosition, setCurrentPosition] = useState(0);
-    let count = -1;
-    function moveToLeft(){
+    const [list, setList] = useState([])
+    const [updatedList, setUpdatedList] = useState({})
+    const [categories, setCategories] = useState([])
+    const [currentPosition, setCurrentPosition] = useState(0)
+    let count = -1
+    function moveToLeft() {
         let totalPages = Math.floor(categories.length / 5)
-        if(categories.length%5 != 0 ){
+        if (categories.length % 5 != 0) {
             totalPages++
         }
-        let totalWidth = document.getElementById("menuMovingCategory").clientWidth*totalPages
-        if(totalWidth < document.getElementById("menuMovingCategory").clientWidth){
-            totalWidth = document.getElementById("menuMovingCategory").clientWidth
+        let totalWidth =
+            document.getElementById("menuMovingCategory").clientWidth *
+            totalPages
+        if (
+            totalWidth <
+            document.getElementById("menuMovingCategory").clientWidth
+        ) {
+            totalWidth = document.getElementById("menuMovingCategory")
+                .clientWidth
         }
-        if(currentPosition == 0){
-            document.getElementById("menuMovingCategory").style.left = -totalWidth + document.getElementById("menuMovingCategory").clientWidth + "px"
-            setCurrentPosition(-totalWidth + document.getElementById("menuMovingCategory").clientWidth)
-        }else{
-            document.getElementById("menuMovingCategory").style.left = (currentPosition + document.getElementById("menuMovingCategory").clientWidth)+ "px"
-            setCurrentPosition(prev => prev + document.getElementById("menuMovingCategory").clientWidth)
+        if (currentPosition == 0) {
+            document.getElementById("menuMovingCategory").style.left =
+                -totalWidth +
+                document.getElementById("menuMovingCategory").clientWidth +
+                "px"
+            setCurrentPosition(
+                -totalWidth +
+                    document.getElementById("menuMovingCategory").clientWidth
+            )
+        } else {
+            document.getElementById("menuMovingCategory").style.left =
+                currentPosition +
+                document.getElementById("menuMovingCategory").clientWidth +
+                "px"
+            setCurrentPosition(
+                prev =>
+                    prev +
+                    document.getElementById("menuMovingCategory").clientWidth
+            )
         }
     }
-    function moveToRight(){
+    function moveToRight() {
         let totalPages = Math.floor(categories.length / 5)
-        if(categories.length%5 != 0 ){
+        if (categories.length % 5 != 0) {
             totalPages++
         }
-        let totalWidth = document.getElementById("menuMovingCategory").clientWidth*totalPages
-        if(totalWidth < document.getElementById("menuMovingCategory").clientWidth){
-            totalWidth = document.getElementById("menuMovingCategory").clientWidth
+        let totalWidth =
+            document.getElementById("menuMovingCategory").clientWidth *
+            totalPages
+        if (
+            totalWidth <
+            document.getElementById("menuMovingCategory").clientWidth
+        ) {
+            totalWidth = document.getElementById("menuMovingCategory")
+                .clientWidth
         }
-        if(currentPosition == totalWidth - document.getElementById("menuMovingCategory").clientWidth){
+        if (
+            currentPosition ==
+            totalWidth -
+                document.getElementById("menuMovingCategory").clientWidth
+        ) {
             document.getElementById("menuMovingCategory").style.left = "0px"
             setCurrentPosition(0)
-        }else{
-            document.getElementById("menuMovingCategory").style.left = currentPosition - document.getElementById("menuMovingCategory").clientWidth + "px"
-            setCurrentPosition(prev => prev - document.getElementById("menuMovingCategory").clientWidth)
+        } else {
+            document.getElementById("menuMovingCategory").style.left =
+                currentPosition -
+                document.getElementById("menuMovingCategory").clientWidth +
+                "px"
+            setCurrentPosition(
+                prev =>
+                    prev -
+                    document.getElementById("menuMovingCategory").clientWidth
+            )
         }
     }
-    function scrollTo(event){
-        let n = event.target.getAttribute("akey")
-        let baseHeight = document.getElementById("navigationContainer").clientHeight
+    function scrollTo(event) {
+        let n = event.currentTarget.getAttribute("akey")
+        let baseHeight = document.getElementById("navigationContainer")
+            .clientHeight
         let menuHeight = 0
-        if(n != 0){
-            for(let i=0; i<n; i++){
-                menuHeight += document.getElementsByClassName("menuPerCategoryContainer")[i].clientHeight
+        if (n != 0) {
+            for (let i = 0; i < n; i++) {
+                menuHeight += document.getElementsByClassName(
+                    "menuPerCategoryContainer"
+                )[i].clientHeight
             }
         }
         document.body.scrollTop = baseHeight + menuHeight
@@ -81,19 +120,19 @@ const Menu = props => {
                 setUpdatedList(preUpdateList)
                 setList(data)
             })
-            let categoryNavigationEffect2
-            const categoryNavigationEffect = setInterval(()=>{
-                document.getElementById("moveLeft").style.left = "-5px"
-                document.getElementById("moveRight").style.left = "5px"
-                categoryNavigationEffect2 = setTimeout(()=>{
-                    document.getElementById("moveLeft").style.left = "0px"
-                    document.getElementById("moveRight").style.left = "0px"
-                },500)
-            }, 5000)
-            return ()=>{
-                clearInterval(categoryNavigationEffect)
-                clearTimeout(categoryNavigationEffect2)
-            }
+        let categoryNavigationEffect2
+        const categoryNavigationEffect = setInterval(() => {
+            document.getElementById("moveLeft").style.left = "-5px"
+            document.getElementById("moveRight").style.left = "5px"
+            categoryNavigationEffect2 = setTimeout(() => {
+                document.getElementById("moveLeft").style.left = "0px"
+                document.getElementById("moveRight").style.left = "0px"
+            }, 500)
+        }, 5000)
+        return () => {
+            clearInterval(categoryNavigationEffect)
+            clearTimeout(categoryNavigationEffect2)
+        }
     }, [])
 
     useEffect(() => {
@@ -109,28 +148,54 @@ const Menu = props => {
     }, [updatedList])
     return (
         <div className="bodyContainer">
-            {onLoad? <Loading /> : null}
+            {onLoad ? <Loading /> : null}
             <div id="categoriesContainer">
                 <div>
-                    <FaChevronLeft className="moveLeftRight" id="moveLeft" size="20px" onClick={moveToLeft}/>
+                    <FaChevronLeft
+                        className="moveLeftRight"
+                        id="moveLeft"
+                        size="20px"
+                        onClick={moveToLeft}
+                    />
                 </div>
                 <div id="catagoriesItemsContainer">
                     <div id="menuMovingCategory">
                         {categories.map(item => {
                             count++
-                            if(item.trim().includes(" ")){
+                            if (item.trim().includes(" ")) {
                                 let itemList = item.trim().split(" ")
-                                return <div key={item} akey={count} onClick={scrollTo}>{itemList.map(key=>{
-                                return <div>{key}</div>
-                                })}</div>
-                            }else{
-                                return <div key={item} akey={count} onClick={scrollTo}>{item}</div>
+                                return (
+                                    <div
+                                        key={item}
+                                        akey={count}
+                                        onClick={scrollTo}
+                                    >
+                                        {itemList.map(key => {
+                                            return <div>{key}</div>
+                                        })}
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    <div
+                                        key={item}
+                                        akey={count}
+                                        onClick={scrollTo}
+                                    >
+                                        {item}
+                                    </div>
+                                )
                             }
                         })}
                     </div>
                 </div>
                 <div>
-                    <FaChevronRight className="moveLeftRight" id="moveRight" size="20px" onClick={moveToRight}/>
+                    <FaChevronRight
+                        className="moveLeftRight"
+                        id="moveRight"
+                        size="20px"
+                        onClick={moveToRight}
+                    />
                 </div>
             </div>
             {categories.map(key => {
