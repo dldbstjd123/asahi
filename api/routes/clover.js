@@ -245,15 +245,15 @@ async function sendEmail(emailTo, orderId, customer, items) {
     emailContent += `<tr style='background-color: #dcdcdc;'><th style='padding:15px;font-size:20px;'>Item</th><th style='padding:15px;font-size:20px;'>Qty</th><th style='padding:15px;font-size:20px;'>Price</th></tr>`
     for (let i = 0; i < items.length; i++) {
         total += (items[i].amount / 100) * items[i].quantity
-        emailContent += `<tr>`
+        emailContent += `<tr style='border-top: 1px solid #dcdcdc;'>`
         emailContent += `<td style='padding:15px; font-size:18px;'>${items[i].description}</td>`
-        emailContent += `<td style='padding:15px; font-size:18px;'>Price: ${(
+        emailContent += `<td style='padding:15px; font-size:18px;'>${items[i].quantity}</td>`
+        emailContent += `<td style='padding:15px; font-size:18px;'>${(
             items[i].amount / 100
         ).toLocaleString("en-US", {
             style: "currency",
             currency: "USD"
         })}</td>`
-        emailContent += `<td style='padding:15px; font-size:18px;'>Quantity: ${items[i].quantity}</td>`
         emailContent += `</tr>`
     }
     emailContent += `</table>`
