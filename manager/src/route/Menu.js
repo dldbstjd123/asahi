@@ -66,7 +66,7 @@ const Menu = () => {
                 }
                 
                 return (
-                  <tr key={item.id}>
+                  <tr key={item.id} onmouseover="this.style.backgroundColor='#ececec'">
                     <td>{count}</td>
                     <td>{item.categoryName}</td>
                     <td>{item.name}</td>
