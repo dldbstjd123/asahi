@@ -15,8 +15,10 @@ const Order = props => {
     const [list, setList] = useState([])
     const [updatedList, setUpdatedList] = useState({})
     const [categories, setCategories] = useState([])
+    const [categoriesDescription, setCategoriesDescription] = useState([])
     const [currentPosition, setCurrentPosition] = useState(0)
     let count = -1
+    let categoryIndex = -1
     function moveToLeft() {
         let totalPages = Math.floor(categories.length / 5)
         if (categories.length % 5 != 0) {
@@ -168,6 +170,14 @@ const Order = props => {
             setCategories(array => {
                 if (array.indexOf(key) == -1) {
                     array.push(key)
+                    setCategoriesDescription(array2 => {
+                        if (updatedList[key][0].categoryDescription === null) {
+                            array2.push(undefined)
+                        } else {
+                            array2.push(updatedList[key][0].categoryDescription)
+                        }
+                        return array2
+                    })
                 }
                 return array
             })
@@ -227,9 +237,20 @@ const Order = props => {
                 </div>
             </div>
             {categories.map(key => {
+                categoryIndex++
                 return (
                     <div key={key} className="menuPerCategoryContainer">
-                        <div className="menuTitle">{key}</div>
+                        <div className="menuTitle">
+                            {key}{" "}
+                            {categoriesDescription[categoryIndex] !==
+                            undefined ? (
+                                <span style={{ fontSize: "16px" }}>
+                                    {categoriesDescription[categoryIndex]}
+                                </span>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
                         <div className="menuItems">
                             {updatedList[key].map(item => {
                                 let source = `${domain}client/image?image=${item.image}`

@@ -19,7 +19,7 @@ router.post("/menu/get", async function (req, res, next) {
     var connection = mysql.createConnection(mysqlconfig)
     connection.connect()
     connection.query(
-        `SELECT menu.*, category.name AS categoryName FROM asahi.menu LEFT JOIN asahi.category ON menu.category = category.id ORDER BY category.sort, sort`,
+        `SELECT menu.*, category.name AS categoryName, category.description as categoryDescription FROM asahi.menu LEFT JOIN asahi.category ON menu.category = category.id ORDER BY category.sort, sort`,
         function (error, results) {
             res.json(results)
         }
