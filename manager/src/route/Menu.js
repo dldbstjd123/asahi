@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { domain } from "../config";
 import { useHistory } from "react-router-dom";
+import '../css/Menu.css'
 
 const Menu = () => {
   const history = useHistory();
@@ -66,7 +67,7 @@ const Menu = () => {
                 }
                 
                 return (
-                  <tr key={item.id} onmouseover="this.style.backgroundColor='#ececec'">
+                  <tr key={item.id} className="menuTableRow">
                     <td>{count}</td>
                     <td>{item.categoryName}</td>
                     <td>{item.name}</td>
