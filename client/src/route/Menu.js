@@ -63,7 +63,7 @@ const Menu = props => {
                 .clientWidth
         }
         if (
-            currentPosition ==
+            currentPosition * -1 ==
             totalWidth -
                 document.getElementById("menuMovingCategory").clientWidth
         ) {

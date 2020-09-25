@@ -54,12 +54,6 @@ const Order = props => {
         }
     }
     function moveToRight() {
-        console.log(`currentPosition = ${currentPosition}`)
-        console.log(`totalWidth -
-        document.getElementById("menuMovingCategory").clientWidth = ${
-            totalWidth -
-            document.getElementById("menuMovingCategory").clientWidth
-        }`)
         let totalPages = Math.floor(categories.length / 5)
         if (categories.length % 5 != 0) {
             totalPages++
@@ -67,6 +61,12 @@ const Order = props => {
         let totalWidth =
             document.getElementById("menuMovingCategory").clientWidth *
             totalPages
+        console.log(`currentPosition = ${currentPosition}`)
+        console.log(`totalWidth -
+            document.getElementById("menuMovingCategory").clientWidth = ${
+                totalWidth -
+                document.getElementById("menuMovingCategory").clientWidth
+            }`)
         if (
             totalWidth <
             document.getElementById("menuMovingCategory").clientWidth
@@ -75,7 +75,7 @@ const Order = props => {
                 .clientWidth
         }
         if (
-            currentPosition ==
+            currentPosition * -1 ==
             totalWidth -
                 document.getElementById("menuMovingCategory").clientWidth
         ) {
