@@ -3,7 +3,7 @@ var router = express.Router()
 var path = require("path")
 var fs = require("fs")
 const passport = require("passport")
-const {mysqlconfig, mysqlPoolConfig} = require("../../ignore/config.js")
+const { mysqlconfig, mysqlPoolConfig } = require("../../ignore/config.js")
 var mysql = require("mysql")
 let mysql2 = require("mysql2")
 
@@ -14,7 +14,7 @@ var multer = require("multer")
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-    cb(null, path.join(__dirname + "/../../client/public/images/menu/"))
+        cb(null, path.join(__dirname + "/../../client/public/images/menu/"))
         //cb(null, "../public/images/");
     },
     filename: function (req, file, cb) {
@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
     }
 })
 
-var upload = multer({storage: storage})
+var upload = multer({ storage: storage })
 
 //const User = require("../models/userModel");
 
@@ -37,29 +37,32 @@ router.post("/login", function (req, res, next) {
         if (err) {
             return next(err)
         } else if (!user) {
-            return res.json({status: "failed"})
+            return res.json({ status: "failed" })
         }
         req.logIn(user, function (err) {
-	    console.log(`req.logIn Function called, user = ${user}`)
+            console.log(`req.logIn Function called, user = ${user}`)
             if (err) {
                 return next(err)
             }
-            return res.json({status: "succeed", user: req.user})
+            return res.json({ status: "succeed", user: req.user })
         })
     })(req, res, next)
 })
 router.post("/logout", function (req, res, next) {
     req.logOut()
-    res.json({status: "succeed"})
+    res.json({ status: "succeed" })
 })
 
 router.post("/category/get", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
-        connection.query(`SELECT * FROM asahi.category`, function (error, results) {
+        connection.query(`SELECT * FROM asahi.category`, function (
+            error,
+            results
+        ) {
             res.json(results)
         })
         connection.end()
@@ -67,78 +70,88 @@ router.post("/category/get", async function (req, res, next) {
 })
 
 router.post("/category/add", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         if (req.body.name == undefined || req.body.name.length == 0) {
-            res.json({status: "failed"})
+            res.json({ status: "failed" })
         } else if (req.body.sort == undefined || req.body.sort.length == 0) {
-            res.json({status: "failed"})
+            res.json({ status: "failed" })
         } else {
             var connection = mysql.createConnection(mysqlconfig)
             connection.connect()
-            connection.query(
-                `INSERT INTO asahi.category (name, sort) VALUES('${req.body.name}',${req.body.sort})`,
-                function (error, results) {
-                    if (error) {
-                        throw error
-                    }
-                    res.json({status: "succeed"})
+            let queryString = `INSERT INTO asahi.category (name, description, sort) VALUES('${
+                req.body.name
+            }', '${(req, body.description)}', ${req.body.sort})`
+            if (req.body.description === null) {
+                queryString = `INSERT INTO asahi.category (name, sort) VALUES('${req.body.name}',${req.body.sort})`
+            }
+            connection.query(queryString, function (error, results) {
+                if (error) {
+                    throw error
                 }
-            )
+                res.json({ status: "succeed" })
+            })
             connection.end()
         }
     }
 })
 
 router.post("/category/update", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    console.log(`update req = ${JSON.stringify(req.body)}`)
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         if (req.body.name == undefined || req.body.name.length == 0) {
-            res.json({status: "failed"})
+            res.json({ status: "failed" })
         } else if (req.body.sort == undefined || req.body.sort.length == 0) {
-            res.json({status: "failed"})
+            res.json({ status: "failed" })
         } else {
             var connection = mysql.createConnection(mysqlconfig)
             connection.connect()
-            connection.query(
-                `UPDATE asahi.category SET name = '${req.body.name}', sort = ${req.body.sort} WHERE id = ${req.body.id}`,
-                function (error, results) {
-                    if (error) {
-                        throw error
-                    }
-                    res.json({status: "succeed"})
+            let queryString = `UPDATE asahi.category SET name = '${req.body.name}', sort = ${req.body.sort}, description = '${req.body.description}' WHERE id = ${req.body.id}`
+            if (req.body.description === null) {
+                queryString = `UPDATE asahi.category SET name = '${req.body.name}', sort = ${req.body.sort} WHERE id = ${req.body.id}`
+            }
+            connection.query(queryString, function (error, results) {
+                if (error) {
+                    throw error
                 }
-            )
+                res.json({ status: "succeed" })
+            })
             connection.end()
         }
     }
 })
 
-router.post("/category/checkbeforedelete", function(req, res, next){
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+router.post("/category/checkbeforedelete", function (req, res, next) {
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         console.log(req.user)
 
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
-        connection.query(`SELECT COUNT(id) as count FROM asahi.menu WHERE category = ${req.body.id}`, function(error, results){
-        if(error){throw error}
-        res.json({status:"succeed", results: results})
-        })
+        connection.query(
+            `SELECT COUNT(id) as count FROM asahi.menu WHERE category = ${req.body.id}`,
+            function (error, results) {
+                if (error) {
+                    throw error
+                }
+                res.json({ status: "succeed", results: results })
+            }
+        )
     }
 })
 
 router.post("/category/delete", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         if (req.body.name == undefined || req.body.name.length == 0) {
-            res.json({status: "failed"})
+            res.json({ status: "failed" })
         } else if (req.body.sort == undefined || req.body.sort.length == 0) {
-            res.json({status: "failed"})
+            res.json({ status: "failed" })
         } else {
             var connection = mysql.createConnection(mysqlconfig)
             connection.connect()
@@ -148,7 +161,7 @@ router.post("/category/delete", async function (req, res, next) {
                     if (error) {
                         throw error
                     }
-                    res.json({status: "succeed"})
+                    res.json({ status: "succeed" })
                 }
             )
             connection.end()
@@ -157,12 +170,15 @@ router.post("/category/delete", async function (req, res, next) {
 })
 
 router.post("/hours/get", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
-        connection.query(`SELECT * FROM asahi.hours`, function (error, results) {
+        connection.query(`SELECT * FROM asahi.hours`, function (
+            error,
+            results
+        ) {
             res.json(results)
         })
         connection.end()
@@ -170,9 +186,9 @@ router.post("/hours/get", async function (req, res, next) {
 })
 
 router.post("/hours/update", function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         let NullIncluded = false
         for (let i = 0; i < req.body.length; i++) {
             if ((req.body[i].openhour.length = 0)) {
@@ -182,7 +198,7 @@ router.post("/hours/update", function (req, res, next) {
             }
         }
         if (NullIncluded) {
-            res.json({status: "failed"})
+            res.json({ status: "failed" })
         } else {
             for (let i = 0; i < req.body.length; i++) {
                 var connection = mysql.createConnection(mysqlconfig)
@@ -191,7 +207,7 @@ router.post("/hours/update", function (req, res, next) {
                     `UPDATE asahi.hours SET openhour='${req.body[i].openhour}', closehour='${req.body[i].closehour}', status='${req.body[i].status}' WHERE id =${req.body[i].id}`,
                     function (error, results) {
                         if (i == req.body.length - 1) {
-                            res.json({status: "succeed"})
+                            res.json({ status: "succeed" })
                         }
                     }
                 )
@@ -202,9 +218,9 @@ router.post("/hours/update", function (req, res, next) {
 })
 
 router.post("/menu/get", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
         connection.query(
@@ -217,9 +233,9 @@ router.post("/menu/get", async function (req, res, next) {
     }
 })
 router.post("/menu_update/get", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
         connection.query(
@@ -233,9 +249,9 @@ router.post("/menu_update/get", async function (req, res, next) {
 })
 
 router.post("/menu_update/update", function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
         connection.query(
@@ -247,10 +263,14 @@ router.post("/menu_update/update", function (req, res, next) {
         connection.end()
     }
 })
-router.post("/menu_update/updateImage", upload.single("file1"), async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+router.post("/menu_update/updateImage", upload.single("file1"), async function (
+    req,
+    res,
+    next
+) {
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         const selectImage = await promisePool.query(
             `SELECT * FROM  asahi.menu WHERE id = ${req.body.itemid}`
         )
@@ -280,9 +300,9 @@ router.post("/menu_update/updateImage", upload.single("file1"), async function (
 })
 
 router.post("/menu_update/delete", async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         const selectImage = await promisePool.query(
             `SELECT * FROM  asahi.menu WHERE id = ${req.body.id}`
         )
@@ -299,17 +319,21 @@ router.post("/menu_update/delete", async function (req, res, next) {
         connection.query(
             `DELETE FROM asahi.menu WHERE id = ${req.body.id}`,
             function (error, results) {
-                res.json({status: "succeed"})
+                res.json({ status: "succeed" })
             }
         )
         connection.end()
     }
 })
 
-router.post("/menu_add/add", upload.single("file1"), async function (req, res, next) {
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+router.post("/menu_add/add", upload.single("file1"), async function (
+    req,
+    res,
+    next
+) {
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         let query
         if (req.file != undefined) {
             query = `INSERT INTO asahi.menu (name, description, price, category, sort, image) VALUES('${req.body.name}', '${req.body.description}', ${req.body.price}, ${req.body.category}, ${req.body.sort}, '${req.file.filename}')`
@@ -319,43 +343,49 @@ router.post("/menu_add/add", upload.single("file1"), async function (req, res, n
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
         connection.query(query, function (error, results) {
-            if(error){
-            throw error
+            if (error) {
+                throw error
             }
-            res.json({status:'succeed'})
+            res.json({ status: "succeed" })
         })
         connection.end()
     }
 })
 
-router.post("/tax/get", function(req, res, next){
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+router.post("/tax/get", function (req, res, next) {
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
-        connection.query(`SELECT rate FROM asahi.tax`, function (error, results) {
-            if(error){
-            throw error
+        connection.query(`SELECT rate FROM asahi.tax`, function (
+            error,
+            results
+        ) {
+            if (error) {
+                throw error
             }
-            res.json({rate: results[0].rate})
+            res.json({ rate: results[0].rate })
         })
         connection.end()
-    }   
+    }
 })
 
-router.post("/tax/update", function(req, res, next){
-    if(req.user == undefined){
-        res.redirect('/admin')
-    } else{
+router.post("/tax/update", function (req, res, next) {
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
         var connection = mysql.createConnection(mysqlconfig)
         connection.connect()
-        connection.query(`UPDATE asahi.tax SET rate = ${req.body.tax} WHERE id = 1`, function (error, results) {
-            if(error){
-              throw error
+        connection.query(
+            `UPDATE asahi.tax SET rate = ${req.body.tax} WHERE id = 1`,
+            function (error, results) {
+                if (error) {
+                    throw error
+                }
+                res.json({ status: 1 })
             }
-            res.json({status: 1})
-        })
+        )
         connection.end()
     }
 })
