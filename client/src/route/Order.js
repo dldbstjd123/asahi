@@ -64,12 +64,6 @@ const Order = props => {
         let totalWidth =
             document.getElementById("menuMovingCategory").clientWidth *
             totalPages
-        console.log(`currentPosition = ${currentPosition}`)
-        console.log(`totalWidth -
-            document.getElementById("menuMovingCategory").clientWidth = ${
-                totalWidth -
-                document.getElementById("menuMovingCategory").clientWidth
-            }`)
         if (
             totalWidth <
             document.getElementById("menuMovingCategory").clientWidth
