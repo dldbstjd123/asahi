@@ -80,7 +80,12 @@ const About = props => {
                     <div className="aboutTitle">Phone</div>
                     <div>
                         <div>
-                            {phone}
+                            <a
+                                href="tel:+13607058000"
+                                style={{ color: "black" }}
+                            >
+                                {phone}
+                            </a>
                             <RiFileCopyLine size="20" onClick={copyPhone} />
                             {copySucceed2 ? (
                                 <span style={{ color: "gray" }}>copied</span>

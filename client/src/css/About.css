@@ -35,6 +35,9 @@
 .hourRows > div:nth-child(even) {
     width: 100px;
 }
+.hourRows > div:nth-child(3) {
+    width: 20px;
+}
 
 /* under 600px width*/
 @media only screen and (max-width: 600px) {
