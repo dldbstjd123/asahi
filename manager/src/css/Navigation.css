@@ -1,27 +1,30 @@
-#navigationContainer{
-    display:flex;
+#navigationContainer {
+    display: flex;
     flex-direction: row;
     height: 100vh;
 }
-#linkContainer{
+#linkContainer {
     width: 150px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    color:white;
+    color: white;
     background-color: #424242;
+    position: fixed;
+    height: 100%;
 }
-.links{
-    font-size:20px;
+.links {
+    font-size: 20px;
     text-decoration: none;
-    color:white;
+    color: white;
 }
-#mainContainer{
-    width:100%;
+#mainContainer {
+    width: 100%;
+    margin-left: 150px;
 }
-#topNavigation{
-    height:40px;
+#topNavigation {
+    height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
