@@ -7,6 +7,15 @@ const MoveToTop = props => {
         document.body.scrollTop = 0
         document.documentElement.scrollTop = 0
     }
+    function handleScroll() {
+        if (window.scrollY < 200) {
+            document.getElementById("moveToTopContainer").style.visibility =
+                "hidden"
+        } else {
+            document.getElementById("moveToTopContainer").style.visibility =
+                "visible"
+        }
+    }
     useEffect(() => {
         let Effect2
         const Effect = setInterval(() => {
@@ -16,9 +25,11 @@ const MoveToTop = props => {
                     "20px"
             }, 500)
         }, 5000)
+        window.addEventListener("scroll", handleScroll)
         return () => {
             clearInterval(Effect)
             clearTimeout(Effect2)
+            window.removeEventListener("scroll", handleScroll)
         }
     }, [])
     return (
