@@ -20,6 +20,7 @@
 .moveLeftRight {
     user-select: none;
     position: relative;
+    cursor: pointer;
     transition: ease-in-out 0.5s;
     -webkit-transition: ease-in-out 0.5s;
     -moz-transition: ease-in-out 0.5s;
@@ -40,6 +41,7 @@
 }
 
 #menuMovingCategory > div {
+    cursor: pointer;
     white-space: normal;
     vertical-align: middle;
     word-break: break-all;
