@@ -89,8 +89,6 @@ const Category = () => {
         }
     }
     async function addHandler(event) {
-        event.preventDefault()
-
         const doWork = await fetch(`${domain}admin/category/add`, {
             method: "POST",
             mode: "cors",
