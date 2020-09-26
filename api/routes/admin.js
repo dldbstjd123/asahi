@@ -80,9 +80,7 @@ router.post("/category/add", async function (req, res, next) {
         } else {
             var connection = mysql.createConnection(mysqlconfig)
             connection.connect()
-            let queryString = `INSERT INTO asahi.category (name, description, sort) VALUES('${
-                req.body.name
-            }', '${(req, body.description)}', ${req.body.sort})`
+            let queryString = `INSERT INTO asahi.category (name, description, sort) VALUES('${req.body.name}', '${req.body.description}', ${req.body.sort})`
             if (req.body.description === null) {
                 queryString = `INSERT INTO asahi.category (name, sort) VALUES('${req.body.name}',${req.body.sort})`
             }
