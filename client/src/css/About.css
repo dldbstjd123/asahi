@@ -1,42 +1,44 @@
-#aboutContainer{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  width:90%;
-  margin:auto;
-  align-items: center;
+#aboutContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    margin: auto;
+    align-items: center;
 }
-.aboutTitle{
-  font-size:35px;
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  margin-top: 20px;
+.aboutTitle {
+    font-size: 35px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    margin-top: 20px;
 }
-#mapContainer > iframe{
-  width: 100%;
-  min-height: 400px;
+#mapContainer > iframe {
+    width: 100%;
+    min-height: 400px;
 }
-#aboutRightSide{
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom:20px;
+#aboutRightSide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
-.hourRows{
-  display:flex;
-  flex-direction:row;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
+.hourRows {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
 }
 
 .hourRows > div {
-  width: 50px;
-  text-align: center;
+    width: 50px;
+    text-align: center;
+}
+.hourRows > div:nth-child(even) {
+    width: 100px;
 }
 
-
 /* under 600px width*/
-@media only screen and (max-width:600px){
-  #aboutContainer{
-    grid-template-columns: 1fr;
-  }
+@media only screen and (max-width: 600px) {
+    #aboutContainer {
+        grid-template-columns: 1fr;
+    }
 }
