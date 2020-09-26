@@ -3,6 +3,7 @@ import { domain } from "../config"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import "../css/Order.css"
 import Loading from "../components/Loading"
+import MoveToTop from "../components/MoveToTop"
 import addToCartAction from "../store/actions/addToCart"
 
 import { useSelector, useDispatch } from "react-redux"
@@ -343,6 +344,7 @@ const Order = props => {
                     </div>
                 )
             })}
+            <MoveToTop />
         </div>
     )
 }

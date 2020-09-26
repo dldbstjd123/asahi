@@ -3,6 +3,7 @@ import { domain } from "../config"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import "../css/Menu.css"
 import Loading from "../components/Loading"
+import MoveToTop from "../components/MoveToTop"
 
 const Menu = props => {
     const [onLoad, setOnLoad] = useState(true)
@@ -287,6 +288,7 @@ const Menu = props => {
                     </div>
                 )
             })}
+            <MoveToTop />
         </div>
     )
 }
