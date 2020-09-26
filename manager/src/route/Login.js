@@ -1,7 +1,7 @@
 import React from "react"
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import "../css/Login.css"
-import {domain} from "../config"
+import { domain } from "../config"
 //import {webSiteURL} from '../../../ignore/config.js';
 
 const Login = props => {
@@ -22,9 +22,8 @@ const Login = props => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({username, password})
+                body: JSON.stringify({ username, password })
             }).then(res => res.json())
-            console.log(fetchData)
             if (fetchData.status == "succeed") {
                 history.push("/admin/home")
             }
@@ -33,10 +32,11 @@ const Login = props => {
         }
     }
     function enterPressed(event) {
-        var code = event.keyCode || event.which;
-        if(code === 13) { //13 is the enter keycode
-            validateForm();
-        } 
+        var code = event.keyCode || event.which
+        if (code === 13) {
+            //13 is the enter keycode
+            validateForm()
+        }
     }
     return (
         <div id="loginContainer">
