@@ -92,7 +92,6 @@ const Order = props => {
     }
     function scrollTo(event) {
         let n = event.currentTarget.getAttribute("akey")
-        console.log(n)
         let baseHeight = document.getElementById("navigationContainer")
             .clientHeight
         let menuHeight = 0
