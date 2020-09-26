@@ -1,3 +1,7 @@
-.menuTableRow:hover td{
- background-color: #ececec;
+.menuTableRow:hover td {
+    background-color: #ececec;
+}
+
+.menuTableRow > td {
+    border-top: 1px solid #ececec;
 }
