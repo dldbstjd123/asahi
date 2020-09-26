@@ -224,7 +224,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
     let taxRate = await getTaxRate()
     let emailContent = `<div width='100%' style='min-width:640px; width:640px; border:15px solid #00000014; font-family:railway; color:black; height:auto; position: relative; display: table'>`
     emailContent += `<table class='header' style= 'width:640px; padding:20px 10px 0px 10px; position: relative; '><tbody>`
-    emailContent += `<tr style='width:640px;'><td></td><td style='margin:auto; width:245px;'><a href='https://asahisushiolympia.com/'><img style='display:block; margin:0 auto; width:245px; border-bottom: 1px solid #7e7e7e; padding-bottom:8px;' src='https://asahisushiolympia.com/images/mainLogo.svg'></a></td><td></td></tr>`
+    emailContent += `<tr style='width:640px;'><td></td><td style='margin:auto; width:245px;'><a href='https://asahisushiolympia.com/'><img style='display:block; margin:0 auto; width:245px; border-bottom: 1px solid #7e7e7e; padding-bottom:8px;' src='https://asahisushiolympia.com/images/mainLogo.jpg'></a></td><td></td></tr>`
     emailContent += `<tr style='width:640px;'><td></td><td style='margin-top: 8px; width:245px; text-align:center; font-weight: bold; font-size:20px;'>Order Confirmation</td><td></td></tr>`
     emailContent += `</tbody></table>`
     emailContent += `<table style='padding:5px 15px; position: relative;'>`
