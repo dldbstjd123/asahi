@@ -107,7 +107,6 @@ const Category = () => {
         })
         history.push("/admin/category")
         //window.location.reload();
-        console.log(event.target.name.value)
     }
     //   function makeOptions(n){
     //     let option
