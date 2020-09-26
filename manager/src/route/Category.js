@@ -82,7 +82,7 @@ const Category = () => {
                 },
                 body: JSON.stringify(list[targetOfList])
             })
-            history.push("/admin/category")
+            history.go(0)
             //window.location.reload()
         } else {
             alert("delete menu items before deleting category")
