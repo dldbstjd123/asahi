@@ -68,7 +68,14 @@ const About = props => {
                 <div>
                     <div className="aboutTitle">Location</div>
                     <div>
-                        <div>{location}</div>
+                        <div>
+                            <a
+                                href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
+                                style={{ color: "black" }}
+                            >
+                                {location}
+                            </a>
+                        </div>
                         <div>
                             <a
                                 href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
