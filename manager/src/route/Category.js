@@ -101,6 +101,7 @@ const Category = () => {
             },
             body: JSON.stringify({
                 name: event.target.name.value,
+                description: event.target.description.value,
                 sort: event.target.sort.value
             })
         })
