@@ -83,7 +83,11 @@ const About = props => {
                             >
                                 {location2}
                             </a>
-                            <RiFileCopyLine size="20" onClick={copyLocation} />
+                            <RiFileCopyLine
+                                size="20"
+                                onClick={copyLocation}
+                                style={{ cursor: "pointer" }}
+                            />
                             {copySucceed ? (
                                 <span style={{ color: "gray" }}>copied</span>
                             ) : null}
@@ -98,7 +102,11 @@ const About = props => {
                             >
                                 {phone}
                             </a>
-                            <RiFileCopyLine size="20" onClick={copyPhone} />
+                            <RiFileCopyLine
+                                size="20"
+                                onClick={copyPhone}
+                                style={{ cursor: "pointer" }}
+                            />
                             {copySucceed2 ? (
                                 <span style={{ color: "gray" }}>copied</span>
                             ) : null}
