@@ -135,12 +135,6 @@ router.post("/category/updateImage", upload2.single("file"), async function (
     res,
     next
 ) {
-    console.log(req.user)
-    console.log(`req.body = ${JSON.stringify(req.body)}`)
-    console.log(`req.file = ${JSON.stringify(req.file)}`)
-    console.log(`req.body = ${req.body.itemid}`)
-    console.log(`req.file = ${req.file}`)
-
     if (req.user == undefined) {
         res.redirect("/admin")
     } else {

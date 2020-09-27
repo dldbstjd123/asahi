@@ -25,6 +25,7 @@ const CategoryImageUpdate = props => {
             }).then(res => {
                 console.log(JSON.stringify(res))
             })
+            history.push("/admin/category")
         }
     }
     useEffect(() => {
