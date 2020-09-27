@@ -53,4 +53,13 @@ router.get("/tax/get", function (req, res, next) {
     connection.end()
 })
 
+router.get("/category/get", function (req, res, next) {
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(`SELECT * FROM asahi.category`, function (error, results) {
+        res.json(results)
+    })
+    connection.end()
+})
+
 module.exports = router
