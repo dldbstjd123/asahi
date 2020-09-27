@@ -25,8 +25,8 @@ const CategoryImageUpdate = props => {
                 body: formData
             }).then(res => {
                 console.log(JSON.stringify(res))
+                history.push("/admin/category")
             })
-            history.push("/admin/category")
         }
     }
     useEffect(() => {
