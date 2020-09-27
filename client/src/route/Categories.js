@@ -6,16 +6,15 @@ const Categories = props => {
     const [list, setList] = useState()
     const [listLength, setListLength] = useState(0)
 
-    function mouseOver() {
-        //console.log("mouseOver")
-    }
     function mouseEnter(event) {
-        console.log("mouseEnter")
-        console.log(event.target)
+        let akey = event.target.getAttribute("akey")
+        document.getElementById("categoriesBoxContainer" + akey).style.top =
+            "20%"
     }
     function mouseLeave(event) {
-        console.log("mouseLeave")
-        console.log(event.target)
+        let akey = event.target.getAttribute("akey")
+        document.getElementById("categoriesBoxContainer" + akey).style.top =
+            "25%"
     }
     useEffect(() => {
         fetch(`${domain}client/category/get`, {
@@ -57,16 +56,21 @@ const Categories = props => {
                 ) : (
                     list.map((item, i) => {
                         let url = "/images/category/" + item.image
+                        let idKey = "categoriesBoxContainer" + i
                         return (
                             <div
                                 className="categoriesImageContainer"
                                 key={i}
-                                onMouseOver={mouseOver}
+                                akey={i}
                                 onMouseEnter={mouseEnter}
                                 onMouseLeave={mouseLeave}
                             >
-                                <img src={url} />
-                                <div className="categoriesBoxContainer">
+                                <img src={url} akey={i} />
+                                <div
+                                    className="categoriesBoxContainer"
+                                    id={idKey}
+                                    akey={i}
+                                >
                                     {item.name}
                                 </div>
                             </div>

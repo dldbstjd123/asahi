@@ -26,4 +26,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: ease-in-out 0.5s;
+    -webkit-transition: ease-in-out 0.5s;
+    -moz-transition: ease-in-out 0.5s;
+    -o-transition: ease-in-out 0.5s;
+    cursor: pointer;
 }
