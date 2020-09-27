@@ -4,7 +4,6 @@
 }
 .categoriesImageContainer {
     position: relative;
-    min-height: 100px;
 }
 
 .categoriesImageContainer > img {
@@ -21,7 +20,7 @@
     color: #333333;
     background-color: rgba(255, 255, 255, 0.2);
     /* border: 3px solid black; */
-    font-size: 25px;
+    font-size: large;
     font-weight: 600;
     position: absolute;
     display: flex;
