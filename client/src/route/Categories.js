@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { domain } from "../config.js"
 import "../css/Categories.css"
+import Loading from "../components/Loading"
 
 const Categories = props => {
     const [list, setList] = useState()
     const [listLength, setListLength] = useState(0)
+    const [uploaded, setUploaded] = useState(0)
+    const [loading, setLoading] = useState(true)
 
     function mouseEnter(event) {
         let akey = event.target.getAttribute("akey")
@@ -28,10 +31,43 @@ const Categories = props => {
         })
             .then(res => res.json())
             .then(data => {
-                setListLength(data.length)
                 setList(data)
+                let allImages = 0
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].image !== null) {
+                        allImages++
+                    }
+                }
+                setListLength(allImages)
+                console.log(
+                    document.getElementsByClassName("categoriesImageContainer")
+                )
+                let uploaded = 0
+                for (
+                    let i = 0;
+                    i <
+                    document.getElementsByClassName("categoriesImageContainer")
+                        .length;
+                    i++
+                ) {
+                    document
+                        .getElementsByClassName("categoriesImageContainer")
+                        [i].children[0].addEventListener("load", () => {
+                            setUploaded(prev => {
+                                return prev + 1
+                            })
+                        })
+                }
             })
     }, [])
+
+    useEffect(() => {
+        console.log(`uploaded= ${uploaded}`)
+        console.log(`listLength= ${listLength}`)
+        if (listLength === uploaded) {
+            console.log(`ALL loaded`)
+        }
+    }, [uploaded])
     return (
         <div className="bodyContainer">
             <div id="categoriesRouteContainer">
