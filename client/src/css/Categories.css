@@ -4,6 +4,7 @@
 }
 .categoriesImageContainer {
     position: relative;
+    min-height: 200px;
 }
 
 .categoriesImageContainer > img {
