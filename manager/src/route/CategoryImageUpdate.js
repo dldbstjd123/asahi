@@ -4,6 +4,7 @@ import { domain } from "../config"
 
 const CategoryImageUpdate = props => {
     let query = new URLSearchParams(useLocation().search)
+    const history = useHistory()
     const [categoryId, setCategoryId] = useState()
     const [imageFile, setImageFile] = useState(undefined)
 
