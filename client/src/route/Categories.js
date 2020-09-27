@@ -5,7 +5,7 @@ import Loading from "../components/Loading"
 
 const Categories = props => {
     const [list, setList] = useState()
-    const [listLength, setListLength] = useState(0)
+    const [listLength, setListLength] = useState()
     const [uploaded, setUploaded] = useState(0)
     const [loading, setLoading] = useState(true)
 
@@ -66,12 +66,13 @@ const Categories = props => {
         console.log(`listLength= ${listLength}`)
         if (listLength === uploaded) {
             console.log(`ALL loaded`)
+            console.log(loading)
             setLoading(false)
         }
     }, [uploaded])
     return (
         <div className="bodyContainer">
-            {loading ? <Loading /> : null}
+            {loading ? <Loading /> : <div id="test22"></div>}
             <div id="categoriesRouteContainer">
                 {list === undefined ? (
                     <></>
