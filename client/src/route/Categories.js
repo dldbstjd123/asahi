@@ -71,7 +71,7 @@ const Categories = props => {
     }, [uploaded])
     return (
         <div className="bodyContainer">
-            {onLoad ? <Loading /> : null}
+            {loading ? <Loading /> : null}
             <div id="categoriesRouteContainer">
                 {list === undefined ? (
                     <></>
