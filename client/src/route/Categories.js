@@ -39,9 +39,6 @@ const Categories = props => {
                     }
                 }
                 setListLength(allImages)
-                console.log(
-                    document.getElementsByClassName("categoriesImageContainer")
-                )
                 let uploaded = 0
                 for (
                     let i = 0;
@@ -62,11 +59,7 @@ const Categories = props => {
     }, [])
 
     useEffect(() => {
-        console.log(`uploaded= ${uploaded}`)
-        console.log(`listLength= ${listLength}`)
         if (listLength === uploaded) {
-            console.log(`ALL loaded`)
-            console.log(loading)
             setLoading(false)
         }
     }, [uploaded])

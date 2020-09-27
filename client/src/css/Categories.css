@@ -1,6 +1,6 @@
 #categoriesRouteContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .categoriesImageContainer {
     position: relative;
@@ -18,9 +18,9 @@
     width: 80%;
     top: 25%;
     left: 10%;
-    color: black;
-    border: 3px solid black;
-    font-size: 40px;
+    color: white;
+    /* border: 3px solid black; */
+    font-size: 25px;
     font-weight: 700;
     position: absolute;
     display: flex;
