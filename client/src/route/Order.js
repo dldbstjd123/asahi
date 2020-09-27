@@ -119,6 +119,9 @@ const Order = props => {
                 "rgba(255,255,255,0.4)"
         }, 600)
     }
+    function resetCategoryLeft() {
+        document.getElementById("menuMovingCategory").style.left = "0px"
+    }
 
     useEffect(() => {
         fetch(`${domain}client/menu/get`, {
@@ -153,9 +156,11 @@ const Order = props => {
                 document.getElementById("moveRight").style.left = "0px"
             }, 500)
         }, 5000)
+        window.addEventListener("resize", resetCategoryLeft)
         return () => {
             clearInterval(categoryNavigationEffect)
             clearTimeout(categoryNavigationEffect2)
+            window.removeEventListener("resize", resetCategoryLeft)
         }
     }, [])
 

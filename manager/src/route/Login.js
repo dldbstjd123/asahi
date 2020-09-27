@@ -48,8 +48,6 @@ const Login = props => {
                     id="accountId"
                     name="accountId"
                     required
-                    onFocus={() => console.log("clicked")}
-                    onBlur={() => console.log("out")}
                     onKeyPress={enterPressed}
                 />
                 <label>PASSWORD</label>
@@ -58,8 +56,6 @@ const Login = props => {
                     id="password"
                     name="password"
                     required
-                    onFocus={() => console.log("clicked")}
-                    onBlur={() => console.log("out")}
                     onKeyPress={enterPressed}
                 />
                 <input

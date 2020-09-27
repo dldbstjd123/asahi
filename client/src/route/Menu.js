@@ -99,6 +99,9 @@ const Menu = props => {
         document.body.scrollTop = baseHeight + menuHeight
         document.documentElement.scrollTop = baseHeight + menuHeight
     }
+    function resetCategoryLeft() {
+        document.getElementById("menuMovingCategory").style.left = "0px"
+    }
 
     useEffect(() => {
         fetch(`${domain}client/menu/get`, {
@@ -132,9 +135,11 @@ const Menu = props => {
                 document.getElementById("moveRight").style.left = "0px"
             }, 500)
         }, 5000)
+        window.addEventListener("resize", resetCategoryLeft)
         return () => {
             clearInterval(categoryNavigationEffect)
             clearTimeout(categoryNavigationEffect2)
+            window.removeEventListener("resize", resetCategoryLeft)
         }
     }, [])
 

@@ -1,0 +1,28 @@
+#categoriesRouteContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.categoriesImageContainer {
+    position: relative;
+}
+
+.categoriesImageContainer > img {
+    max-width: 100%;
+    display: block;
+    opacity: 0.8;
+}
+
+.categoriesBoxContainer {
+    height: 50%;
+    width: 80%;
+    top: 25%;
+    left: 10%;
+    color: black;
+    border: 3px solid black;
+    font-size: 40px;
+    font-weight: 700;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

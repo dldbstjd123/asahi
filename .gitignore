@@ -8,3 +8,4 @@ manager/src/config.js
 manager/node_modules/.cache/
 client/node_modules/.cache/
 client/public/images/menu/
+client/public/images/category/

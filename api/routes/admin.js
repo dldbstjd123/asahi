@@ -21,8 +21,17 @@ var storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
     }
 })
+var storage2 = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname + "/../../client/public/images/category/"))
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+    }
+})
 
 var upload = multer({ storage: storage })
+var upload2 = multer({ storage: storage2 })
 
 //const User = require("../models/userModel");
 
@@ -119,6 +128,50 @@ router.post("/category/update", async function (req, res, next) {
             })
             connection.end()
         }
+    }
+})
+router.post("/category/updateImage", upload2.single("file"), async function (
+    req,
+    res,
+    next
+) {
+    console.log(req.user)
+    console.log(`req.body = ${JSON.stringify(req.body)}`)
+    console.log(`req.file = ${JSON.stringify(req.file)}`)
+    console.log(`req.body = ${req.body.itemid}`)
+    console.log(`req.file = ${req.file}`)
+
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
+        const selectImage = await promisePool.query(
+            `SELECT * FROM asahi.category WHERE id = ${req.body.itemid}`
+        )
+        let fileToDelete = selectImage[0][0].image
+        if (fileToDelete !== null) {
+            fs.unlink(
+                "../client/public/images/category/" + fileToDelete,
+                err => {
+                    if (err) {
+                        console.log("failed to delete local image:" + err)
+                    } else {
+                        console.log("successfully deleted local image")
+                    }
+                }
+            )
+        }
+        var connection = mysql.createConnection(mysqlconfig)
+        connection.connect()
+        connection.query(
+            `UPDATE asahi.category SET image='${req.file.filename}' WHERE id = ${req.body.itemid}`,
+            function (error, results) {
+                if (error) {
+                    throw error
+                }
+                console.log(2)
+                res.json(results)
+            }
+        )
     }
 })
 

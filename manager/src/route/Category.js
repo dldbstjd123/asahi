@@ -106,18 +106,11 @@ const Category = () => {
         history.push("/admin/category")
         //window.location.reload();
     }
-    //   function makeOptions(n){
-    //     let option
-    //     for(let i=1; i<n; i++){
-    //         if(option == undefined){
-    //             option = <option value="${i}">${i}</option>
-    //         }else{
-    //             option += <option value="${i}">${i}</option>
-    //         }
-    //     }
-    //     console.log(option)
-    //     return <>{option}</>
-    //   }
+
+    function addImageHandler(event) {
+        let id = event.target.getAttribute("akey")
+        history.push(`/admin/category/image_update?id=${id}`)
+    }
 
     useEffect(() => {
         for (let i = 1; i < 21; i++) {
@@ -156,7 +149,9 @@ const Category = () => {
                             <tr>
                                 <th>No.</th>
                                 <th>Name</th>
+                                <th>Description</th>
                                 <th>Sort</th>
+                                <th>Image</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -194,6 +189,15 @@ const Category = () => {
                                             >
                                                 {optionTo20}
                                             </select>
+                                        </td>
+                                        <td>{item.image}</td>
+                                        <td>
+                                            <input
+                                                type="button"
+                                                akey={item.id}
+                                                value="Update Image"
+                                                onClick={addImageHandler}
+                                            />
                                         </td>
                                         <td>
                                             <input
