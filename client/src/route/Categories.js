@@ -66,10 +66,12 @@ const Categories = props => {
         console.log(`listLength= ${listLength}`)
         if (listLength === uploaded) {
             console.log(`ALL loaded`)
+            setLoading(false)
         }
     }, [uploaded])
     return (
         <div className="bodyContainer">
+            {onLoad ? <Loading /> : null}
             <div id="categoriesRouteContainer">
                 {list === undefined ? (
                     <></>
