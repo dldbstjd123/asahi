@@ -23,6 +23,8 @@ const Categories = props => {
     }
     function goToDetail(event) {
         let id = event.target.getAttribute("aid")
+        console.log(event.target)
+        console.log(event.currentTarget)
         console.log(id)
         history.push(`/menu2?id=${id}`)
     }
