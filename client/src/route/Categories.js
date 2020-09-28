@@ -22,10 +22,7 @@ const Categories = props => {
             "25%"
     }
     function goToDetail(event) {
-        let id = event.target.getAttribute("aid")
-        console.log(event.target)
-        console.log(event.currentTarget)
-        console.log(id)
+        let id = event.currentTarget.getAttribute("aid")
         history.push(`/menu2?id=${id}`)
     }
     useEffect(() => {
