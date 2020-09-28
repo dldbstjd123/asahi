@@ -21,7 +21,8 @@ const Categories = props => {
         document.getElementById("categoriesBoxContainer" + akey).style.top =
             "25%"
     }
-    function goToDetail(id) {
+    function goToDetail(event) {
+        let id = event.target.getAttribute("aid")
         history.push(`/menu2?id=${id}`)
     }
     useEffect(() => {
@@ -83,9 +84,10 @@ const Categories = props => {
                                 className="categoriesImageContainer"
                                 key={i}
                                 akey={i}
+                                aid={item.id}
                                 onMouseEnter={mouseEnter}
                                 onMouseLeave={mouseLeave}
-                                onClick={goToDetail(item.id)}
+                                onClick={goToDetail}
                             >
                                 <img src={url} akey={i} />
                                 <div
