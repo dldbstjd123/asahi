@@ -77,7 +77,12 @@ const Categories = props => {
                     <></>
                 ) : (
                     list.map((item, i) => {
-                        let url = "/images/category/" + item.image
+                        let url
+                        if (item.image === null) {
+                            url = "/images/category/home1.jpg"
+                        } else {
+                            url = "/images/category/" + item.image
+                        }
                         let idKey = "categoriesBoxContainer" + i
                         return (
                             <div
