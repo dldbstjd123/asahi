@@ -11,6 +11,7 @@ import Home from "./route/Home"
 import About from "./route/About"
 import Categories from "./route/Categories"
 import Menu from "./route/Menu"
+import Menu2 from "./route/Menu2"
 import Order from "./route/Order"
 import Payment from "./route/Payment"
 import Confirmation from "./route/Confirmation"
@@ -30,6 +31,7 @@ function App() {
                         <Route path={"/about"} component={About} />
                         <Route path={"/categories"} component={Categories} />
                         <Route path={"/menu"} component={Menu} />
+                        <Route path={"/menu2"} component={Menu2} />
                         <Route path={"/order"} component={Order} />
                         <Route path={"/payment"} component={Payment} />
                         <Route

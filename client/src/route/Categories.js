@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { domain } from "../config.js"
+import { useHistory } from "react-router-dom"
 import "../css/Categories.css"
 import Loading from "../components/Loading"
 
 const Categories = props => {
+    const history = useHistory()
     const [list, setList] = useState()
     const [listLength, setListLength] = useState()
     const [uploaded, setUploaded] = useState(0)
@@ -18,6 +20,9 @@ const Categories = props => {
         let akey = event.target.getAttribute("akey")
         document.getElementById("categoriesBoxContainer" + akey).style.top =
             "25%"
+    }
+    function goToDetail(id) {
+        history.push(`/menu2?id=${id}`)
     }
     useEffect(() => {
         fetch(`${domain}client/category/get`, {
@@ -80,6 +85,7 @@ const Categories = props => {
                                 akey={i}
                                 onMouseEnter={mouseEnter}
                                 onMouseLeave={mouseLeave}
+                                onClick={goToDetail(item.id)}
                             >
                                 <img src={url} akey={i} />
                                 <div
