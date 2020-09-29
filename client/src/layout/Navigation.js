@@ -18,7 +18,7 @@ const Navigation = (props)=>{
             <div id='navigationLinks'>
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
-                <Link to="/menu2">Menu</Link>
+                <Link to="/categories">Menu</Link>
                 <Link to="/order">Order</Link>
                 {/* <Link to="/news">News</Link> */}
                 {/* <Link to="/reservation">Reservations</Link> */}

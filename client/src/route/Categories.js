@@ -44,7 +44,8 @@ const Categories = props => {
                         allImages++
                     }
                 }
-                setListLength(allImages)
+                //setListLength(allImages)
+		setListLength(data.length)
                 let uploaded = 0
                 for (
                     let i = 0;
