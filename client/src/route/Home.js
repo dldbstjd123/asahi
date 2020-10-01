@@ -67,6 +67,12 @@ const Home = props => {
                 <img src="/images/home/home9.jpg" />
                 <img src="/images/home/home10.jpg"/> */}
             </div>
+	    <div id='homePageMenuContainer'>
+		<div>Location and Hours</div>
+		<div>Menu</div>
+		<div>Online Order</div>
+		<div>Call us</div>
+	    </div>
         </div>
     )
 }

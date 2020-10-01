@@ -1,3 +1,9 @@
+#navigationLinks{
+    display:none;
+}
+#bodyContainer{
+    position:relative;
+}
 #mainImages{
     position: relative;
     /* padding-top:25px; */
@@ -25,4 +31,10 @@
     -moz-transition: opacity ease-in 1s;
     -o-transition: opacity ease-in 1s;
 }
-
+#homePageMenuContainer{
+    position: absolute;
+    z-index:10;
+    width:80%;
+    top: 5%;
+    left: 10%;
+}
