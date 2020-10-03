@@ -65,7 +65,7 @@ const OrderSummary = (props)=>{
             {Object.keys(rawData).length==0 ? <div>No items</div> :Object.keys(rawData).map((id)=>{
                 return(
                 <div>
-                    <div className="cartItemContainer">
+                    <div className="orderCartItemContainer">
                         <div className='cartItemTop'>
                             <div className='cartItemName'>{rawData[id].name}</div>
                             <div className='cartDelete' akey={id} onClick={deleteCart}>delete</div>
