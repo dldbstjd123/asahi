@@ -1,44 +1,44 @@
-body{
-    font-family: 'Quicksand', sans-serif;
+body {
+    font-family: "Quicksand", sans-serif;
 }
-#navigationContainer{
+#navigationContainer {
     min-height: 25vh;
-    background-color:white;
-    display:flex;
+    background-color: white;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
-#navigationToHome{
-    display:flex;
+#navigationToHome {
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 120px;
 }
-#navigationLogo{
-    font-family: Arial, Helvetica, sans-serif;
+#navigationLogo {
+    /* font-family: Arial, Helvetica, sans-serif; */
     position: relative;
     width: 150px;
     height: 120px;
 }
-#cartIcon{
+#cartIcon {
     position: absolute;
     right: 2%;
     top: 2%;
 }
-#navigationLinks{
+#navigationLinks {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     min-width: 70vw;
 }
 
-#navigationLinks a{
+#navigationLinks a {
     color: gray;
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    /* font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; */
     text-decoration: none;
 }
 
-#navigationLinks a:hover{
+#navigationLinks a:hover {
     color: black;
 }
