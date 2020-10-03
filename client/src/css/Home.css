@@ -1,7 +1,7 @@
 #navigationLinks{
-    display:none;
+   
 }
-#bodyContainer{
+#bodyContainerHome{
     position:relative;
 }
 #mainImages{
@@ -32,9 +32,42 @@
     -o-transition: opacity ease-in 1s;
 }
 #homePageMenuContainer{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5%;
     position: absolute;
     z-index:10;
-    width:80%;
-    top: 5%;
-    left: 10%;
+    padding:0 5%;
+    width:90%;
+    top: 0
 }
+.homePageMenus{
+   height: 200px;
+   font-size:30px;
+   background-color: rgba(255,255,255,0.9);
+   color:black;
+   text-decoration: none;
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   width: 80%;
+   margin: auto;
+   cursor:pointer;
+}
+
+/* under 600px width*/
+@media only screen and (max-width: 600px) {
+    #homePageMenuContainer {
+        grid-template-columns: 1fr;
+	grid-gap: 0;
+	padding:0;
+	width:100%;
+    }
+    .homePageMenus{
+    	height:100px;
+	font-size:20px;
+    }
+}
+

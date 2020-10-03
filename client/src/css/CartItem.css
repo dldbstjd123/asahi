@@ -1,8 +1,8 @@
 .cartItemContainer{
     display:flex;
     flex-direction: column;
-    border: 1px solid black;
-    box-shadow: 1px 1px black;
+    border-bottom: 1px solid #cacaca;
+    /*box-shadow: 1px 1px black;*/
     margin: 2%;
 }
 .cartItemTop{
