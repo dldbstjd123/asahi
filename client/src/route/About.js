@@ -81,7 +81,7 @@ const About = props => {
                             >
                                 {" "}
                                 <GoLocation
-                                    size="20"
+                                    size="13"
                                     style={{ marginRight: "10px" }}
                                 />
                                 {location}
@@ -119,7 +119,7 @@ const About = props => {
                                 }}
                             >
                                 <IoIosCall
-                                    size="20"
+                                    size="15"
                                     style={{ marginRight: "10px" }}
                                 />
                                 {phone}
@@ -135,7 +135,7 @@ const About = props => {
                         </div>
                     </div>
                     <div>
-                        <div className="aboutTitle">Hours</div>
+                        <div className="aboutTitle">Business Hours</div>
                         {schedule.map(item => {
                             if (item.status == 1) {
                                 return (
