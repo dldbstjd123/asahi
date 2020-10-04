@@ -73,13 +73,17 @@ const About = props => {
                         <div>
                             <a
                                 href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
+                                className="aboutRightSideItems"
                                 style={{
                                     color: "black",
                                     textDecoration: "none"
                                 }}
                             >
                                 {" "}
-                                <GoLocation size="20" />
+                                <GoLocation
+                                    size="20"
+                                    style={{ marginRight: "10px" }}
+                                />
                                 {location}
                             </a>
                         </div>
@@ -108,12 +112,16 @@ const About = props => {
                         <div>
                             <a
                                 href="tel:+13607058000"
+                                className="aboutRightSideItems"
                                 style={{
                                     color: "black",
                                     textDecoration: "none"
                                 }}
                             >
-                                <IoIosCall size="20" />
+                                <IoIosCall
+                                    size="20"
+                                    style={{ marginRight: "10px" }}
+                                />
                                 {phone}
                             </a>
                             <RiFileCopyLine
