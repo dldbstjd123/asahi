@@ -26,6 +26,13 @@
     justify-content: center;
     align-items: center;
 }
+#aboutRightSidePhone {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
 .hourRows {
     display: flex;
     flex-direction: row;
