@@ -71,7 +71,10 @@ const About = props => {
                         <div>
                             <a
                                 href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
-                                style={{ color: "black" }}
+                                style={{
+                                    color: "black",
+                                    textDecoration: "none"
+                                }}
                             >
                                 {location}
                             </a>
@@ -79,14 +82,17 @@ const About = props => {
                         <div>
                             <a
                                 href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
-                                style={{ color: "black" }}
+                                style={{
+                                    color: "black",
+                                    textDecoration: "none"
+                                }}
                             >
                                 {location2}
                             </a>
                             <RiFileCopyLine
-                                size="20"
+                                size="13"
                                 onClick={copyLocation}
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer", color: "gray" }}
                             />
                             {copySucceed ? (
                                 <span style={{ color: "gray" }}>copied</span>
@@ -98,14 +104,17 @@ const About = props => {
                         <div>
                             <a
                                 href="tel:+13607058000"
-                                style={{ color: "black" }}
+                                style={{
+                                    color: "black",
+                                    textDecoration: "none"
+                                }}
                             >
                                 {phone}
                             </a>
                             <RiFileCopyLine
-                                size="20"
+                                size="13"
                                 onClick={copyPhone}
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer", color: "gray" }}
                             />
                             {copySucceed2 ? (
                                 <span style={{ color: "gray" }}>copied</span>
