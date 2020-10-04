@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { domain } from "../config.js"
 import { RiFileCopyLine } from "react-icons/ri"
+import { GoLocation } from "react-icons/go"
+import { IoIosCall } from "react-icons/io"
 import "../css/About.css"
 import Map from "../components/Map"
 
@@ -66,7 +68,7 @@ const About = props => {
             <Map />
             <div id="aboutRightSide">
                 <div>
-                    <div className="aboutTitle">Location</div>
+                    {/* <div className="aboutTitle">Location</div> */}
                     <div>
                         <div>
                             <a
@@ -76,6 +78,8 @@ const About = props => {
                                     textDecoration: "none"
                                 }}
                             >
+                                {" "}
+                                <GoLocation size="20" />
                                 {location}
                             </a>
                         </div>
@@ -99,7 +103,7 @@ const About = props => {
                             ) : null}
                         </div>
                     </div>
-                    <div className="aboutTitle">Phone</div>
+                    {/* <div className="aboutTitle">Phone</div> */}
                     <div>
                         <div>
                             <a
@@ -109,6 +113,7 @@ const About = props => {
                                     textDecoration: "none"
                                 }}
                             >
+                                <IoIosCall size="20" />
                                 {phone}
                             </a>
                             <RiFileCopyLine

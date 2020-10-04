@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
-import {BiFoodMenu} from "react-icons/bi";
-import {MdPayment} from "react-icons/md";
-import {GoLocation} from "react-icons/go";
+import { Link } from "react-router-dom"
+import { BiFoodMenu } from "react-icons/bi"
+import { MdPayment } from "react-icons/md"
+import { GoLocation } from "react-icons/go"
 import { IoIosCall } from "react-icons/io"
 import { domain } from "../config"
 import "../css/Home.css"
@@ -11,13 +11,13 @@ import Loading from "../components/Loading"
 const Home = props => {
     const [onLoad, setOnLoad] = useState(true)
 
-    function mouseEnterEvent(e){
-   	console.log(this)
-	console.log(e.target.children)
+    function mouseEnterEvent(e) {
+        console.log(this)
+        console.log(e.target.children)
     }
 
-    function mouseLeaveEvent(e){
-	console.log(this)    
+    function mouseLeaveEvent(e) {
+        console.log(this)
     }
 
     useEffect(() => {
@@ -53,14 +53,15 @@ const Home = props => {
                 //document.getElementById("bodyContainerHome").style.height = document.getElementById("mainImages").children[0].clientHeight + "px";
                 setOnLoad(false)
             })
-	//set homePageMenuContainer height same as image height
-	document.getElementById("homePageMenuContainer").style.height = document.getElementById("mainImages").clientHeight + "px";
-	console.log( document.getElementById("mainImages").clientHeight
-)
-	//hide nav menu on Home page only
-	document.getElementById("navigationLinks").style.display="none"
-	    return ()=>{ document.getElementById("navigationLinks").style.display="flex"
-	    }
+        //set homePageMenuContainer height same as image height
+        document.getElementById("homePageMenuContainer").style.height =
+            document.getElementById("mainImages").clientHeight + "px"
+        console.log(document.getElementById("mainImages").clientHeight)
+        //hide nav menu on Home page only
+        document.getElementById("navigationLinks").style.display = "none"
+        return () => {
+            document.getElementById("navigationLinks").style.display = "flex"
+        }
     }, [])
     return (
         <div className="bodyContainer" id="bodyContainerHome">
@@ -89,12 +90,29 @@ const Home = props => {
                 <img src="/images/home/home9.jpg" />
                 <img src="/images/home/home10.jpg"/> */}
             </div>
-	    <div id='homePageMenuContainer'>
-		<Link to="/about" className="homePageMenus" onMouseEnter={mouseEnterEvent} onMouseLeave={mouseLeaveEvent}><GoLocation size="20px" /><div>Location & Business Hour</div></Link>
-                <Link to="/categories" className="homePageMenus"><BiFoodMenu size="20px" /><div>Menu</div></Link>
-                <Link to="/order" className="homePageMenus"><MdPayment size="20px"/><div>Online Order</div></Link>
-		<a className="homePageMenus" href="tel:+13607058000"><IoIosCall size="20px" /><div>Call us</div></a>
-	    </div>
+            <div id="homePageMenuContainer">
+                <Link
+                    to="/about"
+                    className="homePageMenus"
+                    onMouseEnter={mouseEnterEvent}
+                    onMouseLeave={mouseLeaveEvent}
+                >
+                    <GoLocation size="20px" />
+                    <div>Location & Business Hour</div>
+                </Link>
+                <Link to="/categories" className="homePageMenus">
+                    <BiFoodMenu size="20px" />
+                    <div>Menu</div>
+                </Link>
+                <Link to="/order" className="homePageMenus">
+                    <MdPayment size="20px" />
+                    <div>Online Order</div>
+                </Link>
+                <a className="homePageMenus" href="tel:+13607058000">
+                    <IoIosCall size="20px" />
+                    <div>Call us</div>
+                </a>
+            </div>
         </div>
     )
 }
