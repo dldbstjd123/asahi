@@ -258,7 +258,9 @@ const Menu = props => {
                                                     src={source}
                                                     style={{
                                                         width: "200px",
-                                                        height: "100%"
+                                                        height: "100%",
+                                                        borderRadius:
+                                                            "0 10px 10px 0"
                                                     }}
                                                 />
                                             </div>

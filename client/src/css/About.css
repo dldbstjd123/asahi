@@ -7,6 +7,7 @@
 }
 .aboutTitle {
     font-size: 20px;
+    margin-bottom: 10px;
     /*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;*/
     margin-top: 20px;
 }
@@ -20,6 +21,7 @@
     align-items: center;
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .aboutRightSideItems {
     display: flex;

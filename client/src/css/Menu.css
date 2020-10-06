@@ -82,11 +82,13 @@
     flex-direction: row;
     justify-content: space-between;
     background-color: white;
+    border-radius: 10px;
 }
 .menuItemContainerWithOutImage {
     height: 200px;
     border: 1px solid #e2e2e2;
     background-color: white;
+    border-radius: 10px;
 }
 .menuItemLeft {
     padding: 15px;
