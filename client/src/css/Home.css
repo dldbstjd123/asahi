@@ -121,4 +121,13 @@
         height: 100px;
         font-size: 20px;
     }
+    #mainPageTopText1 {
+        font-size: 8vw;
+    }
+    #mainPageTopText2 {
+        font-size: 8vw;
+    }
+    #mainPageTopText3 {
+        font-size: 4vw;
+    }
 }
