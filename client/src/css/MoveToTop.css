@@ -9,3 +9,6 @@
     cursor: pointer;
     visibility: hidden;
 }
+#moveToTopContainer > svg {
+    color: #0f1638cc;
+}
