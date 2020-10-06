@@ -81,13 +81,17 @@
     cursor: pointer;
 }
 #mainPageTopText1 {
-    font-size: 8vw;
+    font-size: 6vw;
 }
 #mainPageTopText2 {
-    font-size: 8vw;
+    font-size: 6vw;
 }
 #mainPageTopText3 {
-    font-size: 4vw;
+    font-size: 2vw;
+    margin-top: 2%;
+}
+#mainPageTopText4Icon {
+    font-size: 3vw;
 }
 .homePageMenus {
     height: 200px;

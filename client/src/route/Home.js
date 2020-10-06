@@ -151,7 +151,10 @@ const Home = props => {
                         Experience Impeccable Japanes Cuisine
                     </div>
                     <div id="mainPageTopText4" onClick={moveToBottom}>
-                        <BsChevronDoubleDown size="30" />
+                        <BsChevronDoubleDown
+                            size="1em"
+                            id="mainPageTopText4Icon"
+                        />
                     </div>
                 </div>
             </div>
