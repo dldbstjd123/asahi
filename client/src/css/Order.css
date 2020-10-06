@@ -6,7 +6,8 @@
     justify-content: space-between;
     align-items: center;
     height: 50px;
-    background-color: rgba(236, 236, 236, 0.8);
+    color: white;
+    background-color: rgba(15, 22, 56, 0.8);
     padding: 0 2%;
 }
 
@@ -54,6 +55,7 @@
 }
 .menuPerCategoryContainer {
     padding-bottom: 10px;
+    background-color: #f7f7f7;
 }
 .menuTitle {
     font-size: 25px;
@@ -79,10 +81,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: white;
 }
 .menuItemContainerWithOutImage {
     height: 200px;
     border: 1px solid #e2e2e2;
+    background-color: white;
 }
 .orderItemLeftWithoutImage {
     height: 170px;
