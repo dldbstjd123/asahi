@@ -143,7 +143,8 @@ const Home = props => {
         <div className="bodyContainer" id="bodyContainerHome">
             {onLoad ? <Loading /> : null}
             <div id="mainPageTop">
-                <img src="/images/mainPage.jpg" />
+                {/* <img src="/images/mainPage.jpg" /> */}
+                <img src="/images/home/home12.jpg" />
                 <div id="mainPageTopTextContainer">
                     <div id="mainPageTopText1">WELCOME TO</div>
                     <div id="mainPageTopText2">ASAHI SUSHI</div>
