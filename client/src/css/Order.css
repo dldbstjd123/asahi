@@ -48,8 +48,13 @@
     word-break: break-all;
 }
 #catagoriesItemsContainer > div > div {
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
     width: 20%;
+    font-size:1vw;
     text-align: center;
     /* margin: 0 15px */
 }
@@ -124,3 +129,10 @@
         margin: auto;
     }
 }
+/* under 600px width*/
+@media only screen and (max-width: 600px) {
+    #catagoriesItemsContainer > div > div{
+        font-size:3vw;
+    }
+}
+

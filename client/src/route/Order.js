@@ -104,6 +104,14 @@ const Order = props => {
         }
         document.body.scrollTop = baseHeight + menuHeight
         document.documentElement.scrollTop = baseHeight + menuHeight
+	highlightChosenMenu(n)
+    }
+    function highlightChosenMenu(n){
+        let menuCategory = document.getElementById("menuMovingCategory").children
+	for(let i=0; i<menuCategory.length;i++){
+	    menuCategory[i].style.borderBottom = "0px"
+	}
+	 menuCategory[n].style.borderBottom = "2px solid white"
     }
     function addToCart(event) {
         let id = event.target.getAttribute("akey")
