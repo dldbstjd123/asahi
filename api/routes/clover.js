@@ -32,7 +32,7 @@ router.get("/authorized", async function (req, res, next) {
         auth_code = req.query.code
         console.log("*****************STORE THIS ACCESS TOKEN ****************")
         console.log(auth_code)
-        console.log("Access_Token =", getAccessToken(auth_code))
+        getAccessToken(auth_code)
         console.log("*****************STORE THIS ACCESS TOKEN ****************")
         //res.json({auth_code : req.query.code})
     }
@@ -99,6 +99,7 @@ async function getAccessToken(auth_code) {
         headers: { accept: "application/json" }
     }
     var result = await request(options)
+    console.log(`Access Token = ${JSON.parse(result).access_token}`)
     return JSON.parse(result).access_token
 }
 
