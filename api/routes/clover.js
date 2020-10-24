@@ -15,18 +15,26 @@ let auth_code = undefined //|| '3a149af4-2c25-ea26-f992-97b1a2852306'
 //const clover = require('clover-ecomm-sdk')(access_token)
 
 router.get("/unauthorized", function (req, res, next) {
-    let client_id = "SJD3F92ASG2GG"
+    let client_id = cloverConfig.app_id //"SJD3F92ASG2GG"
+    let optionUrl = "https://sandbox.dev.clover.com"
+    if (cloverConfig.server == "live") {
+        optionUrl = "https://clover.com"
+    }
     res.redirect(
-        `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`
+        `${optionUrl}/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`
     )
 })
 
 router.get("/authorized", async function (req, res, next) {
     if (!req.query.code) {
         //Change Client_ID WHEN SWITCHING TO PRODUCTION
-        let client_id = "SJD3F92ASG2GG"
+        let client_id = cloverConfig.app_id //"SJD3F92ASG2GG"
+        let optionUrl = "https://sandbox.dev.clover.com"
+        if (cloverConfig.server == "live") {
+            optionUrl = "https://clover.com"
+        }
         res.redirect(
-            `https://sandbox.dev.clover.com/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`
+            `${optionUrl}/oauth/authorize?client_id=${client_id}&redirect_uri=https://asahisushiolympia.com/clover/authorized`
         )
     } else {
         auth_code = req.query.code
@@ -92,10 +100,13 @@ async function getAuthCode() {
 
 async function getAccessToken(auth_code) {
     const request = require("request-promise")
-
+    let optionUrl = "https://sandbox.dev.clover.com"
+    if (cloverConfig.server == "live") {
+        optionUrl = "https://clover.com"
+    }
     const options = {
         method: "GET",
-        url: `https://sandbox.dev.clover.com/oauth/token?client_id=${cloverConfig.app_id}&client_secret=${cloverConfig.app_secret}&code=${auth_code}`,
+        url: `${optionUrl}/oauth/token?client_id=${cloverConfig.app_id}&client_secret=${cloverConfig.app_secret}&code=${auth_code}`,
         headers: { accept: "application/json" }
     }
     var result = await request(options)
@@ -105,9 +116,13 @@ async function getAccessToken(auth_code) {
 
 async function getApiKey(access_token) {
     const request = require("request-promise")
+    let urlOption = "https://apisandbox.dev.clover.com"
+    if (cloverConfig.server == "live") {
+        urlOption = "https://api.clover.com"
+    }
     const options = {
         method: "GET",
-        url: "https://apisandbox.dev.clover.com/pakms/apikey",
+        url: `${urlOption}/pakms/apikey`,
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`
@@ -120,9 +135,13 @@ async function getApiKey(access_token) {
 
 async function getSourceCode(api_key, req) {
     const request = require("request-promise")
+    let urlOption = "https://token-sandbox.dev.clover.com"
+    if (cloverConfig.server == "live") {
+        urlOption = "https://token.clover.com"
+    }
     const options = {
         method: "POST",
-        url: "https://token-sandbox.dev.clover.com/v1/tokens",
+        url: `${urlOption}/v1/tokens`,
         //headers: {accept: 'application/json', apiKey: 'db7b80d37e5b5988c1acff2a385d309d', 'content-type':'application/json'},
         headers: {
             accept: "application/json",
@@ -182,9 +201,13 @@ async function createOrder(cart, access_token) {
     //items.push({type:'tax', amount:totalPrice*taxRate, currency:'usd', description: 'Tax', quantity:1})
     console.log(`items = ${items}`)
     const request = require("request-promise")
+    let urlOption = "https://scl-sandbox.dev.clover.com"
+    if (cloverConfig.server == "live") {
+        urlOption = "https://scl.clover.com"
+    }
     const options = {
         method: "POST",
-        url: "https://scl-sandbox.dev.clover.com/v1/orders",
+        url: `${urlOption}/v1/orders`,
         headers: {
             accept: "application/json",
             "content-type": "application/json",
@@ -205,9 +228,13 @@ async function createOrder(cart, access_token) {
 async function chargeOrder(access_token, source, orderId) {
     console.log(`before charge ${access_token} , ${source}`)
     const request = require("request-promise")
+    let urlOption = "https://scl-sandbox.dev.clover.com"
+    if (cloverConfig.server == "live") {
+        urlOption = "https://scl.clover.com"
+    }
     const options = {
         method: "POST",
-        url: `https://scl-sandbox.dev.clover.com/v1/orders/${orderId}/pay`,
+        url: `${urlOption}/v1/orders/${orderId}/pay`,
         headers: {
             accept: "application/json",
             "content-type": "application/json",
