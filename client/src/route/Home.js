@@ -144,7 +144,18 @@ const Home = props => {
             {onLoad ? <Loading /> : null}
             <div id="mainPageTop">
                 {/* <img src="/images/mainPage.jpg" /> */}
-                <img src="/images/home/home12.jpg" />
+                {/* <img src="/images/home/home12.jpg" /> */}
+                <div
+                    style={{
+                        backgroundImage:
+                            "url(" + domain + "images/home/home16.jpg)",
+                        width: "100%",
+                        height: "100%",
+                        opacity: "0.8",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center"
+                    }}
+                ></div>
                 <div id="mainPageTopTextContainer">
                     <div id="mainPageTopText1">WELCOME TO</div>
                     <div id="mainPageTopText2">ASAHI SUSHI</div>

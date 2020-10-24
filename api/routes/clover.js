@@ -5,12 +5,13 @@ let mysql2 = require("mysql2")
 const {
     mysqlconfig,
     emailConfig,
-    mysqlPoolConfig
+    mysqlPoolConfig,
+    cloverConfig
 } = require("../../ignore/config.js")
 var nodemailer = require("nodemailer")
 
 let auth_code = undefined //|| '3a149af4-2c25-ea26-f992-97b1a2852306'
-
+//                             "de544175-7ebe-f2c4-b7cd-64916ae88629"
 //const clover = require('clover-ecomm-sdk')(access_token)
 
 router.get("/unauthorized", function (req, res, next) {
@@ -31,13 +32,16 @@ router.get("/authorized", async function (req, res, next) {
         auth_code = req.query.code
         console.log("*****************STORE THIS ACCESS TOKEN ****************")
         console.log(auth_code)
+        console.log("Access_Token =", getAccessToken(auth_code))
         console.log("*****************STORE THIS ACCESS TOKEN ****************")
         //res.json({auth_code : req.query.code})
     }
 })
 
 router.post("/proceed", async function (req, res, next) {
-    let access_token = "96f8d7cd-dc30-1185-47b3-83a2ae91df64"
+    //let access_token = "96f8d7cd-dc30-1185-47b3-83a2ae91df64"
+    let access_token = cloverConfig.access_token
+
     console.log(`final reuslt access_token = ${JSON.stringify(access_token)}`)
     let api_key = await getApiKey(access_token)
     console.log(`final reuslt api_key = ${JSON.stringify(api_key)}`)
@@ -91,7 +95,7 @@ async function getAccessToken(auth_code) {
 
     const options = {
         method: "GET",
-        url: `https://sandbox.dev.clover.com/oauth/token?client_id=SJD3F92ASG2GG&client_secret=2b6b918c-8530-942f-c0f8-ea178014c086&code=${auth_code}`,
+        url: `https://sandbox.dev.clover.com/oauth/token?client_id=${cloverConfig.app_id}&client_secret=${cloverConfig.app_secret}&code=${auth_code}`,
         headers: { accept: "application/json" }
     }
     var result = await request(options)
