@@ -16,6 +16,8 @@ import Order from "./route/Order"
 import Payment from "./route/Payment"
 import Confirmation from "./route/Confirmation"
 import News from "./route/News"
+import License from "./route/License"
+import Privacy from "./route/Privacy"
 import Reservation from "./route/Reservation"
 import Footer from "./layout/Footer"
 
@@ -40,6 +42,8 @@ function App() {
                         />
                         <Route path={"/news"} component={News} />
                         <Route path={"/reservation"} component={Reservation} />
+                        <Route path={"/license"} component={License} />
+                        <Route path={"/privacy"} component={Privacy} />
                     </Switch>
                     <div id="footerDistance"></div>
                     <Footer />
