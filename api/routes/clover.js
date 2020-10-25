@@ -292,6 +292,15 @@ async function storeInDB(charge) {
     }
     console.log(query)
     let doIt = await promisePool.query(query)
+    let charged_itmes = charge.items
+    let live = 0
+    if (cloverConfig.server == "live") {
+        live = 1
+    }
+    for (let i = 0; i < charged_itmes.length; i++) {
+        query = `INSERT INTO order_items (order_id, name, quantity, amount, charge_time, live) VALUES('${charge.id}', '${charged_itmes[i].description}', ${charged_itmes[i].quantity}, ${charged_itmes[i].amount}, NOW(), ${live})`
+        let doIt = await promisePool.query(query)
+    }
     return
 }
 
