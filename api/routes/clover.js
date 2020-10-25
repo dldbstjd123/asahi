@@ -74,6 +74,7 @@ router.post("/proceed", async function (req, res, next) {
     if (charge.id) {
         res.json({ status: 1, items: charge.items, id: charge.id })
         sendEmail(req.body.email, charge.id, req.body.name, charge.items)
+        storeInDB(charge)
         return
     } else {
         res.json({ status: 0, error: "Failed to pay." })
@@ -267,6 +268,32 @@ async function chargeOrder(access_token, source, orderId) {
         return { error: errorMessage }
     }
 }
+async function storeInDB(charge) {
+    console.log("----charge data----")
+    console.log(JSON.stringify(charge))
+
+    // {"id":"A7JS93K4H1M6J",
+    // "object":"order",
+    // "amount":100,
+    // "currency":"USD",
+    // "charge":"Q2Y3PN89Y6KFM",
+    // "created":1603644374000,
+    // "ref_num":"029900500720",
+    // "auth_code":"OK7173",
+    // "items":[{"quantity":1,"amount":100,"description":"TEST"}],
+    // "source":{"brand":"VISA","exp_month":"05","exp_year":"2024","first6":"440066","last4":"0674"},
+    // "status":"paid",
+    // "status_transitions":{"paid":1603644377877},"ecomind":"ecom"}
+    let pool = mysql2.createPool(mysqlPoolConfig)
+    let promisePool = pool.promise()
+    let query = `INSERT INTO orders (order_id, amount, charge_id, charge_time, ref_num, auth_code, source_brand, source_exp_month, source_exp_year, source_first6, source_last4, charge_status, status_transition, live) VALUES ('${charge.id}', ${charge.amount}, '${charge.charge}', NOW(), '${charge.ref_num}', '${charge.auth_code}', '${charge.source.brand}', ${charge.source.exp_month}, ${charge.source.exp_year}, ${charge.source.first6}, ${charge.source.last4}, '${charge.status}', '${charge.status_transitions.paid}', 0)`
+    if (cloverConfig.server == "live") {
+        query = `INSERT INTO orders (order_id, amount, charge_id, charge_time, ref_num, auth_code, source_brand, source_exp_month, source_exp_year, source_first6, source_last4, charge_status, status_transition, live) VALUES ('${charge.id}', ${charge.amount}, '${charge.charge}', NOW(), '${charge.ref_num}', '${charge.auth_code}', '${charge.source.brand}', ${charge.source.exp_month}, ${charge.source.exp_year}, ${charge.source.first6}, ${charge.source.last4}, '${charge.status}', '${charge.status_transitions.paid}', 1)`
+    }
+    console.log(query)
+    let doIt = await promisePool.query(query)
+    return
+}
 
 async function sendEmail(emailTo, orderId, customer, items) {
     let taxRate = await getTaxRate()
@@ -334,7 +361,7 @@ async function sendEmail(emailTo, orderId, customer, items) {
     emailContent += `</table>`
 
     emailContent += `</div>`
-    console.log(`emailContent = ${emailContent}`)
+    //console.log(`emailContent = ${emailContent}`)
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: emailConfig
