@@ -74,7 +74,7 @@ router.post("/proceed", async function (req, res, next) {
     if (charge.id) {
         res.json({ status: 1, items: charge.items, id: charge.id })
         sendEmail(req.body.email, charge.id, req.body.name, charge.items)
-        storeInDB(charge)
+        storeInDB(charge, req.body.email, req.body.name, req.ip)
         return
     } else {
         res.json({ status: 0, error: "Failed to pay." })
@@ -268,7 +268,7 @@ async function chargeOrder(access_token, source, orderId) {
         return { error: errorMessage }
     }
 }
-async function storeInDB(charge) {
+async function storeInDB(charge, email, name, ip) {
     console.log("----charge data----")
     console.log(JSON.stringify(charge))
 
@@ -286,9 +286,9 @@ async function storeInDB(charge) {
     // "status_transitions":{"paid":1603644377877},"ecomind":"ecom"}
     let pool = mysql2.createPool(mysqlPoolConfig)
     let promisePool = pool.promise()
-    let query = `INSERT INTO orders (order_id, amount, charge_id, charge_time, ref_num, auth_code, source_brand, source_exp_month, source_exp_year, source_first6, source_last4, charge_status, status_transition, live) VALUES ('${charge.id}', ${charge.amount}, '${charge.charge}', NOW(), '${charge.ref_num}', '${charge.auth_code}', '${charge.source.brand}', ${charge.source.exp_month}, ${charge.source.exp_year}, ${charge.source.first6}, ${charge.source.last4}, '${charge.status}', '${charge.status_transitions.paid}', 0)`
+    let query = `INSERT INTO orders (order_id, amount, charge_id, charge_time, customer_name, customer_email, customer_ip, ref_num, auth_code, source_brand, source_exp_month, source_exp_year, source_first6, source_last4, charge_status, status_transition, live) VALUES ('${charge.id}', ${charge.amount}, '${charge.charge}', NOW(), '${name}', '${email}', '${ip}', '${charge.ref_num}', '${charge.auth_code}', '${charge.source.brand}', ${charge.source.exp_month}, ${charge.source.exp_year}, ${charge.source.first6}, ${charge.source.last4}, '${charge.status}', '${charge.status_transitions.paid}', 0)`
     if (cloverConfig.server == "live") {
-        query = `INSERT INTO orders (order_id, amount, charge_id, charge_time, ref_num, auth_code, source_brand, source_exp_month, source_exp_year, source_first6, source_last4, charge_status, status_transition, live) VALUES ('${charge.id}', ${charge.amount}, '${charge.charge}', NOW(), '${charge.ref_num}', '${charge.auth_code}', '${charge.source.brand}', ${charge.source.exp_month}, ${charge.source.exp_year}, ${charge.source.first6}, ${charge.source.last4}, '${charge.status}', '${charge.status_transitions.paid}', 1)`
+        query = `INSERT INTO orders (order_id, amount, charge_id, charge_time, customer_name, customer_email, customer_ip, ref_num, auth_code, source_brand, source_exp_month, source_exp_year, source_first6, source_last4, charge_status, status_transition, live) VALUES ('${charge.id}', ${charge.amount}, '${charge.charge}', NOW(), '${name}', '${email}', '${ip}', '${charge.ref_num}', '${charge.auth_code}', '${charge.source.brand}', ${charge.source.exp_month}, ${charge.source.exp_year}, ${charge.source.first6}, ${charge.source.last4}, '${charge.status}', '${charge.status_transitions.paid}', 1)`
     }
     console.log(query)
     let doIt = await promisePool.query(query)
