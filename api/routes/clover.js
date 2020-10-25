@@ -65,6 +65,11 @@ router.post("/proceed", async function (req, res, next) {
     let orderId = await createOrder(req.body.cart, access_token)
     console.log(`final reuslt orderId = ${orderId}`)
     let charge = await chargeOrder(access_token, source, orderId)
+    if (charge.error) {
+        console.log("responding error!!")
+        res.json({ status: 0, error: charge.error })
+        return
+    }
     console.log(`final reuslt charge = ${JSON.stringify(charge)}`)
     if (charge.id) {
         res.json({ status: 1, items: charge.items, id: charge.id })
@@ -160,9 +165,13 @@ async function getSourceCode(api_key, req) {
     }
     try {
         let source_code = await request(options)
+        console.log(`source_code =  ${JSON.stringify(source_code)}`)
         return source_code.id
     } catch (err) {
+        console.log(`err = ${err}`)
+        console.log("---")
         let splited = err.message.split("-")
+        //console.log("err = ", JSON.parse(splited[1]))
         let errorMessage = JSON.parse(splited[1].trim()).error.message
         return { error: errorMessage }
         //console.log(`source code error = ${JSON.stringify(err.message)}`)
@@ -247,9 +256,16 @@ async function chargeOrder(access_token, source, orderId) {
         },
         json: true
     }
-    let result = await request(options)
-    //console.log(`result of chargeOrder = ${JSON.stringify(result)}`)
-    return result
+    try {
+        let result = await request(options)
+        //console.log(`result of chargeOrder = ${JSON.stringify(result)}`)
+        return result
+    } catch (err) {
+        let splited = err.message.split("-")
+        //console.log("err = ", JSON.parse(splited[1]))
+        let errorMessage = JSON.parse(splited[1].trim()).error.message
+        return { error: errorMessage }
+    }
 }
 
 async function sendEmail(emailTo, orderId, customer, items) {
