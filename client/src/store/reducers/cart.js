@@ -9,45 +9,60 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_TO_CART':
-            if(state[action.payload.id]){
+        case "ADD_TO_CART":
+            if (state[action.payload.id]) {
                 return {
                     ...state,
-                    [action.payload.id]: {...state[action.payload.id], qty:state[action.payload.id].qty+1}
+                    [action.payload.id]: {
+                        ...state[action.payload.id],
+                        qty: state[action.payload.id].qty + 1
+                    }
                 }
-            }else{
+            } else {
                 return {
                     ...state,
-                    [action.payload.id]: {qty:1, name: action.payload.name, basePrice: action.payload.basePrice}
+                    [action.payload.id]: {
+                        qty: 1,
+                        name: action.payload.name,
+                        basePrice: action.payload.basePrice
+                    }
                 }
             }
-        case 'INCREMENT_TO_CART':
+        case "INCREMENT_TO_CART":
             return {
                 ...state,
-                [action.payload.id]: {...state[action.payload.id], qty:state[action.payload.id].qty+1}
+                [action.payload.id]: {
+                    ...state[action.payload.id],
+                    qty: state[action.payload.id].qty + 1
+                }
             }
-        case 'DECREMENT_TO_CART':
-            if(state[action.payload.id].qty==1){
-                let newState = {...state}
+        case "DECREMENT_TO_CART":
+            if (state[action.payload.id].qty == 1) {
+                let newState = { ...state }
                 delete newState[action.payload.id]
-                return{
+                return {
                     ...newState
                 }
-            }else{
+            } else {
                 return {
                     ...state,
-                    [action.payload.id]: {...state[action.payload.id], qty:state[action.payload.id].qty-1}
+                    [action.payload.id]: {
+                        ...state[action.payload.id],
+                        qty: state[action.payload.id].qty - 1
+                    }
                 }
             }
-        case 'DELETE_TO_CART':
-            let newState = {...state}
+        case "DELETE_TO_CART":
+            let newState = { ...state }
             delete newState[action.payload.id]
-                return{
-                    ...newState
-                }
+            return {
+                ...newState
+            }
+        case "EMPTY_CART":
+            return {}
         default:
-            return state;
+            return state
     }
 }
 
-export default cartReducer; 
+export default cartReducer

@@ -1,0 +1,24 @@
+.categoryMenu {
+    background-color: #ffffff;
+    text-decoration: none;
+    color: black;
+    width: 304px;
+    height: 331px;
+    box-shadow: 3px 4px 6px rgba(35, 46, 75, 0.44);
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.categoryMenuImageContainer {
+    display: flex;
+    align-items: center;
+    height: 85%;
+}
+.categoryMenuName {
+    height: 15%;
+    display: flex;
+    align-items: center;
+    font-family: Roboto;
+    font-size: 24px;
+}

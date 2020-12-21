@@ -1,0 +1,16 @@
+.categoryContainer {
+    display: flex;
+    justify-content: center;
+    background-color: #eeebe6;
+}
+#menuContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 1274px;
+    /* background-color: yellow; */
+    margin: 20px 0;
+}
+
+/* under 1274px width*/
+@media only screen and (max-width: 1274px) {
+}

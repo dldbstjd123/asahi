@@ -83,7 +83,9 @@ const Home = props => {
             document.getElementById("mainImages").clientHeight + "px"
         console.log(document.getElementById("mainImages").clientHeight)
         //hide nav menu on Home page only
-        document.getElementById("navigationLinks").style.display = "none"
+        //document.getElementById("navigationLinks").style.display = "none"
+        document.getElementById("navigationContainer").style.backgroundColor =
+            "transparent"
         return () => {
             document.getElementById("navigationLinks").style.display = "flex"
         }
@@ -140,38 +142,54 @@ const Home = props => {
         }
     }, [])
     return (
-        <div className="bodyContainer" id="bodyContainerHome">
-            {onLoad ? <Loading /> : null}
-            <div id="mainPageTop">
-                {/* <img src="/images/mainPage.jpg" /> */}
-                {/* <img src="/images/home/home12.jpg" /> */}
-                <div
-                    style={{
-                        backgroundImage:
-                            "url(" + domain + "images/home/home16.jpg)",
-                        width: "100%",
-                        height: "100%",
-                        opacity: "1",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center"
-                    }}
-                ></div>
-                <div id="mainPageTopTextContainer">
-                    <div id="mainPageTopText1">WELCOME TO</div>
-                    <div id="mainPageTopText2">ASAHI SUSHI</div>
-                    <div id="mainPageTopText3">
-                        Experience Impeccable Japanes Cuisine
-                    </div>
-                    <div id="mainPageTopText4" onClick={moveToBottom}>
-                        <BsChevronDoubleDown
-                            size="1em"
-                            id="mainPageTopText4Icon"
-                        />
+        <div>
+            <div
+                style={{
+                    backgroundImage:
+                        "url(" + domain + "images/home/home17.jpg)",
+                    width: "100%",
+                    height: "100%",
+                    opacity: "1",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    position: "absolute",
+                    top: 0,
+                    zIndex: -1
+                }}
+            ></div>
+
+            <div className="bodyContainer" id="bodyContainerHome">
+                {onLoad ? <Loading /> : null}
+                <div id="mainPageTop">
+                    {/* <img src="/images/mainPage.jpg" /> */}
+                    {/* <img src="/images/home/home12.jpg" /> */}
+                    <div
+                        style={{
+                            // backgroundImage:
+                            //     "url(" + domain + "images/home/home17.jpg)",
+                            width: "100%",
+                            height: "100%",
+                            opacity: "1",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center"
+                        }}
+                    ></div>
+                    <div id="mainPageTopTextContainer">
+                        <div id="mainPageTopText1">WELCOME TO</div>
+                        <div id="mainPageTopText2">ASAHI SUSHI</div>
+                        <div id="mainPageTopText3">
+                            Experience Impeccable Japanes Cuisine
+                        </div>
+                        <div id="mainPageTopText4" onClick={moveToBottom}>
+                            <BsChevronDoubleDown
+                                size="1em"
+                                id="mainPageTopText4Icon"
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="mainImages">
-                {/* <div style={{width:'100%', height:"100%",opacity: "0"}}></div>
+                <div id="mainImages">
+                    {/* <div style={{width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home2.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home3.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home4.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
@@ -181,9 +199,9 @@ const Home = props => {
                 <div style={{backgroundImage:"url("+domain+"images/home/home8.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home9.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home10.jpg)", width:'100%', height:"100%",opacity: "0"}}></div> */}
-                <img src="/images/home/home1.jpg" />
-                <img src="/images/home/home2.jpg" />
-                {/* <img src="/images/home/home1.jpg" />
+                    <img src="/images/home/home1.jpg" />
+                    <img src="/images/home/home2.jpg" />
+                    {/* <img src="/images/home/home1.jpg" />
                 <img src="/images/home/home2.jpg" />
                 <img src="/images/home/home3.jpg" />
                 <img src="/images/home/home4.jpg" />
@@ -193,28 +211,29 @@ const Home = props => {
                 <img src="/images/home/home8.jpg" />
                 <img src="/images/home/home9.jpg" />
                 <img src="/images/home/home10.jpg"/> */}
-                <div id="homePageMenuContainer">
-                    <Link
-                        to="/about"
-                        className="homePageMenus"
-                        onMouseEnter={mouseEnterEvent}
-                        onMouseLeave={mouseLeaveEvent}
-                    >
-                        <GoLocation size="20px" />
-                        <div>Location & Business Hour</div>
-                    </Link>
-                    <Link to="/categories" className="homePageMenus">
-                        <BiFoodMenu size="20px" />
-                        <div>Menu</div>
-                    </Link>
-                    <Link to="/order" className="homePageMenus">
-                        <MdPayment size="20px" />
-                        <div>Online Order</div>
-                    </Link>
-                    <a className="homePageMenus" href="tel:+13607058000">
-                        <IoIosCall size="20px" />
-                        <div>Call us</div>
-                    </a>
+                    <div id="homePageMenuContainer">
+                        <Link
+                            to="/about"
+                            className="homePageMenus"
+                            onMouseEnter={mouseEnterEvent}
+                            onMouseLeave={mouseLeaveEvent}
+                        >
+                            <GoLocation size="20px" />
+                            <div>Location & Business Hour</div>
+                        </Link>
+                        <Link to="/categories" className="homePageMenus">
+                            <BiFoodMenu size="20px" />
+                            <div>Menu</div>
+                        </Link>
+                        <Link to="/order" className="homePageMenus">
+                            <MdPayment size="20px" />
+                            <div>Online Order</div>
+                        </Link>
+                        <a className="homePageMenus" href="tel:+13607058000">
+                            <IoIosCall size="20px" />
+                            <div>Call us</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

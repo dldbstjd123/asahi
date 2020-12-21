@@ -10,6 +10,7 @@ import Navigation from "./layout/Navigation"
 import Home from "./route/Home"
 import About from "./route/About"
 import Categories from "./route/Categories"
+import Categories2 from "./route/Categories2"
 import Menu from "./route/Menu"
 import Menu2 from "./route/Menu2"
 import Order from "./route/Order"
@@ -26,15 +27,16 @@ function App() {
         <Provider store={store}>
             <div className="App">
                 <Router>
-                    <ShoppingCart />
+                    {/* <ShoppingCart /> */}
                     <Navigation />
                     <Switch>
                         <Route exact path={"/"} component={Home} />
                         <Route path={"/about"} component={About} />
                         <Route path={"/categories"} component={Categories} />
+                        <Route path={"/categories2"} component={Categories2} />
                         <Route path={"/menu"} component={Menu} />
                         <Route path={"/menu2"} component={Menu2} />
-                        <Route path={"/order"} component={Order} />
+                        {/* <Route path={"/order"} component={Order} /> */}
                         <Route path={"/payment"} component={Payment} />
                         <Route
                             path={"/confirmation"}

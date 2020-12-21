@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import emptyCartAction from "../store/actions/emptyCart"
 import { RiFileCopyLine } from "react-icons/ri"
 import "../css/Confirmation.css"
 import Map from "../components/Map"
 import { domain } from "../config"
 
 const Confirmation = props => {
+    const dispatch = useDispatch()
     const location = useLocation()
     const [total, setTotal] = useState(0)
     const [tax, setTax] = useState(0)
@@ -38,6 +41,8 @@ const Confirmation = props => {
     }, [location])
 
     useEffect(() => {
+        dispatch(emptyCartAction())
+
         fetch(`${domain}client/tax/get`, {
             method: "get",
             mode: "cors",
@@ -51,6 +56,13 @@ const Confirmation = props => {
             .then(data => {
                 setTax(data.rate)
             })
+    }, [])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
+        console.log("scroll to Top")
     }, [])
     return (
         <div className="bodyContainer">
