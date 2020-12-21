@@ -225,10 +225,17 @@ const Home = props => {
                             <BiFoodMenu size="20px" />
                             <div>Menu</div>
                         </Link>
-                        <Link to="/order" className="homePageMenus">
+                        {/* <Link to="/order" className="homePageMenus">
                             <MdPayment size="20px" />
                             <div>Online Order</div>
-                        </Link>
+                        </Link> */}
+                        <a
+                            href="https://www.clover.com/online-ordering/asahi-olympia"
+                            className="homePageMenus"
+                        >
+                            <MdPayment size="20px" />
+                            <div>Online Order</div>
+                        </a>
                         <a className="homePageMenus" href="tel:+13607058000">
                             <IoIosCall size="20px" />
                             <div>Call us</div>

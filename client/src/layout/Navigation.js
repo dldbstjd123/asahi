@@ -21,6 +21,9 @@ const Navigation = props => {
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
                 <Link to="/categories">Menu</Link>
+                <a href="https://www.clover.com/online-ordering/asahi-olympia">
+                    Order
+                </a>
                 {/* <Link to="/order">Order</Link> */}
                 {/* <Link to="/news">News</Link> */}
                 {/* <Link to="/reservation">Reservations</Link> */}
