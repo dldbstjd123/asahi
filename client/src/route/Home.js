@@ -46,6 +46,10 @@ const Home = props => {
             document.getElementById("mainPageTop").clientHeight
     }
 
+    function onlineOrder() {
+        fetch("/client/redirectToClover")
+    }
+
     useEffect(() => {
         let mainImage = document.getElementById("mainImages").childNodes
         mainImage[0].style.opacity = 1
@@ -79,7 +83,7 @@ const Home = props => {
                 setOnLoad(false)
             })
         //set homePageMenuContainer height same as image height
-        document.getElementById("homePageMenuContainer").style.height =
+        document.getElementById("homePageMenuContainerMiddle").style.height =
             document.getElementById("mainImages").clientHeight + "px"
         console.log(document.getElementById("mainImages").clientHeight)
         //hide nav menu on Home page only
@@ -178,7 +182,7 @@ const Home = props => {
                         <div id="mainPageTopText1">WELCOME TO</div>
                         <div id="mainPageTopText2">ASAHI SUSHI</div>
                         <div id="mainPageTopText3">
-                            Experience Impeccable Japanes Cuisine
+                            Experience Fine Japanes Cuisine
                         </div>
                         <div id="mainPageTopText4" onClick={moveToBottom}>
                             <BsChevronDoubleDown
@@ -211,35 +215,41 @@ const Home = props => {
                 <img src="/images/home/home8.jpg" />
                 <img src="/images/home/home9.jpg" />
                 <img src="/images/home/home10.jpg"/> */}
-                    <div id="homePageMenuContainer">
-                        <Link
-                            to="/about"
-                            className="homePageMenus"
-                            onMouseEnter={mouseEnterEvent}
-                            onMouseLeave={mouseLeaveEvent}
-                        >
-                            <GoLocation size="20px" />
-                            <div>Location & Business Hour</div>
-                        </Link>
-                        <Link to="/categories" className="homePageMenus">
-                            <BiFoodMenu size="20px" />
-                            <div>Menu</div>
-                        </Link>
-                        {/* <Link to="/order" className="homePageMenus">
+                    <div id="homePageMenuContainerMiddle">
+                        <div id="homePageMenuContainer">
+                            <Link
+                                to="/about"
+                                className="homePageMenus"
+                                onMouseEnter={mouseEnterEvent}
+                                onMouseLeave={mouseLeaveEvent}
+                            >
+                                <GoLocation size="20px" />
+                                <div>Location & Business Hour</div>
+                            </Link>
+                            <Link to="/categories" className="homePageMenus">
+                                <BiFoodMenu size="20px" />
+                                <div>Menu</div>
+                            </Link>
+                            {/* <Link to="/order" className="homePageMenus">
                             <MdPayment size="20px" />
                             <div>Online Order</div>
                         </Link> */}
-                        <a
-                            href="https://www.clover.com/online-ordering/asahi-olympia"
-                            className="homePageMenus"
-                        >
-                            <MdPayment size="20px" />
-                            <div>Online Order</div>
-                        </a>
-                        <a className="homePageMenus" href="tel:+13607058000">
-                            <IoIosCall size="20px" />
-                            <div>Call us</div>
-                        </a>
+                            <a
+                                href="https://www.clover.com/online-ordering/asahi-olympia"
+                                className="homePageMenus"
+                                onClick={onlineOrder}
+                            >
+                                <MdPayment size="20px" />
+                                <div>Online Order</div>
+                            </a>
+                            <a
+                                className="homePageMenus"
+                                href="tel:+13607058000"
+                            >
+                                <IoIosCall size="20px" />
+                                <div>Call us</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

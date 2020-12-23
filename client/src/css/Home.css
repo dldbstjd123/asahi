@@ -44,13 +44,24 @@
 #homePageMenuContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 5%;
-    position: absolute;
+    /* grid-gap: 5%; */
+    grid-gap: 75px;
+    /* position: absolute; */
     z-index: 10;
-    padding: 0 5%;
-    width: 90%;
-    top: 0;
+    /* padding: 0 5%; */
+    /* width: 90%; */
+    width: 725px;
+    height: 530px;
+    /* top: 0; */
     opacity: 1;
+}
+#homePageMenuContainerMiddle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 725px;
+    height: 530px;
+    margin: auto;
 }
 #mainPageTopTextContainer {
     position: absolute;
@@ -82,21 +93,33 @@
     cursor: pointer;
 }
 #mainPageTopText1 {
-    font-size: 6vw;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 56px;
 }
 #mainPageTopText2 {
-    font-size: 6vw;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 56px;
 }
 #mainPageTopText3 {
-    font-size: 2vw;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
     margin-top: 2%;
 }
 #mainPageTopText4Icon {
     font-size: 3vw;
 }
 .homePageMenus {
-    height: 200px;
-    font-size: 30px;
+    /* height: 200px; */
+    height: 230px;
     background-color: rgba(255, 255, 255, 0.9);
     color: black;
     text-decoration: none;
@@ -105,13 +128,22 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 80%;
+    /* width: 80%; */
+    width: 325px;
     margin: auto;
     cursor: pointer;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
 }
 
 /* under 600px width*/
 @media only screen and (max-width: 600px) {
+    #homePageMenuContainerMiddle {
+        width: 100%;
+    }
     #homePageMenuContainer {
         grid-template-columns: 1fr;
         grid-gap: 0;

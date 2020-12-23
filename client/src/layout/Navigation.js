@@ -11,6 +11,9 @@ const Navigation = props => {
                 "rgba(255,255,255,0.4)"
         }, 600)
     }
+    function onlineOrder(){
+	fetch("/client/redirectToClover")
+    }
     return (
         <div id="navigationContainer">
             <Link id="navigationToHome" to="/">
@@ -21,7 +24,9 @@ const Navigation = props => {
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
                 <Link to="/categories">Menu</Link>
-                <a href="https://www.clover.com/online-ordering/asahi-olympia">
+                <a href="https://www.clover.com/online-ordering/asahi-olympia"
+		    onClick={onlineOrder}
+		>
                     Order
                 </a>
                 {/* <Link to="/order">Order</Link> */}

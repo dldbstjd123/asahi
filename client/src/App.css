@@ -1,6 +1,7 @@
-html{
+html {
     scroll-behavior: smooth;
+    font-family: "Lato", sans-serif;
 }
-.bodyContainer{
+.bodyContainer {
     min-height: 75vh;
 }

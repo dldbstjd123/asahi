@@ -77,4 +77,17 @@ router.get("/category/get", function (req, res, next) {
     connection.end()
 })
 
+router.get("/redirectToClover", function (req, res, next) {
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(
+        `INSERT INTO asahi.history (page, ip, time) VALUES( 'order', '${req.ip}', NOW())`,
+        function (error, results) {
+            console.log(error)
+            res.json({ status: "succeed" })
+        }
+    )
+    connection.end()
+})
+
 module.exports = router
