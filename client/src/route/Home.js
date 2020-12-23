@@ -152,7 +152,7 @@ const Home = props => {
                     backgroundImage:
                         "url(" + domain + "images/home/home17.jpg)",
                     width: "100%",
-                    height: "100%",
+                    height: "100vh",
                     opacity: "1",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
