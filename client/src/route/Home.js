@@ -247,7 +247,7 @@ const Home = props => {
                                 href="tel:+13607058000"
                             >
                                 <IoIosCall size="20px" />
-                                <div>Call us</div>
+                                <div>Call Us</div>
                             </a>
                         </div>
                     </div>

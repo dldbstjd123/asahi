@@ -2,7 +2,8 @@
     font-family: "Quicksand", sans-serif;
 } */
 #navigationContainer {
-    min-height: 25vh;
+    /* min-height: 25vh; */
+    height: 25vh;
     background-color: white;
     display: flex;
     /* flex-direction: column; */
