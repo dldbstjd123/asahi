@@ -4,4 +4,5 @@ html {
 }
 .bodyContainer {
     min-height: 75vh;
+    background-color: #f7f7f7;
 }

@@ -56,8 +56,9 @@ const About = props => {
     }, [])
 
     return (
-        <div className="bodyContainer" id="aboutContainer">
-            {/* <div id="mapContainer">
+        <div className="bodyContainer">
+            <div id="aboutContainer">
+                {/* <div id="mapContainer">
                 <iframe
                     frameBorder="0"
                     style={{border: "0"}}
@@ -65,98 +66,103 @@ const About = props => {
                     allowFullScreen
                 ></iframe>
             </div> */}
-            <Map />
-            <div id="aboutRightSide">
-                <div>
-                    {/* <div className="aboutTitle">Location</div> */}
+                <Map />
+                <div id="aboutRightSide">
                     <div>
+                        {/* <div className="aboutTitle">Location</div> */}
                         <div>
-                            <a
-                                href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
-                                className="aboutRightSideItems"
-                                style={{
-                                    color: "black",
-                                    textDecoration: "none"
-                                }}
-                            >
-                                {" "}
-                                <GoLocation
+                            <div>
+                                <a
+                                    href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
+                                    className="aboutRightSideItems"
+                                    style={{
+                                        color: "black",
+                                        textDecoration: "none"
+                                    }}
+                                >
+                                    {" "}
+                                    <GoLocation
+                                        size="13"
+                                        style={{ marginRight: "10px" }}
+                                    />
+                                    {location}
+                                </a>
+                            </div>
+                            <div>
+                                <a
+                                    href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
+                                    style={{
+                                        color: "black",
+                                        textDecoration: "none"
+                                    }}
+                                >
+                                    {location2}
+                                </a>
+                                <RiFileCopyLine
                                     size="13"
-                                    style={{ marginRight: "10px" }}
+                                    onClick={copyLocation}
+                                    style={{ cursor: "pointer", color: "gray" }}
                                 />
-                                {location}
-                            </a>
+                                {copySucceed ? (
+                                    <span style={{ color: "gray" }}>
+                                        copied
+                                    </span>
+                                ) : null}
+                            </div>
+                        </div>
+                        {/* <div className="aboutTitle">Phone</div> */}
+                        <div>
+                            <div id="aboutRightSidePhone">
+                                <a
+                                    href="tel:+13607058000"
+                                    className="aboutRightSideItems"
+                                    style={{
+                                        color: "black",
+                                        textDecoration: "none"
+                                    }}
+                                >
+                                    <IoIosCall
+                                        size="15"
+                                        style={{ marginRight: "10px" }}
+                                    />
+                                    {phone}
+                                </a>
+                                <RiFileCopyLine
+                                    size="13"
+                                    onClick={copyPhone}
+                                    style={{ cursor: "pointer", color: "gray" }}
+                                />
+                                {copySucceed2 ? (
+                                    <span style={{ color: "gray" }}>
+                                        copied
+                                    </span>
+                                ) : null}
+                            </div>
                         </div>
                         <div>
-                            <a
-                                href="https://www.google.com/maps/place/Asahi+Sushi/@47.04334,-122.9010329,15z/data=!4m5!3m4!1s0x0:0x17e84510200469ec!8m2!3d47.04334!4d-122.9010329"
-                                style={{
-                                    color: "black",
-                                    textDecoration: "none"
-                                }}
-                            >
-                                {location2}
-                            </a>
-                            <RiFileCopyLine
-                                size="13"
-                                onClick={copyLocation}
-                                style={{ cursor: "pointer", color: "gray" }}
-                            />
-                            {copySucceed ? (
-                                <span style={{ color: "gray" }}>copied</span>
-                            ) : null}
+                            <div className="aboutTitle">Business Hours</div>
+                            {schedule.map(item => {
+                                if (item.status == 1) {
+                                    return (
+                                        <div className="hourRows" key={item.id}>
+                                            <div>{item.date.toUpperCase()}</div>
+                                            <div>{item.openhour}</div>
+                                            <div>-</div>
+                                            <div>{item.closehour}</div>
+                                        </div>
+                                    )
+                                } else {
+                                    return (
+                                        <div className="hourRows" key={item.id}>
+                                            <div>{item.date.toUpperCase()}</div>
+                                            <div></div>
+                                            <div>closed</div>
+                                            <div></div>
+                                        </div>
+                                    )
+                                }
+                            })}
                         </div>
-                    </div>
-                    {/* <div className="aboutTitle">Phone</div> */}
-                    <div>
-                        <div id="aboutRightSidePhone">
-                            <a
-                                href="tel:+13607058000"
-                                className="aboutRightSideItems"
-                                style={{
-                                    color: "black",
-                                    textDecoration: "none"
-                                }}
-                            >
-                                <IoIosCall
-                                    size="15"
-                                    style={{ marginRight: "10px" }}
-                                />
-                                {phone}
-                            </a>
-                            <RiFileCopyLine
-                                size="13"
-                                onClick={copyPhone}
-                                style={{ cursor: "pointer", color: "gray" }}
-                            />
-                            {copySucceed2 ? (
-                                <span style={{ color: "gray" }}>copied</span>
-                            ) : null}
-                        </div>
-                    </div>
-                    <div>
-                        <div className="aboutTitle">Business Hours</div>
-                        {schedule.map(item => {
-                            if (item.status == 1) {
-                                return (
-                                    <div className="hourRows" key={item.id}>
-                                        <div>{item.date.toUpperCase()}</div>
-                                        <div>{item.openhour}</div>
-                                        <div>-</div>
-                                        <div>{item.closehour}</div>
-                                    </div>
-                                )
-                            } else {
-                                return (
-                                    <div className="hourRows" key={item.id}>
-                                        <div>{item.date.toUpperCase()}</div>
-                                        <div></div>
-                                        <div>closed</div>
-                                        <div></div>
-                                    </div>
-                                )
-                            }
-                        })}
                     </div>
                 </div>
             </div>
