@@ -57,10 +57,6 @@ const About = props => {
         //Change Nav Img
         document.getElementById("navigationContainer").style.backgroundImage =
             "url(" + domain + "images/nav/navImage1.png)"
-
-        return (document.getElementById(
-            "navigationContainer"
-        ).style.backgroundImage = "none")
     }, [])
 
     return (

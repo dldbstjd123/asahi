@@ -72,6 +72,9 @@ const Home = props => {
                 }
             }, 5000)
         }
+
+        document.getElementById("navigationContainer").style.backgroundImage =
+            "none"
         //check image is loaded
         document
             .getElementById("mainImages")
