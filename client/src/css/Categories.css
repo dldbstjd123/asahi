@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     width: 872px;
     height: 528px;
+    margin: auto;
 }
 .categoriesImageContainer {
     position: relative;
