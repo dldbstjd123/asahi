@@ -46,12 +46,14 @@
     /* font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; */
     text-decoration: none;
     height: 20px;
-    transition: border-bottom ease-in 0.3s;
+    border-bottom: 0px solid white;
+    transition: border-width ease-in 1s;
 }
 
 #navigationLinks a:hover {
     /* color: black; */
     border-bottom: 1px solid white;
+    border-width: 1px;
 }
 
 /* under 750px width*/
