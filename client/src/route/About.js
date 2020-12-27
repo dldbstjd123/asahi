@@ -53,6 +53,14 @@ const About = props => {
             .then(data => {
                 setSchedule(data)
             })
+
+        //Change Nav Img
+        document.getElementById("navigationContainer").style.backgroundImage =
+            "url(" + domain + "images/nav/navImage1.png)"
+
+        return (document.getElementById(
+            "navigationContainer"
+        ).style.backgroundImage = "none")
     }, [])
 
     return (

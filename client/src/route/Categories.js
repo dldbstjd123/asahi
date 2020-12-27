@@ -63,6 +63,14 @@ const Categories = props => {
                         })
                 }
             })
+
+        //Change Nav Img
+        document.getElementById("navigationContainer").style.backgroundImage =
+            "url(" + domain + "images/nav/navImage2.png)"
+
+        return (document.getElementById(
+            "navigationContainer"
+        ).style.backgroundImage = "none")
     }, [])
 
     useEffect(() => {

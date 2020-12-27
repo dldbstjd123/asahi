@@ -121,21 +121,28 @@ const Menu2 = props => {
                 setList(data)
             })
 
-        let categoryNavigationEffect2
-        const categoryNavigationEffect = setInterval(() => {
-            document.getElementById("moveLeft").style.left = "-5px"
-            document.getElementById("moveRight").style.left = "5px"
-            categoryNavigationEffect2 = setTimeout(() => {
-                document.getElementById("moveLeft").style.left = "0px"
-                document.getElementById("moveRight").style.left = "0px"
-            }, 500)
-        }, 5000)
-        window.addEventListener("resize", resetCategoryLeft)
-        return () => {
-            clearInterval(categoryNavigationEffect)
-            clearTimeout(categoryNavigationEffect2)
-            window.removeEventListener("resize", resetCategoryLeft)
-        }
+        // let categoryNavigationEffect2
+        // const categoryNavigationEffect = setInterval(() => {
+        //     document.getElementById("moveLeft").style.left = "-5px"
+        //     document.getElementById("moveRight").style.left = "5px"
+        //     categoryNavigationEffect2 = setTimeout(() => {
+        //         document.getElementById("moveLeft").style.left = "0px"
+        //         document.getElementById("moveRight").style.left = "0px"
+        //     }, 500)
+        // }, 5000)
+        // window.addEventListener("resize", resetCategoryLeft)
+        // return () => {
+        //     clearInterval(categoryNavigationEffect)
+        //     clearTimeout(categoryNavigationEffect2)
+        //     window.removeEventListener("resize", resetCategoryLeft)
+        // }
+        //Change Nav Img
+        document.getElementById("navigationContainer").style.backgroundImage =
+            "url(" + domain + "images/nav/navImage1.png)"
+
+        return (document.getElementById(
+            "navigationContainer"
+        ).style.backgroundImage = "none")
     }, [])
 
     useEffect(() => {
