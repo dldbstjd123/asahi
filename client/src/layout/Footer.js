@@ -21,14 +21,21 @@ const Footer = props => {
                 <div>(360)-705-8000</div>
             </a>
             <div id="footerSocialContainer">
-                <a href="https://facebook.com/Asahi-Sushi-102796514642869">
+                <a
+                    href="https://facebook.com/Asahi-Sushi-102796514642869"
+                    target="_blank"
+                >
                     <AiFillFacebook color="gray" size="25px" />
                 </a>
-                <a href="https://www.instagram.com/asahi_sushi_olympia/?hl=en">
+                <a
+                    href="https://www.instagram.com/asahi_sushi_olympia/?hl=en"
+                    target="_blank"
+                >
                     <AiFillInstagram color="gray" size="25px" />
                 </a>
                 <a
                     href="https://www.yelp.com/biz/asahi-sushi-olympia?osq=asahi+sushi+olympia"
+                    target="_blank"
                     style={{ marginTop: "2px" }}
                 >
                     <ImYelp color="gray" height="21px" width="25px" />
