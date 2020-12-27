@@ -239,6 +239,7 @@ const Home = props => {
                         </Link> */}
                             <a
                                 href="https://www.clover.com/online-ordering/asahi-olympia"
+                                target="_blank"
                                 className="homePageMenus"
                                 onClick={onlineOrder}
                             >
