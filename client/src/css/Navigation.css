@@ -45,11 +45,13 @@
     color: white;
     /* font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; */
     text-decoration: none;
+    height: 20px;
+    transition: border-bottom ease-in 0.3s;
 }
 
 #navigationLinks a:hover {
     /* color: black; */
-    color: yellow;
+    border-bottom: 1px solid white;
 }
 
 /* under 750px width*/

@@ -78,7 +78,7 @@
 }
 
 .menuItemContainerWithImage {
-    height: 200px;
+    /* height: 200px; */
     border: 1px solid #e2e2e2;
     display: flex;
     flex-direction: row;
@@ -87,7 +87,7 @@
     border-radius: 10px;
 }
 .menuItemContainerWithOutImage {
-    height: 200px;
+    /* height: 200px; */
     border: 1px solid #e2e2e2;
     background-color: white;
     border-radius: 10px;
@@ -97,7 +97,7 @@
 }
 .menuItemLeft > div:nth-child(2),
 .menuItemLeft > div:nth-child(3) {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 /* under 900px width*/
