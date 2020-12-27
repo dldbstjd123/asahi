@@ -245,7 +245,7 @@ const Menu2 = props => {
                                 {key}{" "}
                                 {categoriesDescription[categoryIndex] !==
                                 undefined ? (
-                                    <span style={{ fontSize: "16px" }}>
+                                    <span style={{ fontSize: "14px" }}>
                                         {categoriesDescription[categoryIndex]}
                                     </span>
                                 ) : (
