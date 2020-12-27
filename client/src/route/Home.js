@@ -158,7 +158,7 @@ const Home = props => {
                     backgroundPosition: "center",
                     position: "absolute",
                     top: 0,
-                    zIndex: -1
+                    zIndex: 1
                 }}
             ></div>
 

@@ -74,6 +74,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 2;
 }
 #mainPageTopTextContainer > div > span {
     opacity: 0;
