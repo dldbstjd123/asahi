@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { domain } from "../config.js"
 import { useHistory } from "react-router-dom"
-import "../css/Categories.css"
+import "../css/Categories3.css"
 import Loading from "../components/Loading"
 
 const Categories = props => {
@@ -26,7 +26,7 @@ const Categories = props => {
         history.push(`/menu2?id=${id}`)
     }
     useEffect(() => {
-        fetch(`${domain}client/category/get6`, {
+        fetch(`${domain}client/category/get`, {
             method: "GET",
             mode: "cors",
             cache: "no-cache",
@@ -45,7 +45,7 @@ const Categories = props => {
                     }
                 }
                 //setListLength(allImages)
-                setListLength(allImages)
+                setListLength(data.length)
                 let uploaded = 0
                 for (
                     let i = 0;

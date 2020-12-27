@@ -7,7 +7,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: 55px;
     padding: 0 2%;
 }
 
@@ -50,7 +50,9 @@
 #catagoriesItemsContainer > div > div {
     display: inline-block;
     width: 20%;
+    height: 55px;
     text-align: center;
+    font-size: 14px;
     /* margin: 0 15px */
 }
 .menuPerCategoryContainer {

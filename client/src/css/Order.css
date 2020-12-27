@@ -5,7 +5,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: 55px;
     color: white;
     background-color: rgba(15, 22, 56, 0.8);
     padding: 0 2%;
@@ -52,9 +52,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    height: 55px;
     width: 20%;
-    font-size:1vw;
+    font-size: 14px;
     text-align: center;
     /* margin: 0 15px */
 }
@@ -131,8 +131,7 @@
 }
 /* under 600px width*/
 @media only screen and (max-width: 600px) {
-    #catagoriesItemsContainer > div > div{
-        font-size:3vw;
+    #catagoriesItemsContainer > div > div {
+        font-size: 3vw;
     }
 }
-

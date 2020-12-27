@@ -77,6 +77,18 @@ router.get("/category/get", function (req, res, next) {
     connection.end()
 })
 
+router.get("/category/get6", function (req, res, next) {
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(
+        `SELECT * FROM asahi.category WHERE name = 'Specialty Roll' or name = 'Nigiri' or name = 'Omakase & Boat' or name = 'Sashimi Platter' or name = 'Bento' or name = 'Appetizers'`,
+        function (error, results) {
+            res.json(results)
+        }
+    )
+    connection.end()
+})
+
 router.get("/redirectToClover", function (req, res, next) {
     var connection = mysql.createConnection(mysqlconfig)
     connection.connect()

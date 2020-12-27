@@ -1,0 +1,42 @@
+#categoriesRouteContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.categoriesImageContainer {
+    position: relative;
+}
+
+.categoriesImageContainer > img {
+    max-width: 100%;
+    display: block;
+    opacity: 0.8;
+}
+
+.categoriesBoxContainer {
+    height: 50%;
+    width: 80%;
+    top: 25%;
+    left: 10%;
+    color: #333333;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* border: 3px solid black; */
+    font-size: large;
+    font-weight: 600;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: ease-in-out 0.5s;
+    -webkit-transition: ease-in-out 0.5s;
+    -moz-transition: ease-in-out 0.5s;
+    -o-transition: ease-in-out 0.5s;
+    cursor: pointer;
+}
+
+/* under 1000px width*/
+@media only screen and (max-width: 1000px) {
+    #categoriesRouteContainer {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
