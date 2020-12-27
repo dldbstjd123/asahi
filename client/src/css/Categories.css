@@ -49,5 +49,6 @@
         grid-template-columns: 1fr 1fr;
         width: 80%;
         grid-gap: 10px;
+        height: auto;
     }
 }
