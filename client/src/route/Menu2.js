@@ -279,7 +279,12 @@ const Menu2 = props => {
                                                         )}
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center"
+                                                    }}
+                                                >
                                                     <img
                                                         src={source}
                                                         style={{
