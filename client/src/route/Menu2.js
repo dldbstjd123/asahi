@@ -90,6 +90,9 @@ const Menu2 = props => {
         }
     }
     function sendTo(event) {
+        window.scrollTo(0, 0)
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
         let n = event.currentTarget.getAttribute("aid")
         history.push(`/menu2?id=${n}`)
     }
