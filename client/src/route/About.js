@@ -13,6 +13,8 @@ const About = props => {
     const [copySucceed, setCopySucceed] = useState(false)
     const [copySucceed2, setCopySucceed2] = useState(false)
     const [schedule, setSchedule] = useState([])
+    const [specialHour, setSpecialHour] = useState()
+    const [specialHourStatus, setSpecialHourStatus] = useState()
 
     function copyLocation() {
         var textField = document.createElement("textarea")
@@ -52,6 +54,21 @@ const About = props => {
             .then(res => res.json())
             .then(data => {
                 setSchedule(data)
+            })
+
+        fetch(`${domain}admin/specialhours/get`, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setSpecialHour(data[0].description)
+                setSpecialHourStatus(data[0].status)
             })
 
         //Change Nav Img
@@ -169,6 +186,14 @@ const About = props => {
                                 }
                             })}
                         </div>
+                        {specialHourStatus === "on" ? (
+                            <div>
+                                <div className="aboutTitle">Special Hours</div>
+                                <div>{specialHour}</div>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
             </div>

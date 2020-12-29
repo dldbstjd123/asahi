@@ -230,6 +230,22 @@ router.post("/hours/get", async function (req, res, next) {
     }
 })
 
+router.post("/specialhours/get", async function (req, res, next) {
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
+        var connection = mysql.createConnection(mysqlconfig)
+        connection.connect()
+        connection.query(
+            `SELECT * FROM asahi.special_hour WHERE id = 1`,
+            function (error, results) {
+                res.json(results)
+            }
+        )
+        connection.end()
+    }
+})
+
 router.post("/hours/update", function (req, res, next) {
     if (req.user == undefined) {
         res.redirect("/admin")
@@ -259,6 +275,25 @@ router.post("/hours/update", function (req, res, next) {
                 connection.end()
             }
         }
+    }
+})
+
+router.post("/hours/specialupdate", function (req, res, next) {
+    console.log("requested!!!")
+    if (req.user == undefined) {
+        res.redirect("/admin")
+    } else {
+        console.log(req.body)
+        var connection = mysql.createConnection(mysqlconfig)
+        connection.connect()
+        connection.query(
+            `UPDATE asahi.special_hour SET description = ?, status = ?`,
+            [req.body.description, req.body.status],
+            function (error, results) {
+                res.json({ status: "succeed" })
+            }
+        )
+        connection.end()
     }
 })
 

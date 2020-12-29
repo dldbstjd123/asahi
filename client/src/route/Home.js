@@ -207,7 +207,10 @@ const Home = props => {
                 <div style={{backgroundImage:"url("+domain+"images/home/home9.jpg)", width:'100%', height:"100%",opacity: "0"}}></div>
                 <div style={{backgroundImage:"url("+domain+"images/home/home10.jpg)", width:'100%', height:"100%",opacity: "0"}}></div> */}
                     <img src="/images/home/home1.jpg" />
-                    <img src="/images/home/home2.jpg" />
+                    <img src="/images/home/home19.png" />
+                    <img src="/images/home/home21.png" />
+                    <img src="/images/home/home23.png" />
+                    {/* <img src="/images/home/home2.jpg" /> */}
                     {/* <img src="/images/home/home1.jpg" />
                 <img src="/images/home/home2.jpg" />
                 <img src="/images/home/home3.jpg" />
