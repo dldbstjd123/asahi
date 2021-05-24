@@ -188,7 +188,7 @@ const About = props => {
                         </div>
                         {specialHourStatus === "on" ? (
                             <div>
-                                <div className="aboutTitle">Special Hours</div>
+                                {/*<div className="aboutTitle">Special Hours</div>*/}
                                 <div>{specialHour}</div>
                             </div>
                         ) : (
