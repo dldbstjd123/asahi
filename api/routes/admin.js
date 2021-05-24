@@ -231,19 +231,15 @@ router.post("/hours/get", async function (req, res, next) {
 })
 
 router.post("/specialhours/get", async function (req, res, next) {
-    if (req.user == undefined) {
-        res.redirect("/admin")
-    } else {
-        var connection = mysql.createConnection(mysqlconfig)
-        connection.connect()
-        connection.query(
-            `SELECT * FROM asahi.special_hour WHERE id = 1`,
-            function (error, results) {
-                res.json(results)
-            }
-        )
-        connection.end()
-    }
+    var connection = mysql.createConnection(mysqlconfig)
+    connection.connect()
+    connection.query(`SELECT * FROM asahi.special_hour WHERE id = 1`, function (
+        error,
+        results
+    ) {
+        res.json(results)
+    })
+    connection.end()
 })
 
 router.post("/hours/update", function (req, res, next) {
