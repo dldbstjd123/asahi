@@ -185,7 +185,7 @@ const Home = props => {
                         <div id="mainPageTopText1">WELCOME TO</div>
                         <div id="mainPageTopText2">ASAHI SUSHI</div>
                         <div id="mainPageTopText3">
-                            Experience Fine Japanes Cuisine
+                            Experience Fine Japanese Cuisine
                         </div>
                         <div id="mainPageTopText4" onClick={moveToBottom}>
                             <BsChevronDoubleDown
